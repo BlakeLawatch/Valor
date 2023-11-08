@@ -1,4 +1,5 @@
 import { dbContext } from '../db/DbContext'
+import { BadRequest, Forbidden } from '../utils/Errors.js'
 
 // Private Methods
 
@@ -10,7 +11,7 @@ import { dbContext } from '../db/DbContext'
 async function createAccountIfNeeded(account, user) {
   if (!account) {
     user._id = user.id
-    if(typeof user.name == 'string' && user.name.includes('@')){
+    if (typeof user.name == 'string' && user.name.includes('@')) {
       user.name = user.nickname
     }
     account = await dbContext.Account.create({
@@ -20,6 +21,7 @@ async function createAccountIfNeeded(account, user) {
   }
   return account
 }
+
 
 /**
  * Adds sub to account if not already on account

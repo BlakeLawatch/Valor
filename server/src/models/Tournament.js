@@ -4,7 +4,7 @@ export const TournamentSchema = new Schema({
     name: { type: String, required: true, maxLength: 75 },
     description: { type: String, required: true, maxLength: 1000 },
     gameId: { type: Schema.Types.ObjectId, ref: 'Game' },
-    signUpDeadline: { type: Date, required: true },
+    signUpDeadline: { type: Date },
     startDate: { type: Date },
     endDate: { type: Date },
     address: { type: String, maxLength: 100 },
@@ -24,7 +24,8 @@ export const TournamentSchema = new Schema({
     facebookUrl: { type: String, maxLength: 500 },
     twitterUrl: { type: String, maxLength: 500 },
     youTubeUrl: { type: String, maxLength: 500 },
-    website: { type: String, maxLength: 500 }
+    website: { type: String, maxLength: 500 },
+    creatorId: { type: Schema.Types.ObjectId, required: true }
 
 },
     {
