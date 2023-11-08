@@ -13,13 +13,19 @@ export const TournamentSchema = new Schema({
     prizePool: { type: String, maxLength: 1000 },
     capacity: { type: Number, maxLength: 100000 },
     onlineOnly: { type: Boolean, default: false },
-    imgUrl: { type: URL, maxLength: 1000 },
-    liveStreamUrl: { type: URL, maxLength: 1000 },
+    imgUrl: { type: String, maxLength: 500 },
+    liveStreamUrl: { type: String, maxLength: 500 },
     winnerId: { type: Schema.Types.ObjectId, ref: 'Account' },
     isLocked: { type: Boolean, default: false },
     isPublished: { type: Boolean, default: false },
-    gameName: { type: String },
-    gameImg: { type: URL }
+    gameName: { type: String, maxlength: 500 },
+    gameImg: { type: String, maxLength: 500 },
+    instagramUrl: { type: String, maxLength: 500 },
+    facebookUrl: { type: String, maxLength: 500 },
+    twitterUrl: { type: String, maxLength: 500 },
+    youTubeUrl: { type: String, maxLength: 500 },
+    website: { type: String, maxLength: 500 }
+
 },
     {
         timestamps: true, toJSON: { virtuals: true }
