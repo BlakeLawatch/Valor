@@ -14,6 +14,9 @@ class MatchService {
         const newMatch = await dbContext.Matches.create(match)
         return newMatch
     }
+    async destroyMatch(matchId, userId) {
+        return 'This method has not been fully implemented yet, come back when get functions are done'
+    }
 }
 
 export const matchService = new MatchService()
