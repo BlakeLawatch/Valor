@@ -41,6 +41,12 @@ class PlayersService {
     return player
   }
 
+  async getPlayersByTournamentId(tournamentId) {
+    const getPlayers = await dbContext.Players.find({ tournamentId }).populate('profile', 'name picture')
+
+    return getPlayers
+  }
+
 }
 
 export const playersService = new PlayersService()
