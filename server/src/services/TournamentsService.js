@@ -28,6 +28,16 @@ class TournamentsService {
         await editedTournament.save()
         return editedTournament
     }
+
+    async cancelTournament(tournamentId, userId) {
+        const cancelledTournament = await this.getTournamentById(tournamentId)
+        if (cancelledTournament.creatorId != userId) {
+            throw new Forbidden('Not yours to cancel')
+        }
+        cancelledTournament.isCancelled = !cancelledTournament.isCancelled
+        cancelledTournament.save()
+        return cancelledTournament
+    }
 }
 
 export const tournamentsService = new TournamentsService()

@@ -11,6 +11,7 @@ export class TournamentController extends BaseController {
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createTournament)
             .put('/:tournamentId', this.editTournament)
+            .delete('/:tournamentId', this.cancelTournament)
     }
     async getTournaments(req, res, next) {
         try {
@@ -52,4 +53,16 @@ export class TournamentController extends BaseController {
             next(error)
         }
     }
+    async cancelTournament(req, res, next) {
+        try {
+            const tournamentId = req.params.tournamentId
+            const userId = req.userInfo.id
+            const cancelledTournament = await tournamentsService.cancelTournament(tournamentId, userId)
+            return res.send(cancelledTournament)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+
 }
