@@ -1,5 +1,6 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController.js";
+import { matchService } from "../services/MatchService.js";
 
 export class MatchController extends BaseController {
     constructor() {
