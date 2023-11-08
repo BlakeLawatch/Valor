@@ -18,7 +18,7 @@ export const TournamentSchema = new Schema({
     winnerId: { type: Schema.Types.ObjectId, ref: 'Account' },
     isLocked: { type: Boolean, default: false },
     isPublished: { type: Boolean, default: false },
-    gameName: { type: String, maxlength: 500 },
+    gameName: { type: String, maxLength: 500 },
     gameImg: { type: String, maxLength: 500 },
     instagramUrl: { type: String, maxLength: 500 },
     facebookUrl: { type: String, maxLength: 500 },
