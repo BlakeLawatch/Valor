@@ -42,7 +42,15 @@ async function mergeSubsIfNeeded(account, user) {
 function sanitizeBody(body) {
   const writable = {
     name: body.name,
-    picture: body.picture
+    picture: body.picture,
+    bio: body.bio,
+    coverImg: body.coverImg,
+    twitchUrl: body.twitchUrl,
+    youtubeUrl: body.youtubeUrl,
+    twitterUrl: body.twitterUrl,
+    facebookUrl: body.facebookUrl,
+    instagramUrl: body.instagramUrl,
+    websiteUrl: body.websiteUrl,
   }
   return writable
 }

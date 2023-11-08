@@ -1,4 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class TournamentsService {
     async getTournaments() {
@@ -15,6 +16,17 @@ class TournamentsService {
     async createTournament(tournamentData) {
         const newTournament = await dbContext.Tournaments.create(tournamentData)
         return newTournament
+    }
+    async editTournament(tournamentInfo, tournamentId, userId) {
+        const editedTournament = await dbContext.Tournaments.findById(tournamentId)
+        if (editedTournament.creatorId != userId) {
+            throw new Forbidden('Not yours to edit')
+        }
+        const keys = Object.keys(tournamentInfo)
+        keys.forEach(key => { editedTournament[key] = tournamentInfo[key] })
+
+        await editedTournament.save()
+        return editedTournament
     }
 }
 
