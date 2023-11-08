@@ -15,8 +15,6 @@ export const AccountSchema = new Schema(
     facebookUrl: { type: String, maxLength: 500 },
     instagramUrl: { type: String, maxLength: 500 },
     websiteUrl: { type: String, maxLength: 500 },
-
-    // NOTE If you wish to add additional properties do so here
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
