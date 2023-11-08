@@ -5,9 +5,6 @@
   <main>
     <router-view />
   </main>
-  <footer class="bg-dark text-light">
-    Made by Dirty Blake and the Oil Drums
-  </footer>
 </template>
 
 <script>
@@ -36,5 +33,9 @@ footer {
   display: grid;
   place-content: center;
   height: 32px;
+}
+
+main{
+  background-color: #2E3233;
 }
 </style>
