@@ -24,7 +24,8 @@ export const TournamentSchema = new Schema({
     facebookUrl: { type: String, maxLength: 500 },
     twitterUrl: { type: String, maxLength: 500 },
     youTubeUrl: { type: String, maxLength: 500 },
-    website: { type: String, maxLength: 500 }
+    website: { type: String, maxLength: 500 },
+    creatorId: { type: Schema.Types.ObjectId, required: true }
 
 },
     {
