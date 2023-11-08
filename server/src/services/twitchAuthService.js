@@ -14,4 +14,4 @@ class TwitchAuthService {
     }
 }
 
-export const twitchAuthService = new TwitchAuthService
+export const twitchAuthService = new TwitchAuthService()
