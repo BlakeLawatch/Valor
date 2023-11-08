@@ -43,9 +43,10 @@ a:hover {
   text-transform: uppercase;
 }
 
-.navbar-bg{
+.navbar-bg {
   background-color: #242726;
 }
+
 .navbar-nav .router-link-exact-active {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
