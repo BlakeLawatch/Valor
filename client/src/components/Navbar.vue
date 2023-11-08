@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <nav class="navbar p-3 navbar-expand-lg navbar-dark navbar-bg px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+      <div class="d-flexalign-items-center">
+        <img alt="logo" src="../assets/img/valorPanda.png" height="70" />
         Valor
       </div>
     </router-link>
@@ -43,6 +43,9 @@ a:hover {
   text-transform: uppercase;
 }
 
+.navbar-bg{
+  background-color: #242726;
+}
 .navbar-nav .router-link-exact-active {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
