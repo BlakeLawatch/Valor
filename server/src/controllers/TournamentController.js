@@ -6,9 +6,17 @@ export class TournamentController extends BaseController {
     constructor() {
         super('api/tournaments')
         this.router
-
+            .get('', this.getTournaments)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createTournament)
+    }
+    async getTournaments(req, res, next) {
+        try {
+            const tournaments = await tournamentsService.getTournaments()
+            return res.send(tournaments)
+        } catch (error) {
+            next(error)
+        }
     }
     async createTournament(req, res, next) {
         try {
