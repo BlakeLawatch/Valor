@@ -47,6 +47,12 @@ class PlayersService {
     return getPlayers
   }
 
+  async deletePlayerById(playerId) {
+    const player = await dbContext.Players.findById(playerId)
+    player.remove()
+    return `Player with id: ${playerId} has been deleted`
+  }
+
 }
 
 export const playersService = new PlayersService()

@@ -11,6 +11,7 @@ export class PlayersController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createPlayer)
       .put('/:playerId', this.editPlayer)
+      .delete('/:playerId', this.deletePlayerById)
   }
 
   async getPlayers(req, res, next) {
@@ -52,6 +53,17 @@ export class PlayersController extends BaseController {
       const playerId = req.params.playerId
       const player = await playersService.editPlayer(playerData, userId, playerId)
       res.send(player)
+    }
+    catch (error) {
+      next(error)
+    }
+  }
+
+  async deletePlayerById(req, res, next) {
+    try {
+      const playerId = req.params.playerId
+      const message = await playersService.deletePlayerById(playerId)
+      res.send(message)
     }
     catch (error) {
       next(error)
