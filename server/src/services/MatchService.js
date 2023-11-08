@@ -3,6 +3,9 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { tournamentsService } from "./TournamentsService.js"
 
 class MatchService {
+    async getMatchesByTournament(tournamentId) {
+        return 'Not yet finished, work on this tomorrow'
+    }
     async createMatch(match, userId) {
         const tournament = await tournamentsService.getTournamentById(match.tournamentId)
         if (tournament.creatorId != userId) {
