@@ -6,7 +6,7 @@
     <router-view />
   </main>
   <footer class="bg-dark text-light">
-    Made by Rhys and only rhys
+    Made by Dirty Blake and the Oil Drums
   </footer>
 </template>
 
