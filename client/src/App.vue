@@ -14,6 +14,7 @@ import Navbar from './components/Navbar.vue'
 
 export default {
   setup() {
+    // on mounted get twitch api key and attach it to twitch axios instance maybe not
     return {
       appState: computed(() => AppState)
     }
