@@ -30,7 +30,8 @@ export default {
 editable,
 async homeSearch(){
   try {
-   await gamesService.homeSearch(editable.value)
+    const body = {search: editable.value}
+   await gamesService.homeSearch(body)
     
   } catch (error) {
     Pop.error(error)

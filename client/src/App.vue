@@ -18,18 +18,9 @@ import CreateTournamentModal from './components/createTournamentModal.vue'
 
 export default {
   setup() {
-    // on mounted get twitch api key and attach it to twitch axios instance maybe not
-   onMounted(()=>{
-    getTwitchAccessToken()
-   })
 
-    async function getTwitchAccessToken(){
-    try {
-      await gamesService.getTwitchAccessToken()
-      } catch (error) {
-      Pop.error(error)
-}
-    }
+
+   
     return {
       appState: computed(() => AppState)
     }

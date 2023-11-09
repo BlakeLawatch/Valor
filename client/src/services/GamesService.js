@@ -1,5 +1,5 @@
 import { logger } from "../utils/Logger"
-import { api,} from "./AxiosService"
+import { api } from "./AxiosService"
 
 class GamesService{
 
@@ -8,7 +8,9 @@ class GamesService{
         logger.log('twitch key', res.data)
     }
 
-async homeSearch(value){
+async homeSearch(body){
+    const res = await api.post('api/twitch', body)
+    logger.log("game", res.data)
 
 }
 
