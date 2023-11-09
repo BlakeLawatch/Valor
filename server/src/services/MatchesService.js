@@ -2,9 +2,14 @@ import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { tournamentsService } from "./TournamentsService.js"
 
-class MatchService {
+class MatchesService {
     async getMatchesByTournament(tournamentId) {
-        return 'Not yet finished, work on this tomorrow'
+        const tournament = await tournamentsService.getTournamentById(tournamentId)
+        if (!tournament) {
+            throw new BadRequest(`${tournamentId} is not a valid ID`)
+        }
+        const matches = await dbContext.Matches.find({ tournamentID: tournament.id })
+        return matches
     }
     async createMatch(match, userId) {
         const tournament = await tournamentsService.getTournamentById(match.tournamentId)
@@ -22,4 +27,4 @@ class MatchService {
     }
 }
 
-export const matchService = new MatchService()
+export const matchesService = new MatchesService()

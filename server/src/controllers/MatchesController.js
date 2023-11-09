@@ -1,8 +1,8 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController.js";
-import { matchService } from "../services/MatchService.js";
+import { matchesService } from "../services/MatchesService.js";
 
-export class MatchController extends BaseController {
+export class MatchesController extends BaseController {
     constructor() {
         super('api/match')
         this.router
@@ -14,7 +14,7 @@ export class MatchController extends BaseController {
     async getMatchesByTournament(req, res, next) {
         try {
             const tournamentId = req.params.tournamentId
-            const matches = await matchService.getMatchesByTournament(tournamentId)
+            const matches = await matchesService.getMatchesByTournament(tournamentId)
             return res.send(matches)
         } catch (error) {
             next(error)
@@ -26,7 +26,7 @@ export class MatchController extends BaseController {
             const tourneyId = req.params.tournamentId
             newMatch.tournamentId = tourneyId
             const userId = req.userInfo.id
-            const createdMatch = await matchService.createMatch(newMatch, userId)
+            const createdMatch = await matchesService.createMatch(newMatch, userId)
             return res.send(createdMatch)
         } catch (error) {
             next(error)
@@ -36,7 +36,7 @@ export class MatchController extends BaseController {
         try {
             const doomedMatchId = req.params.matchId
             const userId = req.userInfo.id
-            const destroyedMatch = await matchService.destroyMatch(doomedMatchId, userId)
+            const destroyedMatch = await matchesService.destroyMatch(doomedMatchId, userId)
             return res.send(destroyedMatch)
         } catch (error) {
             next(error)
