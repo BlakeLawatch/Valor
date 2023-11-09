@@ -8,7 +8,7 @@ class TournamentsService {
   }
 
   async getTournamentById(tournamentId) {
-    const tournament = (await dbContext.Tournaments.findById(tournamentId)).populate('game')
+    const tournament = (await dbContext.Tournaments.findById(tournamentId))
     if (!tournament) {
       throw new BadRequest(`No tournament exists with id: ${tournamentId}`)
     }
