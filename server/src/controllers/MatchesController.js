@@ -7,15 +7,25 @@ export class MatchesController extends BaseController {
         super('api/match')
         this.router
             .get('/tournament/:tournamentId', this.getMatchesByTournament)
+            .get('/:matchId', this.getMatchById)
             .use(Auth0Provider.getAuthorizedUserInfo)
-            .post('/:tournamentId/tournament', this.createMatch)
-            .delete('/:matchId/match', this.destroyMatch)
+            .post('/tournament/:tournamentId', this.createMatch)
+            .delete('/match/:matchId', this.destroyMatch)
     }
     async getMatchesByTournament(req, res, next) {
         try {
             const tournamentId = req.params.tournamentId
             const matches = await matchesService.getMatchesByTournament(tournamentId)
             return res.send(matches)
+        } catch (error) {
+            next(error)
+        }
+    }
+    async getMatchById(req, res, next) {
+        try {
+            const matchId = req.params.matchId
+            const match = await matchesService.getMatchById(matchId)
+            return res.send(match)
         } catch (error) {
             next(error)
         }

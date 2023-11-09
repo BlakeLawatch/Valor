@@ -11,6 +11,13 @@ class MatchesService {
         const matches = await dbContext.Matches.find({ tournamentID: tournament.id })
         return matches
     }
+    async getMatchById(matchId) {
+        const match = await dbContext.Matches.findById(matchId)
+        if (!match) {
+            throw new BadRequest(`${matchId} is not a valid ID`)
+        }
+        return match
+    }
     async createMatch(match, userId) {
         const tournament = await tournamentsService.getTournamentById(match.tournamentId)
         if (tournament.creatorId != userId) {
