@@ -10,6 +10,7 @@ class GamesService{
         const newBody = {search: body}
         const res = await api.post('api/twitch', newBody)
 logger.log('searched games', res.data)
+AppState.createFormGames = res.data.map(g => new Game(g))
     }
 
     async getTwitchAccessToken(){
