@@ -3,6 +3,10 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { tournamentsService } from "./TournamentsService.js"
 
 class MatchesService {
+    async getMatches() {
+        const matches = await dbContext.Matches.find()
+        return matches
+    }
     async getMatchesByTournament(tournamentId) {
         const tournament = await tournamentsService.getTournamentById(tournamentId)
         if (!tournament) {

@@ -6,11 +6,20 @@ export class MatchesController extends BaseController {
     constructor() {
         super('api/match')
         this.router
+            .get('', this.getMatches)
             .get('/tournament/:tournamentId', this.getMatchesByTournament)
             .get('/:matchId', this.getMatchById)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('/tournament/:tournamentId', this.createMatch)
             .delete('/match/:matchId', this.destroyMatch)
+    }
+    async getMatches(req, res, next) {
+        try {
+            const matches = await matchesService.getMatches()
+            return res.send(matches)
+        } catch (error) {
+            next(error)
+        }
     }
     async getMatchesByTournament(req, res, next) {
         try {
