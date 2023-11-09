@@ -17,9 +17,9 @@ import { gamesService } from './services/GamesService'
 export default {
   setup() {
     // on mounted get twitch api key and attach it to twitch axios instance maybe not
-    onMounted(()=>{
+   onMounted(()=>{
     getTwitchAccessToken()
-  }),
+   })
 
     async function getTwitchAccessToken(){
     try {
