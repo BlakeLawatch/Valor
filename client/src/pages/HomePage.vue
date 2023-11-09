@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <section class="row d-flex justify-content-center">
       <div class="col-12 text-center text-white">
-        <h1>Valor</h1>
+        <h1 class="valor my-5">Valor</h1>
       </div>
       <div class="col-8 box-bg p-5">
 <p class="fs-5 text-white">
@@ -46,5 +46,21 @@ async homeSearch(){
 <style scoped lang="scss">
 .box-bg{
   background-color: #444444;
+}
+
+.valor{
+
+height: 61px;
+
+font-family: 'Press Start 2P';
+font-style: normal;
+font-weight: 400;
+font-size: 64px;
+line-height: 64px;
+
+color: #FFFFFF;
+
+text-shadow: 0px 4px 4px #FC65C2;
+
 }
 </style>
