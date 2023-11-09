@@ -10,5 +10,7 @@ export const AppState = reactive({
   games: [],
   
   /** @type {import('./models/Game.js').Game || {}} */
-  activeGame: {}
+  activeGame: {},
+  /**@type {import('./models/Profile.js).Profile}*/
+  profile:{},
 })
