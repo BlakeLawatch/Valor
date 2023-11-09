@@ -3,7 +3,7 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class TournamentsService {
   async getTournaments() {
-    const tournaments = dbContext.Tournaments.find().populate('game')
+    const tournaments = dbContext.Tournaments.find()
     return tournaments
   }
 
@@ -34,7 +34,6 @@ class TournamentsService {
     })
 
     await editedTournament.save()
-    editedTournament.populate('game')
     return editedTournament
   }
 
