@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
+          <router-link :to="{ name: 'About' }" class="btn color-match lighten-30 selectable text-uppercase">
             About
           </router-link>
         </li>
@@ -67,6 +67,10 @@ color: #FFFFFF;
 
 text-shadow: 0px 4px 4px #FC65C2;
 
+}
+
+.color-match{
+  color: #2ca58d;
 }
 
 @media screen and (min-width: 768px) {
