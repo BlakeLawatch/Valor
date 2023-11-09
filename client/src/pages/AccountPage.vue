@@ -47,7 +47,6 @@ export default {
 .account-picture{
   height: 15vh;
   width: 20vh;
-  box-shadow: 2px 2px 2px white;
   position: relative;
   right: -2%;
   top: -10%;
