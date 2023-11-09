@@ -16,6 +16,14 @@
               <input v-model="gameEditable" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
               <button @click="getGameOptions(gameEditable)" :disabled="gameEditable == ''" class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
             </div>
+            <div v-if="formGames.length > 0">
+
+              <div v-for="game in formGames" :key="game.id">
+                <p>
+                  {{ game.name }}
+                </p>
+              </div>
+            </div>
             <div class="mb-3">
                 <label for="description" class="form-label"></label>
                 <textarea name="description" id="" cols="55" rows="8" maxlength="1000" placeholder="description..."></textarea>
@@ -33,10 +41,11 @@
 
 
 <script>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { gamesService } from '../services/GamesService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
+import { AppState } from '../AppState';
 
 
 export default {
@@ -44,6 +53,7 @@ export default {
       const gameEditable = ref('')
     return { 
       gameEditable,
+    formGames: computed(()=> AppState.createFormGames),
 async getGameOptions(gameEditable){
   try {
     logger.log('game', gameEditable)
