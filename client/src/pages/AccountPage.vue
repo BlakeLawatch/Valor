@@ -1,8 +1,11 @@
 <template>
-  <div class="container-fluid text-light">
-    <div class="row justify-content-center">
-      
-    </div>
+  <div class="container-fluid">
+    <section class="row justify-content-center">
+      <div class="col-10 account-info-card px-0 mt-4">
+        <img :src="account.coverImg" class="cover-image w-100">
+        <img class="rounded-circle account-picture" :src="account.picture" alt="" />
+      </div>
+    </section>
   </div>
 </template>
 
@@ -27,6 +30,10 @@ export default {
 .account-picture{
   height: 15vh;
   width: 20vh;
+  box-shadow: 2px 2px 2px white;
+  position: relative;
+  right: -2%;
+  top: -10%;
 }
 .account-image-card{
   position: relative;

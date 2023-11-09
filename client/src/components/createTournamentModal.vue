@@ -10,15 +10,15 @@
         <form>
             <div class="mb-3">
                 <label for="name" class="form-label">Tournament Name</label>
-                <input type="text" class="form-control" id="name">
+                <input type="text" class="form-control" id="name" required maxlength="75">
             </div>
             <div class="mb-3">
                 <label for="gameName" class="form-label">Game Being Played</label>
-                <input type="text" class="form-control" id="gameName">
+                <input type="text" class="form-control" id="gameName" required>
             </div>
             <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea name="description" id="" cols="55" rows="8"></textarea>
+                <label for="description" class="form-label"></label>
+                <textarea name="description" id="" cols="55" rows="8" maxlength="1000" placeholder="description..."></textarea>
             </div>
         </form>
       </div>
