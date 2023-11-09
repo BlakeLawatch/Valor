@@ -4,86 +4,72 @@ import { playersService } from "./PlayersService.js"
 import { tournamentsService } from "./TournamentsService.js"
 
 class MatchesService {
-    async getMatches() {
-        const matches = await dbContext.Matches.find()
-        return matches
+  async getMatches() {
+    const matches = await dbContext.Matches.find()
+    return matches
+  }
+  async getMatchesByTournament(tournamentId) {
+    const tournament = await tournamentsService.getTournamentById(tournamentId)
+    const matches = await dbContext.Matches.find({ tournamentId: tournament.id })
+    return matches
+  }
+  async getMatchById(matchId) {
+    const match = await dbContext.Matches.findById(matchId)
+    if (!match) {
+      throw new BadRequest(`${matchId} is not a valid ID`)
     }
-    async getMatchesByTournament(tournamentId) {
-        const tournament = await tournamentsService.getTournamentById(tournamentId)
-        if (!tournament) {
-            throw new BadRequest(`${tournamentId} is not a valid ID`)
-        }
-        const matches = await dbContext.Matches.find({ tournamentId: tournament.id })
-        return matches
+    return match
+  }
+  async getMatchesByPlayer(playerId) {
+    const player = await playersService.getPlayerById(playerId)
+    if (!player) {
+      throw new BadRequest(`${playerId} is not a valid player id`)
     }
-    async getMatchById(matchId) {
-        const match = await dbContext.Matches.findById(matchId)
-        if (!match) {
-            throw new BadRequest(`${matchId} is not a valid ID`)
-        }
-        return match
+    const matches = await dbContext.Matches.find({ $or: [{ player1Id: playerId }, { player2Id: playerId }] })
+    return matches
+  }
+
+  async getMatchesByWinnerId(winnerId) {
+    const player = playersService.getPlayerById(winnerId)
+    if (!player) {
+      throw new BadRequest(`${winnerId} is not a valid player id`)
     }
-    async getMatchesByPlayer(playerId) {
-        const player = await playersService.getPlayerById(playerId)
-        if (!player) {
-            throw new BadRequest(`${playerId} is not a valid player id`)
-        }
-        const matches = await dbContext.Matches.find({ $or: [{ player1Id: playerId }, { player2Id: playerId }] })
-        return matches
+    const matches = await dbContext.Matches.find({ winnerId })
+    return matches
+  }
+
+  async createMatch(matchData, userId) {
+    const tournament = await tournamentsService.getTournamentById(matchData.tournamentId)
+    if (tournament.creatorId != userId) {
+      throw new Forbidden(`You can't create a match for a tournament you don't own`)
     }
-    async getMatchByWinner(winnerId) {
-        const player = playersService.getPlayerById(winnerId)
-        if (!player) {
-            throw new BadRequest(`${winnerId} is not a valid player id`)
-        }
-        const matches = await dbContext.Matches.find({ winnerId })
-        return matches
+    const newMatch = await dbContext.Matches.create(matchData)
+    return newMatch
+  }
+
+  async updateMatch(match, userId) {
+    const foundMatch = await this.getMatchById(match.id)
+    const tournament = await tournamentsService.getTournamentById(foundMatch.tournamentId)
+    if (tournament.creatorId != userId) {
+      throw new Forbidden(`You cannot edit a match for a tournament you do not own`)
     }
-    async createMatch(match, userId) {
-        const tournament = await tournamentsService.getTournamentById(match.tournamentId)
-        if (tournament.creatorId != userId) {
-            throw new Forbidden(`You can't create a match for a tournament you don't own`)
-        }
-        if (!tournament) {
-            throw new BadRequest(`${match.tournamentId} is not a valid id`)
-        }
-        const newMatch = await dbContext.Matches.create(match)
-        return newMatch
+    foundMatch.player1Id = match.player1Id
+    foundMatch.player2Id = match.player2Id
+    foundMatch.roundNumber = match.roundNumber
+    foundMatch.winnerId = match.winnerId
+    await foundMatch.save()
+    return foundMatch
+  }
+
+  async destroyMatch(matchId, userId) {
+    const match = await this.getMatchById(matchId)
+    const tournament = await tournamentsService.getTournamentById(match.tournamentId)
+    if (tournament.creatorId != userId) {
+      throw new Forbidden(`You cannot destroy a match on a tournament that does not belong to you`)
     }
-    async updateMatch(match, userId) {
-        const foundMatch = await this.getMatchById(match.id)
-        if (!foundMatch) {
-            throw new BadRequest(`${match.id} is not a valid id`)
-        }
-        const tournament = await tournamentsService.getTournamentById(foundMatch.tournamentId)
-        if (!tournament) {
-            throw new BadRequest(`${match.tournamentId} is not a valid tournament id`)
-        }
-        if (tournament.creatorId != userId) {
-            throw new Forbidden(`You cannot make a match for a tournament you do not own`)
-        }
-        foundMatch.player1Id = match.player1Id
-        foundMatch.player2Id = match.player2Id
-        foundMatch.roundNumber = match.roundNumber
-        foundMatch.winnerId = match.winnerId
-        await foundMatch.save()
-        return foundMatch
-    }
-    async destroyMatch(matchId, userId) {
-        const match = await this.getMatchById(matchId)
-        if (!match) {
-            throw new BadRequest(`${matchId} is not a valid match id`)
-        }
-        const tournament = await tournamentsService.getTournamentById(match.tournamentId)
-        if (!tournament) {
-            throw new BadRequest(`${match.tournamentId} This tournament is not attached to a match somehow`)
-        }
-        if (tournament.creatorId != userId) {
-            throw new Forbidden(`You cannot destroy a match on a tournament that does not belong to you`)
-        }
-        const destroyedMatch = await dbContext.Matches.remove(match)
-        return destroyedMatch
-    }
+    const destroyedMatch = await dbContext.Matches.remove(match)
+    return destroyedMatch
+  }
 }
 
 export const matchesService = new MatchesService()
