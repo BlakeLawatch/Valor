@@ -1,5 +1,6 @@
 import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
+import { playersService } from "./PlayersService.js"
 import { tournamentsService } from "./TournamentsService.js"
 
 class MatchesService {
@@ -21,6 +22,14 @@ class MatchesService {
             throw new BadRequest(`${matchId} is not a valid ID`)
         }
         return match
+    }
+    async getMatchesByPlayer(playerId) {
+        const player = await playersService.getPlayerById(playerId)
+        if (!player) {
+            throw new BadRequest(`${playerId} is not a valid player id`)
+        }
+        const matches = await dbContext.Matches.find({ $or: [{ player1Id: playerId }, { player2Id: playerId }] })
+        return matches
     }
     async createMatch(match, userId) {
         const tournament = await tournamentsService.getTournamentById(match.tournamentId)

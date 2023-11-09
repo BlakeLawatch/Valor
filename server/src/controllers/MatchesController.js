@@ -9,6 +9,7 @@ export class MatchesController extends BaseController {
             .get('', this.getMatches)
             .get('/tournament/:tournamentId', this.getMatchesByTournament)
             .get('/:matchId', this.getMatchById)
+            .get('/player/:playerId', this.getMatchesByPlayer)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('/tournament/:tournamentId', this.createMatch)
             .put('/:matchId', this.updateMatch)
@@ -36,6 +37,15 @@ export class MatchesController extends BaseController {
             const matchId = req.params.matchId
             const match = await matchesService.getMatchById(matchId)
             return res.send(match)
+        } catch (error) {
+            next(error)
+        }
+    }
+    async getMatchesByPlayer(req, res, next) {
+        try {
+            const playerId = req.params.playerId
+            const matches = await matchesService.getMatchesByPlayer(playerId)
+            return res.send(matches)
         } catch (error) {
             next(error)
         }
