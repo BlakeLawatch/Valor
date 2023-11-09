@@ -3,12 +3,12 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class TournamentsService {
   async getTournaments() {
-    const tournaments = dbContext.Tournaments.find().populate('game')
+    const tournaments = dbContext.Tournaments.find()
     return tournaments
   }
 
   async getTournamentById(tournamentId) {
-    const tournament = (await dbContext.Tournaments.findById(tournamentId)).populate('game')
+    const tournament = (await dbContext.Tournaments.findById(tournamentId))
     if (!tournament) {
       throw new BadRequest(`No tournament exists with id: ${tournamentId}`)
     }
@@ -17,7 +17,6 @@ class TournamentsService {
 
   async createTournament(tournamentData) {
     const newTournament = await dbContext.Tournaments.create(tournamentData)
-    await newTournament.populate('game')
     return newTournament
   }
   async editTournament(tournamentInfo, tournamentId, userId) {
@@ -34,7 +33,6 @@ class TournamentsService {
     })
 
     await editedTournament.save()
-    editedTournament.populate('game')
     return editedTournament
   }
 

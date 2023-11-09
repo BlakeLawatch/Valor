@@ -32,10 +32,3 @@ export const TournamentSchema = new Schema({
     {
         timestamps: true, toJSON: { virtuals: true }
     })
-
-TournamentSchema.virtual('game', {
-    localField: 'gameId',
-    foreignField: '_id',
-    ref: 'Game',
-    justOne: true,
-})
