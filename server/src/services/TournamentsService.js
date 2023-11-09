@@ -17,7 +17,6 @@ class TournamentsService {
 
   async createTournament(tournamentData) {
     const newTournament = await dbContext.Tournaments.create(tournamentData)
-    await newTournament.populate('game')
     return newTournament
   }
   async editTournament(tournamentInfo, tournamentId, userId) {
