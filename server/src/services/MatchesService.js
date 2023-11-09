@@ -1,5 +1,6 @@
 import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
+import { playersService } from "./PlayersService.js"
 import { tournamentsService } from "./TournamentsService.js"
 
 class MatchesService {
@@ -22,6 +23,14 @@ class MatchesService {
         }
         return match
     }
+    async getMatchesByPlayer(playerId) {
+        const player = await playersService.getPlayerById(playerId)
+        if (!player) {
+            throw new BadRequest(`${playerId} is not a valid player id`)
+        }
+        const matches = await dbContext.Matches.find({ $or: [{ player1Id: playerId }, { player2Id: playerId }] })
+        return matches
+    }
     async createMatch(match, userId) {
         const tournament = await tournamentsService.getTournamentById(match.tournamentId)
         if (tournament.creatorId != userId) {
@@ -32,6 +41,25 @@ class MatchesService {
         }
         const newMatch = await dbContext.Matches.create(match)
         return newMatch
+    }
+    async updateMatch(match, userId) {
+        const foundMatch = await this.getMatchById(match.id)
+        if (!foundMatch) {
+            throw new BadRequest(`${match.id} is not a valid id`)
+        }
+        const tournament = await tournamentsService.getTournamentById(foundMatch.tournamentId)
+        if (!match) {
+            throw new BadRequest(`${match.tournamentId} is not a valid tournament id`)
+        }
+        if (tournament.creatorId != userId) {
+            throw new Forbidden(`You cannot make a match for a tournament you do not own`)
+        }
+        foundMatch.player1Id = match.player1Id
+        foundMatch.player2Id = match.player2Id
+        foundMatch.roundNumber = match.roundNumber
+        foundMatch.winnerId = match.winnerId
+        await foundMatch.save()
+        return foundMatch
     }
     async destroyMatch(matchId, userId) {
         const match = await this.getMatchById(matchId)

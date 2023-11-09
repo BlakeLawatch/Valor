@@ -9,8 +9,10 @@ export class MatchesController extends BaseController {
             .get('', this.getMatches)
             .get('/tournament/:tournamentId', this.getMatchesByTournament)
             .get('/:matchId', this.getMatchById)
+            .get('/player/:playerId', this.getMatchesByPlayer)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('/tournament/:tournamentId', this.createMatch)
+            .put('/:matchId', this.updateMatch)
             .delete('/match/:matchId', this.destroyMatch)
     }
     async getMatches(req, res, next) {
@@ -39,6 +41,15 @@ export class MatchesController extends BaseController {
             next(error)
         }
     }
+    async getMatchesByPlayer(req, res, next) {
+        try {
+            const playerId = req.params.playerId
+            const matches = await matchesService.getMatchesByPlayer(playerId)
+            return res.send(matches)
+        } catch (error) {
+            next(error)
+        }
+    }
     async createMatch(req, res, next) {
         try {
             const newMatch = req.body
@@ -47,6 +58,18 @@ export class MatchesController extends BaseController {
             const userId = req.userInfo.id
             const createdMatch = await matchesService.createMatch(newMatch, userId)
             return res.send(createdMatch)
+        } catch (error) {
+            next(error)
+        }
+    }
+    async updateMatch(req, res, next) {
+        try {
+            const userId = req.userInfo.id
+            const matchId = req.params.matchId
+            const match = req.body
+            match.id = matchId
+            const updatedMatch = await matchesService.updateMatch(match, userId)
+            return res.send(updatedMatch)
         } catch (error) {
             next(error)
         }

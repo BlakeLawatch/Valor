@@ -4,6 +4,7 @@
   </header>
   <main>
     <router-view />
+    <CreateTournamentModal />
   </main>
 </template>
 
@@ -13,6 +14,7 @@ import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
 import Pop from './utils/Pop'
 import { gamesService } from './services/GamesService'
+import CreateTournamentModal from './components/createTournamentModal.vue'
 
 export default {
   setup() {
@@ -32,7 +34,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar }
+  components: { Navbar, CreateTournamentModal }
 }
 </script>
 <style lang="scss">
