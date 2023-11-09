@@ -4,6 +4,13 @@ export class Account {
     this.email = data.email
     this.name = data.name
     this.picture = data.picture
-    // TODO add additional properties if needed
+    this.bio = data.bio
+    this.coverImg = data.coverImg
+    this.twitchUrl = data.twitchUrl
+    this.youtubeUrl = data.youtubeUrl
+    this.twitterUrl = data.twitterUrl
+    this. facebookUrl = data.facebookUrl
+    this.instagramUrl = data.instagramUrl
+    this.websiteUrl = data.websiteUrl
   }
 }
