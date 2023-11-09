@@ -2,8 +2,8 @@ import axios from 'axios/dist/node/axios.cjs'
 import { BadRequest } from '../utils/Errors.js'
 
 const env = {
-    clientSecret: process.env.client_secret,
-    clientId: process.env.client_id
+    clientSecret: process.env.CLIENT_SECRET,
+    clientId: process.env.CLIENT_ID
 }
 
 class TwitchAuthService {
