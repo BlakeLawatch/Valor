@@ -8,13 +8,26 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, nextTick, onMounted } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
+import Pop from './utils/Pop'
+import { gamesService } from './services/GamesService'
 
 export default {
   setup() {
     // on mounted get twitch api key and attach it to twitch axios instance maybe not
+    onMounted(()=>{
+    getTwitchAccessToken()
+  }),
+
+    async function getTwitchAccessToken(){
+    try {
+      await gamesService.getTwitchAccessToken()
+      } catch (error) {
+      Pop.error(error)
+}
+    }
     return {
       appState: computed(() => AppState)
     }
