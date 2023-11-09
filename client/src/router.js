@@ -21,6 +21,12 @@ const routes = [
     name: 'Account',
     component: loadPage('AccountPage'),
     beforeEnter: authGuard
+  },
+  {
+path: '/game/:gameId',
+name:'ActiveGame',
+component: loadPage('ActiveGamePage')
+
   }
 ]
 

@@ -1,6 +1,6 @@
 
 
-import { twitchAuthService } from "../services/TwitchAuthService.js";
+import { twitchAuthService } from "../services/twitchAuthService.js";
 import BaseController from "../utils/BaseController.js";
 
 
@@ -10,6 +10,16 @@ export class TwitchAuthController extends BaseController {
         this.router
             .get('', this.getTwitchAuthToken)
             .post('', this.getExternalApiResponse)
+            .get('/:gameId', this.getGameById)
+    }
+
+    async getGameById(req, res, next) {
+        try {
+            const game = await twitchAuthService.getGameById(req.params.gameId)
+            res.send(game)
+        } catch (error) {
+            next(error)
+        }
     }
 
     async getTwitchAuthToken(req, res, next) {
