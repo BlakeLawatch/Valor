@@ -1,9 +1,17 @@
 import { AppState } from "../AppState"
 import { Game } from "../models/Game"
-// import { logger } from "../utils/Logger"
+import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 
 class GamesService{
+
+    async getGameOptions(body){
+        logger.log('body', body)
+        const newBody = {search: body}
+        const res = await api.post('api/twitch', newBody)
+logger.log('searched games', res.data)
+AppState.createFormGames = res.data.map(g => new Game(g))
+    }
 
     async getTwitchAccessToken(){
         await api.get('api/twitch')
