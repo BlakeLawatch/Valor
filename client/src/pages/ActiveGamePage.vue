@@ -32,6 +32,7 @@ import { AppState } from '../AppState';
 import { computed, reactive, onMounted, watchEffect } from 'vue';
 import { logger } from '../utils/Logger';
 import { gamesService } from '../services/GamesService';
+import Pop from '../utils/Pop';
 export default {
     setup(){
         const route = useRoute()
@@ -41,7 +42,11 @@ export default {
         }
         )
         async function getGameById(){
-            await gamesService.getGameById(route.params.gameId)
+            try {
+                await gamesService.getGameById(route.params.gameId)
+            } catch (error) {
+                Pop.error(error)
+            }
         }
     return { 
 game: computed(()=> AppState.activeGame)
