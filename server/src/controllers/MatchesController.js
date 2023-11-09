@@ -1,21 +1,40 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController.js";
-import { matchService } from "../services/MatchService.js";
+import { matchesService } from "../services/MatchesService.js";
 
-export class MatchController extends BaseController {
+export class MatchesController extends BaseController {
     constructor() {
         super('api/match')
         this.router
+            .get('', this.getMatches)
             .get('/tournament/:tournamentId', this.getMatchesByTournament)
+            .get('/:matchId', this.getMatchById)
             .use(Auth0Provider.getAuthorizedUserInfo)
-            .post('/:tournamentId/tournament', this.createMatch)
-            .delete('/:matchId/match', this.destroyMatch)
+            .post('/tournament/:tournamentId', this.createMatch)
+            .delete('/match/:matchId', this.destroyMatch)
+    }
+    async getMatches(req, res, next) {
+        try {
+            const matches = await matchesService.getMatches()
+            return res.send(matches)
+        } catch (error) {
+            next(error)
+        }
     }
     async getMatchesByTournament(req, res, next) {
         try {
             const tournamentId = req.params.tournamentId
-            const matches = await matchService.getMatchesByTournament(tournamentId)
+            const matches = await matchesService.getMatchesByTournament(tournamentId)
             return res.send(matches)
+        } catch (error) {
+            next(error)
+        }
+    }
+    async getMatchById(req, res, next) {
+        try {
+            const matchId = req.params.matchId
+            const match = await matchesService.getMatchById(matchId)
+            return res.send(match)
         } catch (error) {
             next(error)
         }
@@ -26,7 +45,7 @@ export class MatchController extends BaseController {
             const tourneyId = req.params.tournamentId
             newMatch.tournamentId = tourneyId
             const userId = req.userInfo.id
-            const createdMatch = await matchService.createMatch(newMatch, userId)
+            const createdMatch = await matchesService.createMatch(newMatch, userId)
             return res.send(createdMatch)
         } catch (error) {
             next(error)
@@ -36,7 +55,7 @@ export class MatchController extends BaseController {
         try {
             const doomedMatchId = req.params.matchId
             const userId = req.userInfo.id
-            const destroyedMatch = await matchService.destroyMatch(doomedMatchId, userId)
+            const destroyedMatch = await matchesService.destroyMatch(doomedMatchId, userId)
             return res.send(destroyedMatch)
         } catch (error) {
             next(error)
