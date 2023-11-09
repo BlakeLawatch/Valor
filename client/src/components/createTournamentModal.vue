@@ -12,9 +12,9 @@
                 <label for="name" class="form-label">Tournament Name</label>
                 <input type="text" class="form-control" id="name" required maxlength="75">
             </div>
-            <div class="mb-3">
-                <label for="gameName" class="form-label">Game Being Played</label>
-                <input type="text" class="form-control" id="gameName" required>
+            <div class="d-flex mb-3">
+              <input v-model="gameEditable" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button @click="getGameOptions(gameEditable)" :disabled="gameEditable == ''" class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label"></label>
@@ -33,10 +33,28 @@
 
 
 <script>
+import { ref } from 'vue';
+import { gamesService } from '../services/GamesService';
+import { logger } from '../utils/Logger';
+import Pop from '../utils/Pop';
+
 
 export default {
     setup(){
-    return {  }
+      const gameEditable = ref('')
+    return { 
+      gameEditable,
+async getGameOptions(gameEditable){
+  try {
+    logger.log('game', gameEditable)
+    // await gamesService.getGameOptions()
+    
+  } catch (error) {
+    Pop.error(error)
+  }
+}
+
+     }
     }
 };
 </script>
