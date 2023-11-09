@@ -31,6 +31,14 @@ class MatchesService {
         const matches = await dbContext.Matches.find({ $or: [{ player1Id: playerId }, { player2Id: playerId }] })
         return matches
     }
+    async getMatchByWinner(winnerId) {
+        const player = playersService.getPlayerById(winnerId)
+        if (!player) {
+            throw new BadRequest(`${winnerId} is not a valid player id`)
+        }
+        const matches = await dbContext.Matches.find({ winnerId })
+        return matches
+    }
     async createMatch(match, userId) {
         const tournament = await tournamentsService.getTournamentById(match.tournamentId)
         if (tournament.creatorId != userId) {
@@ -48,7 +56,7 @@ class MatchesService {
             throw new BadRequest(`${match.id} is not a valid id`)
         }
         const tournament = await tournamentsService.getTournamentById(foundMatch.tournamentId)
-        if (!match) {
+        if (!tournament) {
             throw new BadRequest(`${match.tournamentId} is not a valid tournament id`)
         }
         if (tournament.creatorId != userId) {

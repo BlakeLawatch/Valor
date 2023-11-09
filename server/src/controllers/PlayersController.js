@@ -51,7 +51,7 @@ export class PlayersController extends BaseController {
       const playerData = req.body
       const userId = req.userInfo.id
       const playerId = req.params.playerId
-      const player = await playersService.editPlayer(playerData, userId, playerId)
+      const player = await playersService.editPlayer(playerData, playerId)
       res.send(player)
     }
     catch (error) {
