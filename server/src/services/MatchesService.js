@@ -33,6 +33,25 @@ class MatchesService {
         const newMatch = await dbContext.Matches.create(match)
         return newMatch
     }
+    async updateMatch(match, userId) {
+        const foundMatch = await this.getMatchById(match.id)
+        if (!foundMatch) {
+            throw new BadRequest(`${match.id} is not a valid id`)
+        }
+        const tournament = await tournamentsService.getTournamentById(foundMatch.tournamentId)
+        if (!match) {
+            throw new BadRequest(`${match.tournamentId} is not a valid tournament id`)
+        }
+        if (tournament.creatorId != userId) {
+            throw new Forbidden(`You cannot make a match for a tournament you do not own`)
+        }
+        foundMatch.player1Id = match.player1Id
+        foundMatch.player2Id = match.player2Id
+        foundMatch.roundNumber = match.roundNumber
+        foundMatch.winnerId = match.winnerId
+        await foundMatch.save()
+        return foundMatch
+    }
     async destroyMatch(matchId, userId) {
         const match = await this.getMatchById(matchId)
         if (!match) {
