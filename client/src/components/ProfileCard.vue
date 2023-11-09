@@ -14,9 +14,13 @@
             <a :href="account.websiteUrl"><i v-if="account.websiteUrl" class="mdi mdi-web"></i></a>
             <a :href="account.youtubeUrl"><i v-if="account.youtubeUrl" class="mdi mdi-youtube"></i></a>
             <a :href="account.twitterUrl"><i v-if="account.twitterUrl" class="mdi mdi-twitter"></i></a>
-            <div class="text-end mx-2">
-                <button class="btn color-match text-light p-2">Edit Account</button>
+            <div class="d-flex justify-content-flex-end pe-4 pt-3">
+                <button type="button" class="btn color-match text-light text-end" data-bs-toggle="modal" data-bs-target="#accountModal">
+                    Edit
+                </button>
+                <EditAccountModal/>
             </div>
+            
             </div>
         </section>
         </div>
@@ -26,12 +30,14 @@
 <script>
 import { AppState } from '../AppState';
 import { computed} from 'vue';
+import EditAccountModal from './editAccountModal.vue';
 export default {
-    setup(){
-    return { 
-        account: computed(() => AppState.account)
-    }
-    }
+    setup() {
+        return {
+            account: computed(() => AppState.account)
+        };
+    },
+    components: { EditAccountModal }
 };
 </script>
 
