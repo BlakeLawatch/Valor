@@ -47,7 +47,7 @@ export default {
 async getGameOptions(gameEditable){
   try {
     logger.log('game', gameEditable)
-    // await gamesService.getGameOptions()
+    await gamesService.getGameOptions( gameEditable)
     
   } catch (error) {
     Pop.error(error)
