@@ -31,6 +31,30 @@ export class Tournament {
     }
 }
 
+const tournament = {
+    "_id": "654d4626e0b9c438e9ccd3b7",
+    "name": "Apex Legends and degens",
+    "description": "This is the spring brawl you'll certainly fall for",
+    "startDate": "2024-03-02T07:00:00.000Z",
+    "address": "5842 E Gemova st, Boise ID",
+    "region": "west",
+    "entryPrice": "2",
+    "prizePool": "17",
+    "capacity": 40,
+    "onlineOnly": false,
+    "isLocked": false,
+    "isCancelled": false,
+    "isPublished": false,
+    "gameName": "Apex Legends",
+    "gameImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqvcG5RrJhwMCGznxOFS2GzB-c3rx0fJgnfA&usqp=CAU",
+    "twitterUrl": "https://twitter.com/PlayApex",
+    "creatorId": "654bfbd8f4fab14ebf37d8db",
+    "createdAt": "2023-11-09T20:50:46.024Z",
+    "updatedAt": "2023-11-09T20:52:52.781Z",
+    "__v": 0,
+    "id": "654d4626e0b9c438e9ccd3b7"
+}
+
 
 // const tournament = {
 //     import { Schema } from "mongoose";
