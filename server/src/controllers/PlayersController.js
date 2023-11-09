@@ -1,6 +1,7 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController.js";
 import { playersService } from "../services/PlayersService.js";
+import { matchesService } from "../services/MatchesService.js";
 
 export class PlayersController extends BaseController {
   constructor() {
@@ -8,6 +9,7 @@ export class PlayersController extends BaseController {
     this.router
       .get('', this.getPlayers)
       .get('/:playerId', this.getPlayerById)
+      .get('/:playerId/matches', this.getMatchesByPlayer)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createPlayer)
       .put('/:playerId', this.editPlayer)
@@ -31,6 +33,16 @@ export class PlayersController extends BaseController {
       res.send(player)
     }
     catch (error) {
+      next(error)
+    }
+  }
+
+  async getMatchesByPlayer(req, res, next) {
+    try {
+      const playerId = req.params.playerId
+      const matches = await matchesService.getMatchesByPlayer(playerId)
+      return res.send(matches)
+    } catch (error) {
       next(error)
     }
   }
