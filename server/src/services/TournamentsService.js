@@ -3,7 +3,7 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class TournamentsService {
   async getTournaments() {
-    const tournaments = dbContext.Tournaments.find()
+    const tournaments = dbContext.Tournaments.find().populate('game')
     return tournaments
   }
 
@@ -15,9 +15,9 @@ class TournamentsService {
     return tournament
   }
 
-  // TODO come back and populate any methods that need it
   async createTournament(tournamentData) {
     const newTournament = await dbContext.Tournaments.create(tournamentData)
+    await newTournament.populate('game')
     return newTournament
   }
   async editTournament(tournamentInfo, tournamentId, userId) {
@@ -27,13 +27,14 @@ class TournamentsService {
     }
     const keys = Object.keys(tournamentInfo)
     keys.forEach(key => {
-      if (editedTournament.isCancelled || editedTournament.isLocked) {
+      if (key == 'isCancelled') {
         return
       }
       editedTournament[key] = tournamentInfo[key]
     })
 
     await editedTournament.save()
+    editedTournament.populate('game')
     return editedTournament
   }
 
