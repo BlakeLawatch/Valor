@@ -13,4 +13,7 @@ export const AppState = reactive({
   activeGame: {},
   /**@type {import('./models/Profile.js).Profile}*/
   profile:{},
+  
+  /** @type {import('./models/Game.js').Game[]} */
+  createFormGames: []
 })
