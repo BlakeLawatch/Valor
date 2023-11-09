@@ -11,6 +11,29 @@ class TwitchAuthService {
         this.token = ''
     }
     tokenData = {}
+    async getGameById(gameId) {
+        let time = new Date().getTime()
+        if (!this.token || this.tokenData.expireTime - time >= 600000) {
+            await this.getTwitchAuthToken()
+        }
+        if (!gameId) {
+            throw new BadRequest("need something to search")
+        }
+        const res = await axios.request('https://api.igdb.com/v4/games', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain',
+                'Client-ID': env.clientId,
+                'Authorization': `Bearer ${this.token}`
+            },
+            data: `
+fields name, cover.url; 
+where id = ${gameId};`,
+        })
+        return res.data
+    }
+
+    // TODO exclude different versions of same game
     async getExternalApiResponse(body) {
         let time = new Date().getTime()
         if (!this.token || this.tokenData.expireTime - time >= 600000) {
@@ -29,7 +52,7 @@ class TwitchAuthService {
             },
             data: `search "${body}"; 
 fields name, cover.url; 
-limit 10;`,
+limit 9;`,
         })
         return res.data
     }

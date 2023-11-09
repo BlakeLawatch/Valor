@@ -4,7 +4,7 @@
       <div class="col-12 text-center text-white">
         <h1 class="valor my-5">Valor</h1>
       </div>
-      <div class="col-8 box-bg p-5">
+      <div class="col-md-8 col-12 box-bg p-5 rounded">
 <!-- <p class="fs-5 text-white">
   Search
 </p> -->
@@ -15,10 +15,10 @@
       </div>
     </section>
     <section class="row d-flex justify-content-center">
-      <h1 class="text-white mt-5">Games</h1>
-      <div v-if="games.length >0" class="col-8">
+      <div v-if="games.length >0" class="col-md-8 col-12">
+        <h1 class="text-white mt-5 ">Games</h1>
         <section class="row">
-          <div class="col-4 mt-4" v-for="game in games" :key="game.id">
+          <div class="col-md-4 col-12 mt-4" v-for="game in games" :key="game.id">
             <GameCard :game="game" />
           </div>
         </section>
