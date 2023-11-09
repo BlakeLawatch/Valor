@@ -8,7 +8,7 @@ class MatchesService {
         if (!tournament) {
             throw new BadRequest(`${tournamentId} is not a valid ID`)
         }
-        const matches = await dbContext.Matches.find({ tournamentID: tournament.id })
+        const matches = await dbContext.Matches.find({ tournamentId: tournament.id })
         return matches
     }
     async getMatchById(matchId) {
@@ -30,7 +30,19 @@ class MatchesService {
         return newMatch
     }
     async destroyMatch(matchId, userId) {
-        return 'This method has not been fully implemented yet, come back when get functions are done'
+        const match = await this.getMatchById(matchId)
+        if (!match) {
+            throw new BadRequest(`${matchId} is not a valid match id`)
+        }
+        const tournament = await tournamentsService.getTournamentById(match.tournamentId)
+        if (!tournament) {
+            throw new BadRequest(`${match.tournamentId} This tournament is not attached to a match somehow`)
+        }
+        if (tournament.creatorId != userId) {
+            throw new Forbidden(`You cannot destroy a match on a tournament that does not belong to you`)
+        }
+        const destroyedMatch = await dbContext.Matches.remove(match)
+        return destroyedMatch
     }
 }
 
