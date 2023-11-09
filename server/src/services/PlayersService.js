@@ -27,15 +27,14 @@ class PlayersService {
     return player
   }
 
-  async editPlayer(playerData, userId, playerId) {
+  async editPlayer(playerData, playerId) {
     const player = await this.getPlayerById(playerId)
     //NOTE NOT SURE IF WE NEED THIS VALIDATION, A PLAYER IS CREATED BY A USER BUT SEED WOULD BE EDITED BY THE TOURNAMENT OWNER...
     // if (userId != player.creatorId) {
     //   throw new Forbidden('You did not create this player object. Cannot make changes.')
     // }
 
-    const keys = Object.keys(playerData)
-    keys.forEach(key => player[key] = playerData[key])
+    player.seed = playerData.seed || player.seed
 
     await player.save()
     return player
