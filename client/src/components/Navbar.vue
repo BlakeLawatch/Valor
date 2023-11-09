@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar p-3 navbar-expand-lg navbar-dark navbar-bg px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flexalign-items-center">
+      <div class="d-flex align-items-center">
         <img alt="logo" src="../assets/img/valorPanda.png" height="70" />
-        Valor
+        <p class="valor mb-0 px-2"> Valor</p>
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -51,6 +51,22 @@ a:hover {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.valor{
+
+height: 61px;
+
+font-family: 'Press Start 2P';
+font-style: normal;
+font-weight: 400;
+/* font-size: 64px; */
+line-height: 64px;
+
+color: #FFFFFF;
+
+text-shadow: 0px 4px 4px #FC65C2;
+
 }
 
 @media screen and (min-width: 768px) {

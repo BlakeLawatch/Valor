@@ -5,12 +5,12 @@
         <h1 class="valor my-5">Valor</h1>
       </div>
       <div class="col-8 box-bg p-5">
-<p class="fs-5 text-white">
+<!-- <p class="fs-5 text-white">
   Search
-</p>
+</p> -->
 <form @submit.prevent="homeSearch()" class="form-inline d-flex">
   <input v-model="editable" class="form-control mr-sm-2" required type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <button class="btn btn-outline-success my-2 my-sm-0 ms-3" type="submit">Search</button>
 </form>
       </div>
     </section>
