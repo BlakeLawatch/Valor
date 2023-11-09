@@ -14,32 +14,45 @@
 </form>
       </div>
     </section>
+    <section class="row d-flex justify-content-center">
+      <h1 class="text-white mt-5">Games</h1>
+      <div v-if="games.length >0" class="col-8">
+        <section class="row">
+          <div class="col-4 mt-4" v-for="game in games" :key="game.id">
+            <GameCard :game="game" />
+          </div>
+        </section>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import {gamesService} from '../services/GamesService'
+import GameCard from '../components/GameCard.vue';
+import { AppState } from '../AppState';
 
 export default {
-  setup() {
-    const editable = ref('')
-    return {
-editable,
-async homeSearch(){
-  try {
-    const body = {search: editable.value}
-   await gamesService.homeSearch(body)
-    
-  } catch (error) {
-    Pop.error(error)
-  }
-}
-
-    }
-  }
+    setup() {
+        const editable = ref('');
+        return {
+            editable,
+            games: computed(()=> AppState.games),
+            async homeSearch() {
+                try {
+                    const body = { search: editable.value };
+                    await gamesService.homeSearch(body);
+                }
+                catch (error) {
+                    Pop.error(error);
+                }
+            }
+        };
+    },
+    components: { GameCard }
 }
 </script>
 
