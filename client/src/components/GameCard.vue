@@ -3,7 +3,7 @@
     <div class="coolBg p-3 rounded">
         <RouterLink :to="{name: 'ActiveGame', params: {gameId: game.id}}">
             <p class="text-white text-center">{{ game.name }}</p>
-            <img :src="game.coverImg" alt="">
+            <img :src="game.cover.url" alt="">
         </RouterLink>
     </div>
 </template>

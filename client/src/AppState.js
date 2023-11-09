@@ -9,6 +9,6 @@ export const AppState = reactive({
   /** @type {import('./models/Game.js').Game[]} */
   games: [],
   
-  /** @type {import('./models/Game.js').Game | null} */
-  activeGame: null
+  /** @type {import('./models/Game.js').Game || {}} */
+  activeGame: {}
 })
