@@ -25,9 +25,12 @@
           </section>
         </section>
       </div>
-      <div class="col-md-4 col-12 mt-4">
-      <ActiveTournamentCard />
-    </div>
+      <section class="row">
+        <div class="col-md-4 col-12 mt-4">
+        <ActiveTournamentCard />
+      </div>
+
+      </section>
     </section>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <div class="coolBg p-3 rounded" v-for="tournament in tournaments" :key="tournament">   
+    <div class="coolBg p-3 rounded text-light" v-for="tournament in tournaments" :key="tournament">   
         <!--  flip the isLive boolean with $gt -->
         {{ tournament.name }}
     </div>
