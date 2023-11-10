@@ -27,6 +27,7 @@ async homeSearch(body){
 }
 
 async getGameById(gameId){
+    AppState.activeTournaments = []
     AppState.activeGame = {}
     const res = await api.get(`api/twitch/${gameId}`)
     AppState.activeGame = new Game(res.data[0])
