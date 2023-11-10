@@ -15,7 +15,7 @@
           <TournamentsCreatedByMe/>
         </div>
       </div>
-      <div v-if="account.id" class="col-9 d-flex">
+      <div v-if="account.id" class="col-9">
         <!-- NOTE take things to put in component from here so you can properly v-if them -->
         <TournamentsParticipatedIn/>
       </div>
