@@ -37,6 +37,12 @@ class TournamentsService{
         AppState.activeTournaments = res.data.map(t=> new Tournament(t))
 
     }
+
+    async editActiveTournament(tournamentData, tournamentId){
+        const res = await api.put(`api/tournaments/${tournamentId}`, tournamentData)
+        AppState.activeTournament = new Tournament(res.data)
+
+    }
 }
 
 

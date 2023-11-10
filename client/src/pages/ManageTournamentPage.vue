@@ -4,8 +4,18 @@
             <div class="col-12 text-center">
                 <h1 class="text-white underline">{{ tournament.name }}</h1>
             </div>
-            <div class="col-12 d-flex justify-content-center">
-                <form class="editFormCard w-100">
+            <div class="col-12 d-flex justify-content-center mt-3">
+                <form @submit.prevent="editActiveTournament()" class="editFormCard w-100">
+                    <div class="text-white p-2 col-3">
+                        <div class="mb-1">
+                            <label for="name">Name</label>
+                        </div>
+                        <input v-model="tournamentEditable.name" type="text"  id="name" maxlength="75">
+                    </div>
+                    <!-- SECTION form button -->
+                    <div class="p-2 text-end">
+                        <button type="submit" title="submit edit" class="btn btn-success">Submit Edit</button>
+                    </div>
                 </form>
             </div>
         </section>
@@ -18,13 +28,14 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, watchEffect } from 'vue';
+import { computed, reactive, onMounted, watchEffect, ref } from 'vue';
 import { tournamentsService } from '../services/TournamentsService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import { useRoute } from 'vue-router';
 export default {
     setup(){
+        const tournamentEditable = ref({})
         const route = useRoute()
         watchEffect(() => {
             route,
@@ -41,8 +52,19 @@ export default {
         }
     }
     return {
+        tournamentEditable,
         tournament: computed(() => AppState.activeTournament),
-        account: computed(() => AppState.account)
+        account: computed(() => AppState.account),
+
+        async editActiveTournament() {
+            try {
+                const tournamentId = route.params.tournamentId
+                const tournamentData = tournamentEditable.value
+                await tournamentsService.editActiveTournament(tournamentData, tournamentId)
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
       }
     }
 };
@@ -56,6 +78,7 @@ export default {
     text-decoration-color: #2ca58d;
     text-decoration-thickness: 1.3px;
 }
+
 
 .editFormCard{
 background-color: rgb(68, 68, 68);
