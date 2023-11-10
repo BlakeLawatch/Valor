@@ -7,8 +7,14 @@
       <div class="col-9">
         <div class="text-light p-2 d-flex">
           <p class="fs-5">{{ account.name }}'s tournaments:</p>
-          <div class="ms-2">
-            <button class="btn color-match text-light"><i class="mdi mdi-arrow-down"></i></button>
+          <div class="dropdown">
+            <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTournaments" data-bs-toggle="dropdown" aria-expanded="false"></button>
+            <ul class="dropdown-menu" aria-labelledby="filterMyTournaments">
+              <li><a class="dropdown-item" href="#">Newest</a></li>
+              <li><a class="dropdown-item" href="#">Oldest</a></li>
+              <li><a class="dropdown-item" href="#">Past</a></li>
+              <li><a class="dropdown-item" href="#">Future</a></li>
+            </ul>
           </div>
         </div>
         <div v-if="account.id" class="row w-100">
