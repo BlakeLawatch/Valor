@@ -49,6 +49,7 @@ import { gamesService } from '../services/GamesService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import { AppState } from '../AppState';
+import {tournamentsService} from '../services/TournamentsService'
 
 
 export default {
@@ -69,8 +70,8 @@ export default {
         body.gameId = game.id
         body.gameName = game.name
         body.gameImg = game.cover.url
-        logger.log('selected game', game)
-         
+        logger.log('new form info', body)
+         await tournamentsService.createTournament(body)
       } catch (error) {
         Pop.error(error)
       }

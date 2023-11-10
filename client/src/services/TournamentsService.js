@@ -13,6 +13,11 @@ class TournamentsService{
         const res = await api.get(`api/tournaments/creator/${creatorId}`)
         AppState.myTournaments = res.data.map(tournament => new Tournament(tournament))
     }
+
+    async createTournament(body){
+        const res = await api.post('api/tournaments', body)
+        logger.log('new tournament', res.data)
+    }
 }
 
 export const tournamentsService = new TournamentsService()
