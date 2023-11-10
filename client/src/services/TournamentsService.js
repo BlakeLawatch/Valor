@@ -18,6 +18,7 @@ class TournamentsService{
     async createTournament(body){
         const res = await api.post('api/tournaments', body)
         logger.log('new tournament', res.data)
+        return res.data
     }
 }
 

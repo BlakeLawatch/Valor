@@ -53,6 +53,7 @@ import Pop from '../utils/Pop';
 import { AppState } from '../AppState';
 import {tournamentsService} from '../services/TournamentsService'
 import { Modal } from 'bootstrap';
+import { useRouter } from 'vue-router';
 
 
 export default {
@@ -60,7 +61,9 @@ export default {
       const selectedGame = ref('')
       const gameEditable = ref('')
       const formEditable = ref({})
+      const router = useRouter()
     return { 
+      router,
       formEditable,
       selectedGame,
       gameEditable,
@@ -72,12 +75,13 @@ export default {
         body.gameId = game.id
         body.gameName = game.name
         body.gameImg = game.cover.url
-         await tournamentsService.createTournament(body)
+         const newTournament = await tournamentsService.createTournament(body)
          Modal.getOrCreateInstance('#createTournamentModal').hide()
          selectedGame.value = ''
          gameEditable.value = ''
          formEditable.value = {}
          AppState.createFormGames = []
+         router.push({name: 'tournament', params:{tournamentId: newTournament.id }})
       } catch (error) {
         Pop.error(error)
       }
