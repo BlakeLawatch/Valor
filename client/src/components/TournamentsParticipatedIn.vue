@@ -3,9 +3,10 @@
         <div class="d-flex">
             <p class="fs-5">Tournaments that {{ account.name }} has participated in:</p>
             <div class="dropdown">
+                <!-- TODO figure out how to filter these -->
                 <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
                 <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
-                    <li @click="ShowFutureTournaments()" type="button"><a class="dropdown-item color-match text-light">Sort by New</a></li>
+                    <li type="button"><a class="dropdown-item color-match text-light">Sort by New</a></li>
                     <li type="button"><a class="dropdown-item">Sort By Old</a></li>
                     <li type="button"><a class="dropdown-item color-match text-light">Past</a></li>
                     <li type="button"><a class="dropdown-item">Future</a></li>
@@ -52,15 +53,6 @@ export default {
     return {
         account: computed(() => AppState.account),
         participatedIn: computed(()=> AppState.tournamentsParticipatedIn),
-        ShowFutureTournaments(){
-            logger.log('button clicked')
-            // debugger
-            AppState.tournamentsParticipatedIn.forEach(tournament=>{
-                if(tournament.date > new Date){tournament.order ++} 
-                else if(tournament.date < new Date){AppState.tournamentsParticipatedIn.push(tournament)}
-            })
-        },
-        
     }
     }
 };
