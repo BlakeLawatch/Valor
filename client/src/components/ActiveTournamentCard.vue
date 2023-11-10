@@ -12,11 +12,12 @@
                     <h4 class="mt-5">{{ tournament.gameName }}</h4>
                     <h5 v-if="tournament.capacity"> Total Capacity: {{ tournament.capacity }}</h5>
                 </div>
-                <div class="col-6 col-md-3">
-                    <h5 class="text-center">{{ tournament.address }}</h5>
-                    <h5>{{ tournament.startDate.toLocaleDateString() }} - {{ tournament.endDate.toLocaleDateString() }}</h5>
-                    <p v-if="tournament.entryPrice > 0" class="fs-2 text-center mt-5">Entry Fee: ${{ tournament.entryPrice }}</p>
-                    <p v-else class="fs-2 text-center mt-5">No Entry Fee</p>
+                <div class="col-6 col-md-3 text-center">
+                    <h5>{{ tournament.address }}</h5>
+                    <h5 v-if="tournament.endDate == null">{{ tournament.startDate.toLocaleDateString() }}</h5>
+                    <h5 v-else>{{ tournament.startDate.toLocaleDateString() }} - {{ tournament.endDate.toLocaleDateString() }}</h5>
+                    <p v-if="tournament.entryPrice > 0" class="fs-2 mt-5">Entry Fee: ${{ tournament.entryPrice }}</p>
+                    <p v-else class="fs-2 mt-5">No Entry Fee</p>
                 </div>
             </section>
         </div>

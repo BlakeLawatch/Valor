@@ -6,7 +6,7 @@ export class Tournament {
         this.gameId = data.gameId
         this.signUpDeadline = data.signUpDeadline
         this.startDate = new Date(data.startDate)
-        this.endDate = new Date(data.endDate)
+        this.endDate = new Date(data.endDate) || null
         this.address = data.address
         this.region = data.region
         this.entryPrice = data.entryPrice
