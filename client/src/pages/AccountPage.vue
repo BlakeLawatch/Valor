@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <section class="row justify-content-center text-light">
+    <section v-if="account.id" class="row justify-content-center text-light">
       <ProfileCardVue/>
     </section>
   </div>
