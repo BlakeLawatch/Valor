@@ -27,7 +27,7 @@ class TwitchAuthService {
                 'Authorization': `Bearer ${this.token}`
             },
             data: `
-fields name, cover.url; 
+fields name, cover.url, cover.height, cover.width; 
 where id = ${gameId};`,
         })
         return res.data
@@ -51,7 +51,7 @@ where id = ${gameId};`,
                 'Authorization': `Bearer ${this.token}`
             },
             data: `search "${body}"; 
-fields name, cover.url; 
+fields name, cover.url, cover.height, cover.width; 
 limit 9;`,
         })
         return res.data
