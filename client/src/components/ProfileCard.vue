@@ -1,13 +1,12 @@
 <template>
-    <div class="col-10 px-0 mt-4 account-info-card">
-        <img :src="account.coverImg" class="cover-image w-100">
+    <div class="col-10 px-0 mt-4" :style="{backgroundImage: `url(${account.coverImg})`, objectPosition: `center`, objectFit: `cover`, backgroundSize: `cover`}">
         <img class="rounded-circle account-picture" :src="account.picture" alt="" />
-        <section class="row">
-            <div class=" col-12 col-md-8 p-4">
-            <h1>{{ account.name }}</h1>
-            <p>{{ account.bio }}</p>
+        <section class="account-info-card d-flex">
+            <div class=" col-12 col-md-7 p-4 pe-2 d-flex flex-column align-items-send justify-content-end">
+            <h1 class="ps-5">{{ account.name }}</h1>
+            <p class="ps-5">{{ account.bio }}</p>
             </div>
-            <div class="col-12 col-md-4 fs-1 px-md-3 d-flex d-md-block align-items-center justify-content-between">
+            <div class="col-12 px-0 col-md-4 fs-1 d-flex d-md-block align-items-center justify-content-between">
             <a :href="account.facebookUrl"><i v-if="account.facebookUrl" class="mdi mdi-facebook"></i></a>
             <a :href="account.twitchUrl"><i v-if="account.twitchUrl" class="mdi mdi-twitch"></i></a>
             <a :href="account.instagramUrl"><i v-if="account.instagramUrl" class="mdi mdi-instagram"></i></a>
@@ -44,23 +43,17 @@ export default {
 
 <style lang="scss" scoped>
 .cover-image{
-height: 30rem;
 object-fit: cover;
 object-position: center;
 }
 .account-picture{
-height: 15rem;
-width: 15rem;
+height: 8rem;
+width: 8rem;
 position: relative;
-right: -2%;
-top: -13%;
+right: -1%;
+top: 26%;
 }
-.account-image-card{
-position: relative;
-right: -2%;
-top: -27%;
-width: 98%
-}
+
 .account-info-card{
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
