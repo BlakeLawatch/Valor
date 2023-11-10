@@ -8,6 +8,7 @@ export class TournamentController extends BaseController {
   constructor() {
     super('api/tournaments')
     this.router
+      .get('/query', this.getTournamentsByQuery)
       .get('', this.getTournaments)
       .get('/:tournamentId', this.getTournamentById)
       .get('/:tournamentId/players', this.getPlayersByTournamentId)
@@ -18,6 +19,16 @@ export class TournamentController extends BaseController {
       .post('', this.createTournament)
       .put('/:tournamentId', this.editTournament)
       .delete('/:tournamentId', this.cancelTournament)
+  }
+
+  async getTournamentsByQuery(req, res, next) {
+    try {
+      const query = req.query
+      const tournaments = await tournamentsService.getTournamentsByQuery(query)
+      return res.send(tournaments)
+    } catch (error) {
+      next(error)
+    }
   }
   async getTournaments(req, res, next) {
     try {

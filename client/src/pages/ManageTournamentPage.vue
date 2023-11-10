@@ -6,12 +6,71 @@
             </div>
             <div class="col-12 d-flex justify-content-center mt-3">
                 <form @submit.prevent="editActiveTournament()" class="editFormCard w-100">
-                    <div class="text-white p-2 col-3">
-                        <div class="mb-1">
+                    <div class="d-flex ">
+                        <div class="text-white p-2 col-4">
+                            <div class="mb-1">
                             <label for="name">Name</label>
                         </div>
                         <input v-model="tournamentEditable.name" type="text"  id="name" maxlength="75">
                     </div>
+
+                        <div class="text-white p-2 col-4">
+                            <div class="mb-1">
+                            <label for="entryPrice">Entry Price</label>
+                        </div>
+                        <input v-model="tournamentEditable.entryPrice" type="number"  id="number" max="10000">
+                    </div>
+
+                        <div class="text-white p-2 col-4">
+                            <div class="mb-1">
+                            <label for="capacity">Capacity</label>
+                        </div>
+                        <input v-model="tournamentEditable.capacity" type="number"  id="number" max="10000">
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="text-white p-2 col-4">
+                        <div class="mb-1">
+                        <label for="address">Address</label>
+                    </div>
+                    <input v-model="tournamentEditable.address" type="text"  id="address" maxlength="10000">
+                </div>
+
+                    <div class="text-white p-2 col-4">
+                        <div class="mb-1">
+                        <label for="prizePool">Prizes</label>
+                    </div>
+                    <input v-model="tournamentEditable.prizePool" type="text"  id="prizePool" maxlength="10000">
+                </div>
+
+                    <div class="text-white p-2 col-4">
+                        <div class="mb-1">
+                        <label for="liveStreamUrl">Livestream Link</label>
+                    </div>
+                    <input v-model="tournamentEditable.liveStreamUrl" type="url"  id="liveStreamUrl" maxlength="10000">
+                </div>
+
+                </div>
+                    
+                    <div class="text-white p-2 col-4">
+                        <div class="mb-1">
+                            <label for="region" class="form-label">Region</label>
+                        </div>
+                        <select v-model="tournamentEditable.region" class="form-select"  name="" id="" >
+                            <option :value="region" v-for="region in region" :key="region">{{ region }}</option>
+                        </select>
+                    </div>
+
+                    <!-- <div class="text-white p-2 col-3">
+                        <div class="mb-1">
+                            <label for="gameImg">Image</label>
+                        </div>
+                        <input v-model="tournamentEditable.coverImg" type="url"  id="gameImg" maxlength="500">
+                    </div> -->
+
+
+
                     <!-- SECTION form button -->
                     <div class="p-2 text-end">
                         <button type="submit" title="submit edit" class="btn btn-success">Submit Edit</button>
@@ -36,6 +95,7 @@ import { useRoute } from 'vue-router';
 export default {
     setup(){
         const tournamentEditable = ref({})
+        const region = ["west", "midwest", "southwest", "southeast", "northeast" ]
         const route = useRoute()
         watchEffect(() => {
             route,
@@ -52,6 +112,7 @@ export default {
         }
     }
     return {
+        region,
         tournamentEditable,
         tournament: computed(() => AppState.activeTournament),
         account: computed(() => AppState.account),
@@ -83,7 +144,7 @@ export default {
 .editFormCard{
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
-height: 19vh;
+
 border: 1px solid #2ca58d ;
 }
 
