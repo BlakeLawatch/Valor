@@ -4,23 +4,23 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 class TournamentsService {
   getTournamentByGameId(gameId) {
     const newGameId = Number(gameId)
-    const tournaments = dbContext.Tournaments.find({ gameId: newGameId })
+    const tournaments = dbContext.Tournaments.find({ gameId: newGameId }).populate('playerCount')
     return tournaments
   }
   async getTournaments() {
-    const tournaments = dbContext.Tournaments.find()
+    const tournaments = dbContext.Tournaments.find().populate('playerCount')
     return tournaments
   }
 
   async getTournamentById(tournamentId) {
-    const tournament = (await dbContext.Tournaments.findById(tournamentId))
+    const tournament = (await dbContext.Tournaments.findById(tournamentId)).populate('playerCount')
     if (!tournament) {
       throw new BadRequest(`No tournament exists with id: ${tournamentId}`)
     }
     return tournament
   }
   async getTournamentsbyCreator(creatorId) {
-    const tournaments = await dbContext.Tournaments.find({ creatorId: creatorId })
+    const tournaments = await dbContext.Tournaments.find({ creatorId: creatorId }).populate('playerCount')
     if (tournaments == []) {
       return
     }
@@ -29,10 +29,11 @@ class TournamentsService {
 
   async createTournament(tournamentData) {
     const newTournament = await dbContext.Tournaments.create(tournamentData)
+    await newTournament.populate('playerCount')
     return newTournament
   }
   async editTournament(tournamentInfo, tournamentId, userId) {
-    const editedTournament = await dbContext.Tournaments.findById(tournamentId)
+    const editedTournament = await dbContext.Tournaments.findById(tournamentId).populate('playerCount')
     if (editedTournament.creatorId != userId) {
       throw new Forbidden('Not yours to edit')
     }
