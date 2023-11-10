@@ -23,6 +23,7 @@
           </div>
         </div>
         <div v-if="account.id" class="row w-100">
+          <!-- NOTE take things to put in component from here so you can properly v-if them -->
           <div class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
             <p>Tournament</p>
           </div>
