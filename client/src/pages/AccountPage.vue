@@ -53,7 +53,7 @@ export default {
 .account-info-card{
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
-max-height: 60vh;
+max-height: 60rem;
 }
 .color-match{
 background-color: #2ca58d;
