@@ -8,6 +8,7 @@ import { api } from "./AxiosService"
 class TournamentsService{
 
     async getActiveTournaments(){
+        AppState.activeTournaments = []
         const res = await api.get(`api/tournaments`)
         AppState.activeTournaments = res.data.map((pojo) => new Tournament(pojo))
         logger.log('active tournaments', res.data)
@@ -27,6 +28,17 @@ class TournamentsService{
       const res = await api.get(`api/tournaments/${tournamentId}`)
       AppState.activeTournament = new Tournament(res.data)
     }
+    
+
+    async getTournamentsByGameId(gameId){
+        AppState.activeTournaments = []
+        const res = await api.get(`api/tournaments/game/${gameId}`)
+        logger.log('my tournaments', res.data)
+        AppState.activeTournaments = res.data.map(t=> new Tournament(t))
+
+    }
 }
+
+
 
 export const tournamentsService = new TournamentsService()

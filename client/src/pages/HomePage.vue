@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { computed,  onMounted,  ref } from 'vue';
+import { computed,  onMounted,  ref, watchEffect } from 'vue';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import {gamesService} from '../services/GamesService'
@@ -45,12 +45,15 @@ import GameCard from '../components/GameCard.vue';
 import { AppState } from '../AppState';
 import ActiveTournamentCard from '../components/ActiveTournamentCard.vue';
 import { tournamentsService } from '../services/TournamentsService';
+import { useRoute } from 'vue-router';
 
 export default {
     setup() {
         const editable = ref('');
+        const route = useRoute()
 
-        onMounted(()=>{
+        watchEffect(()=>{
+          route
           getActiveTournaments()
         })
 
@@ -58,7 +61,9 @@ export default {
 
         async function getActiveTournaments(){
         try {
-          await tournamentsService.getActiveTournaments()      
+          editable.value = ''
+          await tournamentsService.getActiveTournaments() 
+          AppState.games = []     
         } catch (error) {
           Pop.error(error)
         }
