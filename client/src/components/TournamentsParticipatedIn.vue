@@ -2,9 +2,15 @@
     <div class="row text-light p-2 w-100">
         <div class="d-flex">
             <p class="fs-5">Tournaments that {{ account.name }} has participated in:</p>
-        <div class="ms-2">
-            <button class="btn color-match text-light"><i class="mdi mdi-arrow-down"></i></button>
-        </div>
+            <div class="dropdown">
+                <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
+                    <li @click="sortByDateAscending()"><a class="dropdown-item color-match text-light" href="#">Newest</a></li>
+                    <li><a class="dropdown-item" href="#">Oldest</a></li>
+                    <li><a class="dropdown-item color-match text-light" href="#">Past</a></li>
+                    <li><a class="dropdown-item" href="#">Future</a></li>
+                </ul>
+            </div>
         </div>
         
     </div>
@@ -31,7 +37,7 @@ export default {
     setup(){
     onMounted(()=>{
         AppState.tournamentsParticipatedIn = [],
-    getParticipatedIn()
+        getParticipatedIn()
     })
     async function getParticipatedIn(){
         try {
@@ -46,6 +52,11 @@ export default {
     return {
         account: computed(() => AppState.account),
         participatedIn: computed(()=> AppState.tournamentsParticipatedIn),
+        // sortByDateAscending(){
+        //     AppState.tournamentsParticipatedIn.sort((startDate, date)=>{
+        //         if()
+        //     })
+        // }
     }
     }
 };
