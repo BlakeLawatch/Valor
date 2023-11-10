@@ -1,10 +1,10 @@
 <template>
     <div class="col-10 px-0 mt-4" :style="{backgroundImage: `url(${account.coverImg})`, objectPosition: `center`, objectFit: `cover`, backgroundSize: `cover`}">
         <img class="rounded-circle account-picture" :src="account.picture" alt="" />
-        <section class="account-info-card d-flex justify-content-end">
-            <div class=" col-12 col-md-7 p-4 pe-2 d-flex flex-column align-items-center">
-            <h1 class="ps-5">{{ account.name }}</h1>
-            <p class="ps-5">{{ account.bio }}</p>
+        <section class="account-info-card d-flex justify-content-end align-items-center">
+            <div class=" col-12 col-md-7 p-4 pe-2 d-flex flex-column">
+            <h1 class="ps-5 text-start">{{ account.name }}</h1>
+            <p class="ps-5 text-start">{{ account.bio }}</p>
             </div>
             <div class="col-12 px-0 col-md-4 fs-1 d-flex d-md-block align-items-center justify-content-between">
             <a :href="account.facebookUrl"><i v-if="account.facebookUrl" class="mdi mdi-facebook"></i></a>
