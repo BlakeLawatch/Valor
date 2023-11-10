@@ -3,7 +3,8 @@
     <div class="coolBg p-3 rounded">
         <RouterLink :to="{name: 'ActiveGame', params: {gameId: game.id}}">
             <p class="text-white text-center">{{ game.name }}</p>
-            <img :src="game.cover.url" alt="">
+            <img v-if="game.cover?.url" :src="game.cover?.url" alt="">
+            <img v-else src="src/assets/img/valorPanda.png">
         </RouterLink>
     </div>
 </template>
