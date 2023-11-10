@@ -81,7 +81,7 @@ export default {
          gameEditable.value = ''
          formEditable.value = {}
          AppState.createFormGames = []
-         router.push({name: 'tournament', params:{tournamentId: newTournament.id }})
+         router.push({name: 'ManageTournament', params:{tournamentId: newTournament.id }})
       } catch (error) {
         Pop.error(error)
       }
