@@ -28,6 +28,7 @@ export class Tournament {
         this.creatorId = data.creatorId
         this.creator = data.creator
         this.game = data.game
+        this.playerCount = data.playerCount
     }
 }
 
