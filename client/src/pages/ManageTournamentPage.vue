@@ -1,4 +1,5 @@
 <template>
+    <p>Router works</p>
     <div v-for="tournament in tournaments" :key="tournament.id">
         {{ tournament.name }}
 
