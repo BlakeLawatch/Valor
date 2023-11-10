@@ -64,13 +64,11 @@ export default {
     formGames: computed(()=> AppState.createFormGames),
     async createTournament(){
       try {
-        logger.log('form info', formEditable.value)
         const game = AppState.createFormGames.find(g=> g.name == selectedGame.value)
         const body = formEditable.value
         body.gameId = game.id
         body.gameName = game.name
         body.gameImg = game.cover.url
-        logger.log('new form info', body)
          await tournamentsService.createTournament(body)
       } catch (error) {
         Pop.error(error)
@@ -79,8 +77,7 @@ export default {
     },
 async getGameOptions(gameEditable){
   try {
-    await gamesService.getGameOptions( gameEditable)
-    
+    await gamesService.getGameOptions( gameEditable)  
   } catch (error) {
     Pop.error(error)
   }

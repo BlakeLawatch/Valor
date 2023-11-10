@@ -1,6 +1,7 @@
 import { AppState } from "../AppState"
 import { Tournament } from "../models/Tournament"
 import { logger } from "../utils/Logger"
+import Pop from "../utils/Pop"
 import { api } from "./AxiosService"
 
 class TournamentsService{
