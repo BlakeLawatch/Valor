@@ -11,8 +11,6 @@
 
 
 <script>
-import { AppState } from '../AppState';
-import { computed, reactive, onMounted } from 'vue';
 import { Game } from '../models/Game';
 import { RouterLink, useRouter } from 'vue-router';
 export default {
