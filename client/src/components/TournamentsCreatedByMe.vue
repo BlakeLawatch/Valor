@@ -5,12 +5,12 @@
     <img v-else-if="!tournament.imgUrl && !tournament.gameImg" src="https://plus.unsplash.com/premium_photo-1695717076798-404f76f121da?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGFuZGF8ZW58MHx8MHx8fDA%3D" class="tournament-image w-100 h-50"/>
     <div class="h-50 d-flex flex-column justify-content-between">
         <p class="fs-5 ps-2 text-light">{{ tournament.name }}</p>
-    <div class="w-100 d-flex justify-content-end pe-2">
+    <div class="w-100 d-flex justify-content-end pe-2 pb-1">
         <button class="btn color-match text-light"> Edit</button>
     </div>
     </div>
-    
 </div>
+<div v-if="mytournaments == []">{{ account.name }} has not created any tournaments</div>
 </template>
 
 
@@ -23,7 +23,9 @@ import { tournamentsService } from '../services/TournamentsService';
 export default {
     setup(){
         onMounted(()=>{
-            getMyTournaments()
+            if(AppState.myTournaments != []){
+                getMyTournaments()
+            }
         })
     async function getMyTournaments(){
         try {
@@ -36,7 +38,8 @@ export default {
         }
     }
     return {  
-        mytournaments: computed(() => AppState.myTournaments)
+        mytournaments: computed(() => AppState.myTournaments),
+        account: computed(()=> AppState.account)
     }
     }
 };

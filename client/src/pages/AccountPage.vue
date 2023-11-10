@@ -11,9 +11,13 @@
             <button class="btn color-match text-light"><i class="mdi mdi-arrow-down"></i></button>
           </div>
         </div>
-        
         <div v-if="account.id" class="row w-100">
           <TournamentsCreatedByMe/>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="text-light p-2 d-flex">
+          <p class="fs-5">Tournaments that {{ account.name }} has participated in:</p>
         </div>
       </div>
     </div>
@@ -21,7 +25,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { AppState } from '../AppState';
 import ProfileCardVue from '../components/ProfileCard.vue'
 import TournamentsCreatedByMe from '../components/TournamentsCreatedByMe.vue';
