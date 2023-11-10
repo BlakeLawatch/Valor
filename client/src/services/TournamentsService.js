@@ -23,8 +23,9 @@ class TournamentsService{
         return res.data
     }
 
-    async getMyTournamentById(tournamentId){
-        
+    async getTournamentById(tournamentId){
+      const res = await api.get(`api/tournaments/${tournamentId}`)
+      AppState.activeTournament = new Tournament(res.data)
     }
 }
 
