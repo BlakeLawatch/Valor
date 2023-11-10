@@ -6,7 +6,9 @@
     <div class="h-50 d-flex flex-column justify-content-between">
         <p class="fs-5 ps-2 text-light">{{ tournament.name }}</p>
     <div class="w-100 d-flex justify-content-end pe-2 pb-1">
-        <button class="btn color-match text-light"> Edit</button>
+        <RouterLink :to="{name: 'ManageTournament', params: {tournamentId: tournament.id}}">
+            <button class="btn color-match text-light"> Edit</button>
+        </RouterLink>
     </div>
     </div>
 </div>
