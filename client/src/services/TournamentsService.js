@@ -43,6 +43,15 @@ class TournamentsService{
         AppState.activeTournament = new Tournament(res.data)
 
     }
+
+    async searchTournamentsByName(query){
+        const res = await api.get(`api/tournaments/query?name=${query.name}`)
+        logger.log('searched touneys', res.data)
+        AppState.searchedTournaments = res.data.map(t=> new Tournament(t))
+    }
+
+
+
 }
 
 
