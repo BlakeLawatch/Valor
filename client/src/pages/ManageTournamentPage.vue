@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                <div class="d-flex">
+            <div class="d-flex">
                     <div class="text-white p-2 col-4">
                         <div class="mb-1">
                         <label for="address">Address</label>
@@ -50,24 +50,49 @@
                     </div>
                     <input v-model="tournamentEditable.liveStreamUrl" type="url"  id="liveStreamUrl" maxlength="10000">
                 </div>
+            </div>
 
-                </div>
-                    
+            <div class="d-flex">
                     <div class="text-white p-2 col-4">
                         <div class="mb-1">
-                            <label for="region" class="form-label">Region</label>
+                        <label for="startDate">Start Date</label>
+                    </div>
+                    <input v-model="tournamentEditable.startDate" type="date" :min="todaysDate" id="startDate">
+                </div>
+
+                    <div class="text-white p-2 col-4">
+                        <div class="mb-1">
+                        <label for="endDate">End Date</label>
+                    </div>
+                    <input v-model="tournamentEditable.endDate" type="date" :min="todaysDate" id="endDate">
+                </div>
+
+                    <div class="text-white p-2 col-4">
+                        <div class="mb-1">
+                        <label for="signUpDeadline">Sign Up Deadline</label>
+                    </div>
+                    <input v-model="tournamentEditable.signUpDeadline" type="date" :min="todaysDate" id="signUpDeadline">
+                </div>  
+            </div>
+                    <div class="d-flex">
+                        <div class="text-white p-2 col-4">
+                            <div class="mb-1">
+                                <label for="region" class="form-label">Region</label>
+                            </div>
+                            <select v-model="tournamentEditable.region" class="form-select"  name="" id="" >
+                                <option :value="region" v-for="region in region" :key="region">{{ region }}</option>
+                            </select>
                         </div>
-                        <select v-model="tournamentEditable.region" class="form-select"  name="" id="" >
-                            <option :value="region" v-for="region in region" :key="region">{{ region }}</option>
-                        </select>
+
+                        <div class="text-white p-2 col-4">
+                            <div class="mb-1">
+                                <label for="gameImg">Image</label>
+                            </div>
+                            <input v-model="tournamentEditable.gameImg" type="url" id="gameImg" maxlength="500">
+                        </div>
+
                     </div>
 
-                    <!-- <div class="text-white p-2 col-3">
-                        <div class="mb-1">
-                            <label for="gameImg">Image</label>
-                        </div>
-                        <input v-model="tournamentEditable.coverImg" type="url"  id="gameImg" maxlength="500">
-                    </div> -->
 
 
 
@@ -116,12 +141,13 @@ export default {
         tournamentEditable,
         tournament: computed(() => AppState.activeTournament),
         account: computed(() => AppState.account),
-
+        todaysDate: new Date().toISOString().substring(0, 10),
         async editActiveTournament() {
             try {
                 const tournamentId = route.params.tournamentId
                 const tournamentData = tournamentEditable.value
                 await tournamentsService.editActiveTournament(tournamentData, tournamentId)
+                Pop.success('You done did edit the page')
             } catch (error) {
                 Pop.error(error)
             }
