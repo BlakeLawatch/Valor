@@ -19,6 +19,10 @@ class TournamentsService{
         const res = await api.post('api/tournaments', body)
         logger.log('new tournament', res.data)
     }
+
+    async getMyTournamentById(tournamentId){
+        
+    }
 }
 
 export const tournamentsService = new TournamentsService()
