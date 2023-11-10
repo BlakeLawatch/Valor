@@ -27,7 +27,13 @@ path: '/game/:gameId',
 name:'ActiveGame',
 component: loadPage('ActiveGamePage')
 
-  }
+  },
+  {
+path: '/tournament/:tournamentId',
+name:'ManageTournament',
+component: loadPage('ManageTournamentPage')
+
+  },
 ]
 
 export const router = createRouter({
