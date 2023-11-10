@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO MAKE SEARCH IN THE BACK END NOT CASE SPECIFIC -->
   <div class="container-fluid">
     <section class="row d-flex justify-content-center">
       <div class="col-12 text-center text-white">
@@ -16,13 +17,41 @@
     </section>
     <section class="row d-flex justify-content-center">
       <div v-if="games.length >0" class="col-md-8 col-12">
-        <h1 class="text-white mt-5 ">Games</h1>
-        <section class="row">
-          <div class="col-md-4 col-12 mt-4" v-for="game in games" :key="game.id">
-            <GameCard :game="game" />
-          </div>
-        </section>
+        <h1 class="text-white mt-5 ">Games
+        </h1>
+          <section class="row">
+            <div class="col-md-4 col-12 mt-4" v-for="game in games" :key="game.id">
+              <GameCard :game="game" />
+            </div>
+          </section>
       </div>
+      <div v-if="searchedTournaments.length>0" class="col-md-8 col-12">
+<h1 class="text-white mt-5">
+  Tournaments
+</h1>
+<section class="row">
+  <div class="col-12 mt-4" >
+    <div v-for="tournament in searchedTournaments" :key="tournament.id" >
+          <ActiveTournamentCard  :tournament = "tournament" />
+          </div>  
+  </div>
+</section>
+      </div>
+      <div v-if="profiles.length >0" class="col-md-8 col-12">
+          <h2 class="text-white mt-5 fs-1">Profiles</h2>
+            <section class="row mb-5">
+              <div class="col-md-3 col-6 mt-4" v-for="profile in profiles" :key="profile.id">
+              <div class="d-flex align-items-center box-bg p-3 rounded">
+                <img class="profile-picture rounded-circle" :src="profile.picture" alt="profile picture">
+                <p class="text-white mb-0 ms-3 ">
+                  {{ profile.name }}
+                </p>
+              </div>
+
+              </div>
+            </section>
+      </div>
+          
       <div v-if="games.length == 0" class="col-md-8">
         <h1 class="text-white mt-5">Active Tournaments</h1>
       <section class="row">
@@ -46,6 +75,7 @@ import ActiveTournamentCard from '../components/ActiveTournamentCard.vue';
 import { tournamentsService } from '../services/TournamentsService';
 import { useRoute } from 'vue-router';
 import { Tournament } from '../models/Tournament';
+import { accountService } from '../services/AccountService';
 
 export default {
     setup() {
@@ -63,7 +93,8 @@ export default {
         try {
           editable.value = ''
           await tournamentsService.getActiveTournaments() 
-          AppState.games = []     
+          AppState.games = [] 
+          AppState.searchedTournaments = []    
         } catch (error) {
           Pop.error(error)
         }
@@ -76,10 +107,15 @@ export default {
             tournaments: computed(()=> AppState.activeTournaments.filter(tournament => tournament.startDate < Date.now() || tournament.endDate > Date.now())),
             // { startDate: { $gt: new Date().getUTCDate() } }).limit(10)
             games: computed(()=> AppState.games),
+            searchedTournaments: computed(()=> AppState.searchedTournaments),
+            profiles: computed(()=> AppState.profiles),
             async homeSearch() {
                 try {
                     const body = { search: editable.value };
+                    const query = {name: editable.value}
                     await gamesService.homeSearch(body);
+                    await accountService.searchByPlayerName(query)
+                    await tournamentsService.searchTournamentsByName(query)
                 }
                 catch (error) {
                     Pop.error(error);
@@ -95,6 +131,11 @@ export default {
 <style scoped lang="scss">
 .box-bg{
   background-color: #444444;
+}
+
+.profile-picture{
+  height: 4rem;
+  aspect-ratio: 1/1;
 }
 
 .color-match{
