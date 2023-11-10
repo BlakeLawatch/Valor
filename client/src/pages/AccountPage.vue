@@ -5,7 +5,13 @@
     </section>
     <div class="row justify-content-center pt-5">
       <div class="col-9">
-        <p class="fs-5 text-light p-2">{{ account.name }}'s tournaments:</p>
+        <div class="text-light p-2 d-flex">
+          <p class="fs-5">{{ account.name }}'s tournaments:</p>
+          <div class="ms-2">
+            <button class="btn color-match text-light"><i class="mdi mdi-arrow-down"></i></button>
+          </div>
+        </div>
+        
         <div v-if="account.id" class="row w-100">
           <TournamentsCreatedByMe/>
         </div>
@@ -35,5 +41,8 @@ export default {
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
 max-height: 60vh;
+}
+.color-match{
+background-color: #2ca58d;
 }
 </style>

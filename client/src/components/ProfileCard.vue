@@ -5,7 +5,7 @@
         <section class="row">
             <div class=" col-12 col-md-8 p-4">
             <h1>{{ account.name }}</h1>
-            <h5>{{ account.bio }}</h5>
+            <p>{{ account.bio }}</p>
             </div>
             <div class="col-12 col-md-4 fs-1 px-3">
             <a :href="account.facebookUrl"><i v-if="account.facebookUrl" class="mdi mdi-facebook"></i></a>
