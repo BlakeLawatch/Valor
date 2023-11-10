@@ -5,9 +5,9 @@
             <div class="dropdown">
                 <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
                 <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
-                    <li><a class="dropdown-item" href="#">Newest</a></li>
+                    <li @click="sortByDateAscending()"><a class="dropdown-item color-match text-light" href="#">Newest</a></li>
                     <li><a class="dropdown-item" href="#">Oldest</a></li>
-                    <li><a class="dropdown-item" href="#">Past</a></li>
+                    <li><a class="dropdown-item color-match text-light" href="#">Past</a></li>
                     <li><a class="dropdown-item" href="#">Future</a></li>
                 </ul>
             </div>
@@ -37,7 +37,7 @@ export default {
     setup(){
     onMounted(()=>{
         AppState.tournamentsParticipatedIn = [],
-    getParticipatedIn()
+        getParticipatedIn()
     })
     async function getParticipatedIn(){
         try {
@@ -52,6 +52,11 @@ export default {
     return {
         account: computed(() => AppState.account),
         participatedIn: computed(()=> AppState.tournamentsParticipatedIn),
+        // sortByDateAscending(){
+        //     AppState.tournamentsParticipatedIn.sort((startDate, date)=>{
+        //         if()
+        //     })
+        // }
     }
     }
 };
