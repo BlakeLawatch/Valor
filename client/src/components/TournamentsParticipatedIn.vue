@@ -63,7 +63,7 @@ export default {
 .account-info-card{
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
-height: 19vh;
+height: 19rem;
 }
 .color-match{
 background-color: #2ca58d;
@@ -74,12 +74,12 @@ background-color: #2ca58d;
 }
 @media(max-width:1400px){
 .account-info-card{
-    height:20vh;
+    height:20rem;
 }
 }
 @media(max-width:824px){
     .account-info-card{
-        height: 40vh;
+        height: 40rem;
     }
 }
 </style>
