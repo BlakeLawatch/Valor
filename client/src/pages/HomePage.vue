@@ -25,32 +25,48 @@
           </section>
         </section>
       </div>
-      <section class="row">
-        <div class="col-md-4 col-12 mt-4">
-        <ActiveTournamentCard />
+      <section v-if="games.length == 0" class="row">
+        <div v-for="tournament in tournaments" :key="tournament.id" class="col-md-4 col-12 mt-4">
+        <ActiveTournamentCard :tournament = "tournament" />
       </div>
-
       </section>
     </section>
   </div>
 </template>
 
 <script>
-import { computed,  ref } from 'vue';
+import { computed,  onMounted,  ref } from 'vue';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import {gamesService} from '../services/GamesService'
 import GameCard from '../components/GameCard.vue';
 import { AppState } from '../AppState';
 import ActiveTournamentCard from '../components/ActiveTournamentCard.vue';
+import { tournamentsService } from '../services/TournamentsService';
 
 export default {
     setup() {
         const editable = ref('');
+
+        onMounted(()=>{
+          getActiveTournaments()
+        })
+
+
+
+        async function getActiveTournaments(){
+        try {
+          await tournamentsService.getActiveTournaments()      
+        } catch (error) {
+          Pop.error(error)
+        }
+      }
+        
       
         
         return {
             editable,
+            tournaments: computed(()=> AppState.activeTournaments),
             games: computed(()=> AppState.games),
             async homeSearch() {
                 try {

@@ -1,3 +1,4 @@
+import { applyStyles } from "@popperjs/core"
 import { AppState } from "../AppState"
 import { Tournament } from "../models/Tournament"
 import { logger } from "../utils/Logger"
@@ -8,6 +9,7 @@ class TournamentsService{
 
     async getActiveTournaments(){
         const res = await api.get(`api/tournaments`)
+        AppState.activeTournaments = res.data.map((pojo) => new Tournament(pojo))
         logger.log('active tournaments', res.data)
     }
     async getMyTournaments(creatorId){
