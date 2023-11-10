@@ -21,15 +21,13 @@
           <div class="col-md-4 col-12 mt-4" v-for="game in games" :key="game.id">
             <GameCard :game="game" />
           </div>
-          <section class="row">
-          </section>
         </section>
       </div>
-      <div class="col-md-8">
+      <div v-if="games.length == 0" class="col-md-8">
         <h1 class="text-white mt-5">Active Tournaments</h1>
       <section class="row">
           <div class="col-12 mt-4" v-for="tournament in tournaments" :key="tournament.id" >
-          <ActiveTournamentCard :tournament = "tournament" />
+          <ActiveTournamentCard  :tournament = "tournament" />
           </div>  
       </section>
     </div>
@@ -75,7 +73,7 @@ export default {
         
         return {
             editable,
-            tournaments: computed(()=> AppState.activeTournaments),
+            tournaments: computed(()=> AppState.activeTournaments.filter(tournament => tournament.startDate < Date.now() || tournament.endDate > Date.now())),
             // { startDate: { $gt: new Date().getUTCDate() } }).limit(10)
             games: computed(()=> AppState.games),
             async homeSearch() {

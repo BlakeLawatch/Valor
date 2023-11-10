@@ -1,7 +1,7 @@
 <template>
   
 
-        <div v-if="tournament.startDate > Date.now() && tournament.endDate < Date.now()"  class="coolBg p-3 rounded text-light">   
+        <div class="coolBg p-3 rounded text-light">   
             <!--  flip the isLive boolean with $gt -->
             <section class="row">
                 <div class="col-12 col-md-6">
