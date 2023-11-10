@@ -6,16 +6,16 @@ export class AccountController extends BaseController {
   constructor() {
     super('account')
     this.router
-      .get('/all', this.getAllProfiles)
+      .get('/query', this.getAllProfilesByQuery)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
       .put('', this.editAccount)
   }
 
-  async getAllProfiles(req, res, next) {
+  async getAllProfilesByQuery(req, res, next) {
     try {
       const query = req.query
-      const accounts = await accountService.getAllProfiles(query)
+      const accounts = await accountService.getAllProfilesByQuery(query)
       res.send(accounts)
     } catch (error) {
       next(error)

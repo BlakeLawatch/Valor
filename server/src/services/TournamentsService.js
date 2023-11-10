@@ -2,6 +2,10 @@ import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class TournamentsService {
+  async getTournamentsByQuery(query) {
+    const tournaments = await dbContext.Tournaments.find({ name: { $regex: `${query.name}` } },)
+    return tournaments
+  }
   getTournamentByGameId(gameId) {
     const newGameId = Number(gameId)
     const tournaments = dbContext.Tournaments.find({ gameId: newGameId }).populate('playerCount')
