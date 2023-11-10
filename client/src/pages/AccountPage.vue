@@ -18,6 +18,14 @@
       <div class="col-9">
         <div class="text-light p-2 d-flex">
           <p class="fs-5">Tournaments that {{ account.name }} has participated in:</p>
+          <div class="ms-2">
+            <button class="btn color-match text-light"><i class="mdi mdi-arrow-down"></i></button>
+          </div>
+        </div>
+        <div v-if="account.id" class="row w-100">
+          <div class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
+            <p>Tournament</p>
+          </div>
         </div>
       </div>
     </div>
