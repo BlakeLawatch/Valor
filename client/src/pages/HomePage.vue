@@ -10,7 +10,7 @@
 </p> -->
 <form @submit.prevent="homeSearch()" class="form-inline d-flex">
   <input v-model="editable" class="form-control mr-sm-2" required type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0 ms-3" type="submit">Search</button>
+    <button class="btn my-2 my-sm-0 ms-3 color-match text-light" type="submit">Search</button>
 </form>
       </div>
     </section>
@@ -21,6 +21,9 @@
           <div class="col-md-4 col-12 mt-4" v-for="game in games" :key="game.id">
             <GameCard :game="game" />
           </div>
+          <div>
+            <ActiveTournamentCard />
+          </div>
         </section>
       </div>
     </section>
@@ -28,16 +31,19 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed,  ref } from 'vue';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import {gamesService} from '../services/GamesService'
 import GameCard from '../components/GameCard.vue';
 import { AppState } from '../AppState';
+import ActiveTournamentCard from '../components/ActiveTournamentCard.vue';
 
 export default {
     setup() {
         const editable = ref('');
+      
+        
         return {
             editable,
             games: computed(()=> AppState.games),
@@ -50,15 +56,20 @@ export default {
                     Pop.error(error);
                 }
             }
+            
         };
     },
-    components: { GameCard }
+    components: { GameCard, ActiveTournamentCard }
 }
 </script>
 
 <style scoped lang="scss">
 .box-bg{
   background-color: #444444;
+}
+
+.color-match{
+  background-color: #2ca58d;
 }
 
 .valor{

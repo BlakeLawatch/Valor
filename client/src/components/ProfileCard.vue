@@ -14,7 +14,7 @@
             <a :href="account.websiteUrl"><i v-if="account.websiteUrl" class="mdi mdi-web"></i></a>
             <a :href="account.youtubeUrl"><i v-if="account.youtubeUrl" class="mdi mdi-youtube"></i></a>
             <a :href="account.twitterUrl"><i v-if="account.twitterUrl" class="mdi mdi-twitter"></i></a>
-            <div class="d-flex justify-content-flex-end pe-4 pt-3">
+            <div class="d-flex justify-content-end pe-4 pt-3">
                 <button type="button" class="btn color-match text-light text-end" data-bs-toggle="modal" data-bs-target="#accountModal">
                     Edit
                 </button>
