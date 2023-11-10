@@ -23,11 +23,23 @@ const routes = [
     beforeEnter: authGuard
   },
   {
-path: '/game/:gameId',
-name:'ActiveGame',
-component: loadPage('ActiveGamePage')
+    path: '/game/:gameId',
+    name:'ActiveGame',
+    component: loadPage('ActiveGamePage')
 
-  }
+  },
+  {
+    path: '/tournament/:tournamentId',
+    name:'ManageTournament',
+    component: loadPage('ManageTournamentPage')
+
+  },
+  {
+    path: '/tournaments/:tournamentId',
+    name:'TournamentInfoPage',
+    component: loadPage('TournamentInfoPage')
+
+  },
 ]
 
 export const router = createRouter({

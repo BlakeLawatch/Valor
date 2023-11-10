@@ -16,6 +16,9 @@ class TournamentsService {
   }
   async getTournamentsbyCreator(creatorId) {
     const tournaments = await dbContext.Tournaments.find({ creatorId: creatorId })
+    if (tournaments == []) {
+      return
+    }
     return tournaments
   }
 

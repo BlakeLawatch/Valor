@@ -10,6 +10,7 @@ export class PlayersController extends BaseController {
       .get('', this.getPlayers)
       .get('/:playerId', this.getPlayerById)
       .get('/:playerId/matches', this.getMatchesByPlayer)
+      .get('/account/:accountId', this.getPlayersByAccount)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createPlayer)
       .put('/:playerId', this.editPlayer)
@@ -42,6 +43,16 @@ export class PlayersController extends BaseController {
       const playerId = req.params.playerId
       const matches = await matchesService.getMatchesByPlayer(playerId)
       return res.send(matches)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getPlayersByAccount(req, res, next) {
+    try {
+      const accountId = req.params.accountId
+      const players = await playersService.getPlayersByAccount(accountId)
+      return res.send(players)
     } catch (error) {
       next(error)
     }
