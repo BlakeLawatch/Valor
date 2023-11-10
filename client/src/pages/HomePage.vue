@@ -21,7 +21,7 @@
           <div class="col-md-4 col-12 mt-4" v-for="game in games" :key="game.id">
             <GameCard :game="game" />
           </div>
-          <div v-for="activeTournament in activeTournaments" :key="activeTournament">
+          <div>
             <ActiveTournamentCard />
           </div>
         </section>
@@ -31,31 +31,17 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from 'vue';
+import { computed,  ref } from 'vue';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import {gamesService} from '../services/GamesService'
 import GameCard from '../components/GameCard.vue';
 import { AppState } from '../AppState';
 import ActiveTournamentCard from '../components/ActiveTournamentCard.vue';
-import { tournamentsService } from '../services/TournamentsService';
 
 export default {
     setup() {
         const editable = ref('');
-
-        async function getActiveTournaments(){
-        try {
-          await tournamentsService.getActiveTournaments()      
-        } catch (error) {
-          Pop.error(error)
-        }
-      }
-
-
-        onMounted(()=>{
-          getActiveTournaments()
-        })
       
         
         return {
