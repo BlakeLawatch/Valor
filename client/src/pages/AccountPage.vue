@@ -15,22 +15,9 @@
           <TournamentsCreatedByMe/>
         </div>
       </div>
-      <div v-if="account.id" class="col-9">
+      <div v-if="account.id" class="col-9 d-flex">
         <!-- NOTE take things to put in component from here so you can properly v-if them -->
-        <div class="text-light p-2 d-flex">
-          <p class="fs-5">Tournaments that {{ account.name }} has participated in:</p>
-          <div class="ms-2">
-            <button class="btn color-match text-light"><i class="mdi mdi-arrow-down"></i></button>
-          </div>
-        </div>
-        <div v-if="tournament != []" class="row w-100">
-          <div v-for="tournament in participatedIn" :key="tournament.id" class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
-            <p>Tournament</p>
-          </div>
-        </div>
-        <div v-else-if="tournament == []" class="row w-100">
-          <p class="fs-5">{{ account.name }} has not participated in any tournaments</p>
-        </div>
+        <TournamentsParticipatedIn/>
       </div>
     </div>
   </div>
@@ -44,27 +31,15 @@ import TournamentsCreatedByMe from '../components/TournamentsCreatedByMe.vue';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
 import {playersService} from '../services/PlayersService.js'
+import TournamentsParticipatedIn from '../components/TournamentsParticipatedIn.vue';
 
 export default {
   setup() {
-    onMounted(()=>{
-
-    }),
-    async function getParticipatedIn(){
-      try {
-        const accountId = AppState.account.id
-        await playersService.getParticipatedIn(accountId)
-      } catch (error) {
-        Pop.error(error)
-        logger.error(error)
-      }
-    }
     return {
       account: computed(() => AppState.account),
-      participatedIn: computed(()=> AppState.tournamentsParticipatedIn),
     }
   },
-  components: { ProfileCardVue, TournamentsCreatedByMe }
+  components: { ProfileCardVue, TournamentsCreatedByMe, TournamentsParticipatedIn }
 }
 </script>
 
