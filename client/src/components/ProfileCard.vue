@@ -44,16 +44,16 @@ export default {
 
 <style lang="scss" scoped>
 .cover-image{
-height: 30vh;
+height: 30rem;
 object-fit: cover;
 object-position: center;
 }
 .account-picture{
-height: 15vh;
-width: 20vh;
+height: 15rem;
+width: 15rem;
 position: relative;
 right: -2%;
-top: -10%;
+top: -13%;
 }
 .account-image-card{
 position: relative;
@@ -64,12 +64,12 @@ width: 98%
 .account-info-card{
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
-max-height: 60vh;
+max-height: 60rem;
 }
 @media (max-width: 823px){
 .account-picture{
-height: 10vh;
-width: 13vh;
+height: 10rem;
+width: 13rem;
 }
 .account-image-card{
 position: relative;
@@ -77,7 +77,7 @@ right: -2%;
 top: -20%;
 }
 .cover-image{
-height: 15vh;
+height: 15rem;
 object-fit: cover;
 object-position: center;
 }
