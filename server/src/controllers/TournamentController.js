@@ -27,6 +27,7 @@ export class TournamentController extends BaseController {
       next(error)
     }
   }
+
   async getTournamentById(req, res, next) {
     try {
       const tournamentId = req.params.tournamentId
