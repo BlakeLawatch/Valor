@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-6 col-md-3">
                     <h5 class="text-center">{{ tournament.address }}</h5>
-                    <h5>{{ tournament.startDate.toLocaleString() }} - {{ tournament.endDate.toLocaleString() }}</h5>
+                    <h5>{{ tournament.startDate.toLocaleDateString() }} - {{ tournament.endDate.toLocaleDateString() }}</h5>
                     <p v-if="tournament.entryPrice > 0" class="fs-2 text-center mt-5">Entry Fee: ${{ tournament.entryPrice }}</p>
                     <p v-else class="fs-2 text-center mt-5">No Entry Fee</p>
                 </div>
