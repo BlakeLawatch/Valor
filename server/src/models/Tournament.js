@@ -1,6 +1,7 @@
 import { Schema } from "mongoose";
 
-export const TournamentSchema = new Schema({
+export const TournamentSchema = new Schema(
+  {
     name: { type: String, required: true, maxLength: 75 },
     description: { type: String, required: true, maxLength: 1000 },
     gameId: { type: Number },
@@ -29,7 +30,15 @@ export const TournamentSchema = new Schema({
     website: { type: String, maxLength: 500 },
     creatorId: { type: Schema.Types.ObjectId, required: true }
 
-},
-    {
-        timestamps: true, toJSON: { virtuals: true }
-    })
+  },
+  {
+    timestamps: true, toJSON: { virtuals: true }
+  }
+)
+
+TournamentSchema.virtual('playerCount', {
+  localField: '_id',
+  foreignField: 'tournamentId',
+  ref: 'Player',
+  count: true
+})
