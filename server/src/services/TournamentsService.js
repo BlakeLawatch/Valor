@@ -2,6 +2,11 @@ import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class TournamentsService {
+  getTournamentByGameId(gameId) {
+    const newGameId = Number(gameId)
+    const tournaments = dbContext.Tournaments.find({ gameId: newGameId })
+    return tournaments
+  }
   async getTournaments() {
     const tournaments = dbContext.Tournaments.find()
     return tournaments

@@ -13,6 +13,7 @@ export class TournamentController extends BaseController {
       .get('/:tournamentId/players', this.getPlayersByTournamentId)
       .get('/:tournamentId/matches', this.getMatchesByTournament)
       .get('/creator/:creatorId', this.getTournamentsByCreator)
+      .get('/game/:gameId', this.getTournamentsByGameId)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createTournament)
       .put('/:tournamentId', this.editTournament)
@@ -58,6 +59,16 @@ export class TournamentController extends BaseController {
     try {
       const creatorId = req.params.creatorId
       const tournaments = await tournamentsService.getTournamentsbyCreator(creatorId)
+      return res.send(tournaments)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getTournamentsByGameId(req, res, next) {
+    try {
+      const gameId = req.params.gameId
+      const tournaments = await tournamentsService.getTournamentByGameId(gameId)
       return res.send(tournaments)
     } catch (error) {
       next(error)
