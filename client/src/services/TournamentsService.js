@@ -1,6 +1,7 @@
 import { AppState } from "../AppState"
 import { Tournament } from "../models/Tournament"
 import { logger } from "../utils/Logger"
+import Pop from "../utils/Pop"
 import { api } from "./AxiosService"
 
 class TournamentsService{
@@ -12,6 +13,11 @@ class TournamentsService{
     async getMyTournaments(creatorId){
         const res = await api.get(`api/tournaments/creator/${creatorId}`)
         AppState.myTournaments = res.data.map(tournament => new Tournament(tournament))
+    }
+
+    async createTournament(body){
+        const res = await api.post('api/tournaments', body)
+        logger.log('new tournament', res.data)
     }
 }
 

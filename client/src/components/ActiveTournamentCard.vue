@@ -1,21 +1,25 @@
 <template>
-    <div class="coolBg p-3 rounded" v-for="activeTournament in activeTournaments" :key="activeTournament">
-        {{ activeTournament }}
+    <div class="coolBg p-3 rounded" v-for="tournament in tournaments" :key="tournament">   
+        <!--  flip the isLive boolean with $gt -->
+        {{ tournament.name }}
     </div>
 </template>
 
 
 <script>
 import { computed, onMounted} from 'vue';
-import { Tournament } from '../models/Tournament';
 import{AppState} from '../AppState'
 import { tournamentsService } from '../services/TournamentsService';
 import Pop from '../utils/Pop';
 
 
 export default {
-    props: {activeTournament: {type: Tournament, required: true}},
     setup(){
+        onMounted(()=>{
+          getActiveTournaments()
+        })
+
+
 
         async function getActiveTournaments(){
         try {
@@ -24,15 +28,9 @@ export default {
           Pop.error(error)
         }
       }
-
-
-        onMounted(()=>{
-          getActiveTournaments()
-        })
-
         
     return { 
-        tournament: computed(()=> AppState.activeTournaments)
+        tournaments: computed(()=> AppState.activeTournaments)
      }
     }
 };
@@ -41,4 +39,7 @@ export default {
 
 <style lang="scss" scoped>
 
+.coolBg {
+    background-color: #444444;
+}
 </style>

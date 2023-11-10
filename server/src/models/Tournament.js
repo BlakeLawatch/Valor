@@ -3,7 +3,7 @@ import { Schema } from "mongoose";
 export const TournamentSchema = new Schema({
     name: { type: String, required: true, maxLength: 75 },
     description: { type: String, required: true, maxLength: 1000 },
-    gameId: { type: Schema.Types.ObjectId, ref: 'Game' },
+    gameId: { type: Number },
     signUpDeadline: { type: Date },
     startDate: { type: Date },
     endDate: { type: Date },
@@ -17,6 +17,7 @@ export const TournamentSchema = new Schema({
     liveStreamUrl: { type: String, maxLength: 500 },
     winnerId: { type: Schema.Types.ObjectId, ref: 'Account' },
     isLocked: { type: Boolean, default: false },
+    isLive: { type: Boolean, default: false },
     isCancelled: { type: Boolean, default: false },
     isPublished: { type: Boolean, default: false },
     gameName: { type: String, maxLength: 500 },
