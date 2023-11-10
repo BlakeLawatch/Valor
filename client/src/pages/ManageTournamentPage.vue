@@ -1,5 +1,6 @@
 <template>
-    <div v-for="tournament in tournaments" :key="tournament.id">
+    <p class="text-white">Router works</p>
+    <div class="text-white" v-for="tournament in tournaments" :key="tournament.id">
         {{ tournament.name }}
 
 
