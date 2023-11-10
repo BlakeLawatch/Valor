@@ -27,7 +27,7 @@
       </div>
       <div class="col-md-8">
         <h1 class="text-white mt-5">Active Tournaments</h1>
-      <section v-if="games.length == 0" class="row">
+      <section class="row">
           <div class="col-12 mt-4" v-for="tournament in tournaments" :key="tournament.id" >
           <ActiveTournamentCard :tournament = "tournament" />
           </div>  
@@ -47,6 +47,7 @@ import { AppState } from '../AppState';
 import ActiveTournamentCard from '../components/ActiveTournamentCard.vue';
 import { tournamentsService } from '../services/TournamentsService';
 import { useRoute } from 'vue-router';
+import { Tournament } from '../models/Tournament';
 
 export default {
     setup() {
@@ -75,6 +76,7 @@ export default {
         return {
             editable,
             tournaments: computed(()=> AppState.activeTournaments),
+            // { startDate: { $gt: new Date().getUTCDate() } }).limit(10)
             games: computed(()=> AppState.games),
             async homeSearch() {
                 try {
