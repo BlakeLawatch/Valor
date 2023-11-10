@@ -61,6 +61,8 @@ export class PlayersController extends BaseController {
   async createPlayer(req, res, next) {
     try {
       const playerData = req.body
+      const accountId = req.userInfo.id
+      playerData.accountId = accountId
       const player = await playersService.createPlayer(playerData)
       res.send(player)
     }

@@ -19,8 +19,11 @@ export const AppState = reactive({
   
   /** @type {import('./models/Tournament.js').Tournament []} */
   activeTournaments: [],
+  /** @type {import('./models/Tournament.js').Tournament []} */
+  activeTournament: {},
   /**@type {import('.models/Tournament.js').Tournament [] || null} */
   myTournaments:[],
   /**@type {import('.models/Player.js').Player[] || null} */
   tournamentsParticipatedIn: [],
+  
 })

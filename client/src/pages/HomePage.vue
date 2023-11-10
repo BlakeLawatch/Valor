@@ -26,9 +26,11 @@
         </section>
       </div>
       <section v-if="games.length == 0" class="row">
-        <div v-for="tournament in tournaments" :key="tournament.id" class="col-md-4 col-12 mt-4">
-        <ActiveTournamentCard :tournament = "tournament" />
-      </div>
+        
+          <div class="col-md-4 col-12 mt-4" v-for="tournament in tournaments" :key="tournament.id" >
+          <ActiveTournamentCard :tournament = "tournament" />
+        </div>
+        
       </section>
     </section>
   </div>
