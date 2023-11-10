@@ -14,6 +14,9 @@ export const AppState = reactive({
   /**@type {import('./models/Profile.js).Profile}*/
   profile:{},
   
+  /**@type {import('./models/Profile.js).Profile}*/
+  profiles:{},
+  
   /** @type {import('./models/Game.js').Game[]} */
   createFormGames: [],
   
@@ -21,6 +24,9 @@ export const AppState = reactive({
   activeTournaments: [],
   /** @type {import('./models/Tournament.js').Tournament []} */
   activeTournament: {},
+  
+  /** @type {import('./models/Tournament.js').Tournament [] || []} */
+  searchedTournaments: [],
   /**@type {import('.models/Tournament.js').Tournament [] || null} */
   myTournaments:[],
   /**@type {import('.models/Player.js').Player[] || null} */

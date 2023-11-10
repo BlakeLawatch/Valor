@@ -22,6 +22,14 @@ class AccountService {
       logger.error(error)
     }
   }
+
+async searchByPlayerName(query){
+  const res = await api.get(`/account/query?name=${query.name}`)
+  logger.log('profiles', res.data)
+  AppState.profiles = res.data
+}
+
+
 }
 
 export const accountService = new AccountService()
