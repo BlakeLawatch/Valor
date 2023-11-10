@@ -1,6 +1,6 @@
 <template>
-<div v-for="tournament in mytournaments" :key="tournament.id" class="col-2">
-    <p>{{ tournament.name }}</p>
+<div v-for="tournament in mytournaments" :key="tournament.id" class="col-3 m-3 account-info-card">
+    <p class="fs-5 text-center text-light">{{ tournament.name }}</p>
 </div>
 </template>
 
@@ -35,5 +35,9 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.account-info-card{
+background-color: rgb(68, 68, 68);
+box-shadow: 0px 5px 6px black;
+height: 10vh;
+}
 </style>

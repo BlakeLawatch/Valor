@@ -4,9 +4,9 @@
       <ProfileCardVue/>
     </section>
     <div class="row justify-content-center pt-5">
-      <div class="col-10 account-info-card p-3">
-        <p class="fs-5 text-light">{{ account.name }}'s tournaments:</p>
-        <div v-if="account.id" class="row">
+      <div class="col-9">
+        <p class="fs-5 text-light p-2">{{ account.name }}'s tournaments:</p>
+        <div v-if="account.id" class="row w-100">
           <TournamentsCreatedByMe/>
         </div>
       </div>
