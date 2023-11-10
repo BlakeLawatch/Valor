@@ -21,11 +21,13 @@
           <div class="col-md-4 col-12 mt-4" v-for="game in games" :key="game.id">
             <GameCard :game="game" />
           </div>
-          <div>
-            <ActiveTournamentCard />
-          </div>
+          <section class="row">
+          </section>
         </section>
       </div>
+      <div class="col-md-4 col-12 mt-4">
+      <ActiveTournamentCard />
+    </div>
     </section>
   </div>
 </template>
