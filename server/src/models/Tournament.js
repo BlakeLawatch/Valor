@@ -3,7 +3,7 @@ import { Schema } from "mongoose";
 export const TournamentSchema = new Schema({
     name: { type: String, required: true, maxLength: 75 },
     description: { type: String, required: true, maxLength: 1000 },
-    gameId: { type: Schema.Types.ObjectId, ref: 'Game' },
+    gameId: { type: Number },
     signUpDeadline: { type: Date },
     startDate: { type: Date },
     endDate: { type: Date },
