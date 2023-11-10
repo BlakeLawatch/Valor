@@ -6,9 +6,20 @@ export class AccountController extends BaseController {
   constructor() {
     super('account')
     this.router
+      .get('/all', this.getAllProfiles)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
       .put('', this.editAccount)
+  }
+
+  async getAllProfiles(req, res, next) {
+    try {
+      const query = req.query
+      const accounts = await accountService.getAllProfiles(query)
+      res.send(accounts)
+    } catch (error) {
+      next(error)
+    }
   }
 
   async getUserAccount(req, res, next) {
