@@ -12,6 +12,11 @@ class TournamentsService {
     return tournaments
   }
 
+  // async getActiveTournaments() {
+  //   const tournaments = dbContext.Tournaments.find({ startDate: { $gt: new Date().getUTCDate() } }).limit(10)
+  //   return tournaments
+  // }
+
   async getTournamentById(tournamentId) {
     const tournament = (await dbContext.Tournaments.findById(tournamentId)).populate('playerCount')
     if (!tournament) {

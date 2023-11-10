@@ -3,12 +3,13 @@
         <div class="d-flex">
             <p class="fs-5">Tournaments that {{ account.name }} has participated in:</p>
             <div class="dropdown">
+                <!-- TODO figure out how to filter these -->
                 <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
                 <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
-                    <li @click="sortByDateAscending()"><a class="dropdown-item color-match text-light" href="#">Newest</a></li>
-                    <li><a class="dropdown-item" href="#">Oldest</a></li>
-                    <li><a class="dropdown-item color-match text-light" href="#">Past</a></li>
-                    <li><a class="dropdown-item" href="#">Future</a></li>
+                    <li type="button"><a class="dropdown-item color-match text-light">Sort by New</a></li>
+                    <li type="button"><a class="dropdown-item">Sort By Old</a></li>
+                    <li type="button"><a class="dropdown-item color-match text-light">Past</a></li>
+                    <li type="button"><a class="dropdown-item">Future</a></li>
                 </ul>
             </div>
         </div>
@@ -52,11 +53,6 @@ export default {
     return {
         account: computed(() => AppState.account),
         participatedIn: computed(()=> AppState.tournamentsParticipatedIn),
-        // sortByDateAscending(){
-        //     AppState.tournamentsParticipatedIn.sort((startDate, date)=>{
-        //         if()
-        //     })
-        // }
     }
     }
 };
@@ -83,7 +79,7 @@ background-color: #2ca58d;
 }
 @media(max-width:824px){
     .account-info-card{
-        height: 25vh;
+        height: 40vh;
     }
 }
 </style>
