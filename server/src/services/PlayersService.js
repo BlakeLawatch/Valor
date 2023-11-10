@@ -20,6 +20,14 @@ class PlayersService {
     return player
   }
 
+  async getPlayersByAccount(accountId) {
+    const players = await dbContext.Players.find({ accountId }).populate('profile').populate('tournament', 'name, gameName')
+    if (players == []) {
+      return
+    }
+    return players
+  }
+
   async createPlayer(playerData) {
     const player = await dbContext.Players.create(playerData)
     await player.populate('profile')
