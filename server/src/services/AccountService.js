@@ -56,6 +56,10 @@ function sanitizeBody(body) {
 }
 
 class AccountService {
+  async getAllProfiles(query) {
+    let profiles = await dbContext.Profiles.find({ name: { $regex: `${query.name}` } }, 'name picture')
+    return profiles
+  }
   /**
    * Returns a user account from the Auth0 user object
    *
