@@ -18,7 +18,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, onMounted, onUnmounted } from 'vue';
+import { computed, onMounted} from 'vue';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
 import { tournamentsService } from '../services/TournamentsService';
@@ -28,9 +28,6 @@ export default {
             if(AppState.myTournaments != []){
                 getMyTournaments()
             }
-            onUnmounted(()=>{
-                AppState.myTournaments=[]
-            })
         })
     async function getMyTournaments(){
         try {
