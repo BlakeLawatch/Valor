@@ -1,12 +1,13 @@
 <template>
   
+<RouterLink :to="{name: 'TournamentInfoPage', params: {tournamentId: tournament.id}}">
 
-        <div class="coolBg p-3 rounded text-light">   
-            <!--  flip the isLive boolean with $gt -->
-            <section class="row">
-                <div class="col-12 col-md-6">
-                    <img :src="tournament.gameImg" alt="">
-                </div>
+    <div class="coolBg p-3 rounded text-light">   
+        <!--  flip the isLive boolean with $gt -->
+        <section class="row">
+            <div class="col-12 col-md-6">
+                <img :src="tournament.gameImg" alt="">
+            </div>
                 <div class="col-6 col-md-3">
                     <h2>{{ tournament.name }}</h2>
                     <h4 class="mt-5">{{ tournament.gameName }}</h4>
@@ -22,24 +23,23 @@
             </section>
         </div>
     
-</template>
+    </RouterLink>
+    </template>
 
 
 <script>
 
 
+import { RouterLink } from 'vue-router';
 import { Tournament } from '../models/Tournament';
 
 
 export default {
-    props: {tournament: {type: Tournament, required: true}},
-    setup(){
-        
-        
-    return { 
-        
-     }
-    }
+    props: { tournament: { type: Tournament, required: true } },
+    setup() {
+        return {};
+    },
+    components: { RouterLink }
 };
 </script>
 

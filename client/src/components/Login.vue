@@ -18,7 +18,7 @@
                 Create 
             </button>
             </div>
-            <router-link :to="{ name: 'Account' }">
+            <router-link v-if="account.id" :to="{name: 'Account', params: {accountId: account.id}}">
               <div class="list-group-item dropdown-item list-group-item-action text-light coolBg">
                 Manage Account
               </div>

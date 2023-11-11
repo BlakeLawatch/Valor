@@ -35,6 +35,7 @@ class TournamentsService{
         const res = await api.get(`api/tournaments/game/${gameId}`)
         logger.log('my tournaments', res.data)
         AppState.activeTournaments = res.data.map(t=> new Tournament(t))
+        AppState.searchedTournaments = res.data.map(t=> new Tournament(t))
 
     }
 
@@ -48,6 +49,14 @@ class TournamentsService{
         const res = await api.get(`api/tournaments/query?name=${query.name}`)
         logger.log('searched touneys', res.data)
         AppState.searchedTournaments = res.data.map(t=> new Tournament(t))
+    }
+
+    filterTournaments(userInput){
+        if(userInput == ''){
+            AppState.searchedTournaments = AppState.activeTournaments
+        }
+AppState.searchedTournaments = AppState.activeTournaments.filter(t => t.name.toLowerCase().includes(userInput.toLowerCase()))
+
     }
 
 

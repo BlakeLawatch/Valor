@@ -14,8 +14,8 @@
             Search Tournament By
         </p>
         <form class="form-inline d-flex">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success mx-3 my-2 my-sm-0" type="submit">Search</button>
+            <input v-model="searchEditable" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <!-- <button class="btn btn-outline-success mx-3 my-2 my-sm-0" type="submit">Search</button> -->
         </form>
     </div>
     <div v-else>
@@ -46,7 +46,7 @@
 <script>
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, watchEffect } from 'vue';
+import { computed, reactive, onMounted, watchEffect, ref } from 'vue';
 import { logger } from '../utils/Logger';
 import { gamesService } from '../services/GamesService';
 import Pop from '../utils/Pop';
@@ -55,10 +55,22 @@ import ActiveTournamentCard from '../components/ActiveTournamentCard.vue';
 export default {
     setup() {
         const route = useRoute();
+        const searchEditable = ref('')
         watchEffect(() => {
             route;
             getGameAndTournamentsById();
         });
+        watchEffect(()=> {
+            searchEditable
+filterTournaments()
+        });
+        function filterTournaments(){
+            try {
+                tournamentsService.filterTournaments(searchEditable.value)
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
         async function getGameAndTournamentsById() {
             try {
                 await gamesService.getGameById(route.params.gameId);
@@ -69,8 +81,9 @@ export default {
             }
         }
         return {
+            searchEditable,
             game: computed(() => AppState.activeGame),
-            tournaments: computed(()=> AppState.activeTournaments)
+            tournaments: computed(()=> AppState.searchedTournaments)
         };
     },
     components: { ActiveTournamentCard }

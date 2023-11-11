@@ -42,14 +42,17 @@
         <h2 class="text-white mt-5 fs-1">Profiles</h2>
         <section class="row mb-5">
           <div class="col-md-3 col-6 mt-4" v-for="profile in profiles" :key="profile.id">
-            <div class="d-flex align-items-center box-bg p-3 rounded">
-              <img class="profile-picture rounded-circle" :src="profile.picture" alt="profile picture">
-              <p class="text-white mb-0 ms-3 ">
-                {{ profile.name }}
-              </p>
+            <RouterLink :to="{name: 'Account', params: {accountId: profile.id}}">
+              
+              <div class="d-flex align-items-center box-bg p-3 rounded">
+                <img class="profile-picture rounded-circle" :src="profile.picture" alt="profile picture">
+                <p class="text-white mb-0 ms-3 ">
+                  {{ profile.name }}
+                </p>
+              </div>
+              
+            </RouterLink>
             </div>
-
-          </div>
         </section>
       </div>
       <!-- FIXME IF NO GAMES SHOW UP IN THE SEARCH THESE STILL SHOW FIX PLS -->
