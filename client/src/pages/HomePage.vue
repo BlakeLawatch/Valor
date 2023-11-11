@@ -52,7 +52,7 @@
           </div>
         </section>
       </div>
-
+      <!-- FIXME IF NO GAMES SHOW UP IN THE SEARCH THESE STILL SHOW FIX PLS -->
       <div v-if="games.length == 0" class="col-md-8">
         <h1 class="text-white mt-5">Active Tournaments</h1>
         <section class="row">

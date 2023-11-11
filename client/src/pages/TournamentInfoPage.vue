@@ -2,7 +2,7 @@
 <div v-if="activeTournament" class="container-fluid px-5 py-4">
   <section class="row text-light card-bg rounded p-2">
     <div class="col-12 py-2 px-0 banner-img d-flex align-items-center justify-content-center" :style="{backgroundImage: 'url(' + activeTournament.imgUrl + ')'}">
-      <p class="fs-1 timer">TIMER</p>
+      <p class="fs-1 timer">{{ activeTournament.countdownTime }}</p>
     </div>
     <div class="col-12 mt-3 text-center">
       <h2>{{ activeTournament.name }}</h2>
