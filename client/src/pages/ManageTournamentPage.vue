@@ -141,7 +141,7 @@
                             <div class="mb-1">
                                 <label for="description">Description</label>
                             </div>
-                            <textarea v-model="tournamentEditable.description" type="text" class="rounded" cols="105" rows="7" id="description" maxlength="1000"></textarea>
+                            <textarea v-model="tournamentEditable.description" type="text" class="rounded w-100" rows="7" id="description" maxlength="1000"></textarea>
                         </div>
                         
                         <div class="text-white p-2 col-4 form-check">
