@@ -11,19 +11,12 @@
                             <div class="col-4">
                                 <h3 class="text-white">Search Tournament</h3>
                             </div>
-                            <div class=" col-4 dropdown text-end me-3">
-                                <button class="btn btn-secondary color-match dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Filter
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Entrants (high)</a></li>
-                                    <li><a class="dropdown-item" href="#">Entrants (low)</a></li>
-                                    <li><a class="dropdown-item" href="#">Online</a></li>
-                                    <li><a class="dropdown-item" href="#">In-person</a></li>
-                                </ul>
-                            </div>
-
+                            <select @click="changeFilterType(tournamentType)" v-model="editable.tournamentType"
+                                class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option v-for="tournamentType in tournamentTypes" :key="tournamentType">
+                                    {{ tournamentType }}</option>
+                            </select>
                         </section>
                         <div v-if="tournaments.length > 0" class="text-start p-3">
                             <form class="form-inline d-flex px-5">
@@ -68,7 +61,10 @@ import ActiveTournamentCard from '../components/ActiveTournamentCard.vue';
 export default {
     setup() {
         const route = useRoute();
-        const searchEditable = ref('')
+        const tournamentTypes = ['Entrants (high)', 'Entrants (low)', 'Online only', 'In person'];
+        const searchEditable = ref('');
+        const editable = ref({}),
+            filteredTournamentType = ref('')
         watchEffect(() => {
             route;
             getGameAndTournamentsById();
@@ -95,8 +91,27 @@ export default {
         }
         return {
             searchEditable,
+            filteredTournamentType,
+            tournamentTypes,
+            editable,
             game: computed(() => AppState.activeGame),
-            tournaments: computed(() => AppState.searchedTournaments)
+            tournaments: computed(() => AppState.searchedTournaments),
+            activeTournament: computed(() => {
+                if (tournamentTypes.value) {
+                    return AppState.activeTournaments.filter(
+                        (tournament => tournament.onlineOnly == tournamentTypes.value)
+                    )
+                } else {
+                    return AppState.activeTournaments
+                }
+            }),
+
+            async changeFilterType(tournamentType) {
+                tournamentType.value = editable
+            }
+
+
+
         };
     },
     components: { ActiveTournamentCard }
