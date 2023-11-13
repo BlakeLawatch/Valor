@@ -157,7 +157,7 @@
                                 <div>
                                     <label>Cancel Tournament</label>
                                 </div>
-                                <button @click="cancelTournament()" class="btn btn-danger" title="cancel tournament">🗑️</button>
+                                <button @click.prevent="cancelTournament()" class="btn btn-danger" title="cancel tournament">🗑️</button>
                             </div>
                         </div>
                     </div>
@@ -231,8 +231,8 @@ export default {
         },
 
         async cancelTournament(){
-            try {
-                const yes = await Pop.confirm("Are you sure you want to cancel your tournament?")
+            try {    
+            const yes = await Pop.confirm("Are you sure you want to cancel your tournament?")
             if (!yes) {
                 return
             }

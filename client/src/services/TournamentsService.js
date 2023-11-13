@@ -58,8 +58,8 @@ class TournamentsService{
     }
 
     async cancelTournament(tournamentId) {
-        await api.delete(`api/tournaments/${tournamentId}`)
-        AppState.activeTournament = AppState.activeTournament.filter((tournament) => tournament.id != tournamentId)
+       const res = await api.delete(`api/tournaments/${tournamentId}`)
+        AppState.activeTournament = new Tournament(res.data)
     }
 
     async searchTournamentsByName(query){
