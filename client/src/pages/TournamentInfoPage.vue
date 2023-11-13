@@ -9,12 +9,19 @@
     </div>
     <div class="col-12 d-flex justify-content-between align-items-center my-2">
       <div>
-        <p>{{ activeTournament.address }}</p>
-        <p>{{ activeTournament.playerCount?.toLocaleString() }} Entrants</p>
+        <p class="fs-5">{{ activeTournament.address }}</p>
+        <p>{{ activeTournament.playerCount?.toLocaleString() }} Entrant 
+          <span v-if="activeTournament.playerCount > 1">s</span>
+        </p>
       </div>
       <div class="text-end">
         <p class="fs-5">{{ activeTournament.gameName }}</p>
-        <p>{{ activeTournament.startDate?.toLocaleDateString() }} - {{ activeTournament.endDate?.toLocaleDateString() }}</p>
+        <p>
+          {{ activeTournament.startDate?.toLocaleDateString() }}
+          -
+          <span v-if="activeTournament.endDate < activeTournament.startDate">TBD</span>
+          <span v-else>{{ activeTournament.endDate?.toLocaleDateString() }}</span>
+        </p>
       </div>
     </div>
     <div class="col-12 my-3">
@@ -22,12 +29,22 @@
     </div>
     <div class="col-12 d-flex justify-content-between align-items-center my-2">
       <div class="">
-        <p>${{ activeTournament.prizePool }} Prize Pool</p>
-        <p>Entry fee: ${{ activeTournament.entryPrice }}</p>
-        <p>Registration ends {{ activeTournament.signUpDeadline?.toLocaleDateString() }}</p>
+        <p class="fs-5">$
+          <span v-if="activeTournament.prizePool" class="fw-bold">{{ activeTournament.prizePool }} </span>
+          <span v-else class="fw-bold">TBD </span>
+          Prize Pool
+        </p>
+        <p>Entry fee: $
+          <span v-if="activeTournament.entryPrice">{{ activeTournament.entryPrice }}</span>
+          <span v-else>TBD</span>
+        </p>
+        <p>Registration ends: 
+          <span v-if="activeTournament.signUpDeadline">{{ activeTournament.signUpDeadline?.toLocaleDateString() }}</span>
+          <span v-else>TBD</span>
+        </p>
       </div>
       <div class="">
-        <button class="btn btn-success">Register</button>
+        <button :disabled="activeTournament.signUpDeadline < new Date()" class="btn btn-success">Register</button>
       </div>
     </div>
   </section>
@@ -69,13 +86,12 @@ export default {
       let minutes = Math.floor((countdownDifference % (1000 * 60 * 60)) / (1000 * 60));
       let seconds = Math.floor((countdownDifference % (1000 * 60)) / 1000);
       if(countdownDifference < 0){
-        days = 0
-        hours = 0
-        minutes = 0
-        seconds = 0
+        countdown.value = ''
+      }
+      else{
+        countdown.value = `${days}d ${hours}h ${minutes}m ${seconds}s`
       }
 
-      countdown.value = `${days}d ${hours}h ${minutes}m ${seconds}s`
     }
     return {
       activeTournament: computed(() => AppState.activeTournament),

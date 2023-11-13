@@ -4,7 +4,7 @@ export class Tournament {
         this.name = data.name
         this.description = data.description
         this.gameId = data.gameId
-        this.signUpDeadline = new Date(data.signUpDeadline)
+        this.signUpDeadline = data.signUpDeadline ? new Date(data.signUpDeadline) : null
         this.startDate = data.startDate ?  new Date(data.startDate) : new Date(new Date().setHours(new Date().getHours() * 24))
         this.endDate = data.endDate ?  new Date(data.endDate) : new Date(new Date().setHours(new Date().getHours() * 24))
         this.address = data.address
@@ -20,7 +20,7 @@ export class Tournament {
         this.isCancelled = data.isCancelled
         this.isPublished = data.isPublished
         this.gameName = data.gameName
-        this.gameImg = data.gameImg || "src/assets/img/valorPanda.png"
+        this.gameImg = data.gameImg || "src/assets/img/valorPanda.png" 
         this.instagramUrl = data.instagramUrl
         this.facebookUrl = data.facebookUrl
         this.twitterUrl = data.twitterUrl
