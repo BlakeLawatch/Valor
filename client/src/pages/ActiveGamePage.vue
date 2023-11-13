@@ -11,7 +11,7 @@
                             <div class="col-4">
                                 <h3 class="text-white">Search Tournament</h3>
                             </div>
-                            <select @click="changeFilterType(tournamentType)" v-model="editable.tournamentType"
+                            <select v-model="filteredTournamentType"
                                 class="form-select" aria-label="Default select example">
                                 <option selected>Open this select menu</option>
                                 <option v-for="tournamentType in tournamentTypes" :key="tournamentType">
@@ -65,8 +65,7 @@ export default {
         const sortTypes = ['Entrants (high)', 'Entrants (low)']
         const tournamentTypes = ['Online only', 'In person'];
         const searchEditable = ref('');
-        const editable = ref({}),
-            filteredTournamentType = ref('')
+        const filteredTournamentType = ref('')
         watchEffect(() => {
             route;
             getGameAndTournamentsById();
@@ -95,22 +94,25 @@ export default {
             searchEditable,
             filteredTournamentType,
             tournamentTypes,
-            editable,
             sortTypes,
             game: computed(() => AppState.activeGame),
-            tournaments: computed(() => AppState.searchedTournaments),
-            activeTournament: computed(() => {
-                if (tournamentTypes.value) {
-                    return AppState.activeTournaments.filter(
-                        (tournament => tournament.onlineOnly == tournamentTypes.value)
-                    )
-                } else {
+            // tournaments: computed(() => AppState.searchedTournaments),
+            tournaments: computed(() => {
+                if (filteredTournamentType.value) {
+                    if(filteredTournamentType.value == 'Online only'){
+                      return AppState.activeTournaments.filter(tournament => tournament.onlineOnly)
+                    }
+                    else{
+                      return AppState.activeTournaments.filter(tournament => tournament.onlineOnly == false)
+                    }
+                    
+                } 
+                else {
                     return AppState.activeTournaments
                 }
             }),
-
-            async changeFilterType(tournamentType) {
-                tournamentType.value = editable
+            changeFilterType(tournamentType) {
+                filteredTournamentType.value = tournamentType
             }
 
 
