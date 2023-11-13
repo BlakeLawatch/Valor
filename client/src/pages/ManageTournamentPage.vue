@@ -86,9 +86,9 @@
 
                         <div class="text-white p-2 col-4">
                             <div class="mb-1">
-                                <label for="gameImg">Image</label>
+                                <label for="imgUrl">Image</label>
                             </div>
-                            <input v-model="tournamentEditable.gameImg" type="url" class="rounded" id="gameImg" maxlength="1000">
+                            <input v-model="tournamentEditable.imgUrl" type="url" class="rounded" id="imgUrl" maxlength="1000">
                         </div>
                         
                     </div>
@@ -98,7 +98,7 @@
                             <div class="mb-1">
                                 <label for="description">Description</label>
                             </div>
-                            <textarea v-model="tournamentEditable.description" type="url" class="rounded" cols="105" rows="7" id="description" maxlength="1000"></textarea>
+                            <textarea v-model="tournamentEditable.description" type="text" class="rounded" cols="105" rows="7" id="description" maxlength="1000"></textarea>
                         </div>
                         
                         <div class="text-white p-2 col-4 form-check">
