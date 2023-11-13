@@ -4,9 +4,9 @@
         <div class="dropdown">
             <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTournaments" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu" aria-labelledby="filterMyTournaments">
-                <li><a class="dropdown-item">Sort By Default</a></li>
-                <li><a class="dropdown-item color-match text-light">Sort by New</a></li>
-                <li><a class="dropdown-item">Sort By Old</a></li>
+                <li type="button"><a class="dropdown-item">Sort By Default</a></li>
+                <li type="button"><a class="dropdown-item color-match text-light">Sort by New</a></li>
+                <li type="button"><a class="dropdown-item">Sort By Old</a></li>
             </ul>
         </div>
     </div>
