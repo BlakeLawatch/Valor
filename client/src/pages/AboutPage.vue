@@ -3,54 +3,37 @@
     <div class="row">
       <div class="col-md-2 col-12 dark-bg bg-height order-2 order-md-1">
         <div v-for="dev in devs" :key="dev.id" class="row my-5 ms-1" role="button" @click="changeActiveDev(dev)" >
-        <div class="col-10 card-bg d-flex align-items-center justify-content-start py-2 rounded">
+        <div class="col-11 card-bg d-flex align-items-center justify-content-start py-2 rounded flex-column flex-lg-row">
           <img :src="dev.picture" class="rounded-circle dev-side-img">
           <p class="pb-0 mb-0 ps-3 text-light">{{ dev.name }}</p>
         </div>
         </div>
       </div>
       <div class="col-md-9 col-12 order-1 order-md-2">
-        <div class="row">
+        <div class="row justify-content-center">
           <div class="col-12 d-flex justify-content-center align-items-center">
             <img class="panda-logo" src="../assets/img/valorPanda.png" alt="Valor Logo">
             <h2 class="text-light text-center">About Us</h2>
           </div>
+          <div class="col-10 card-bg mb-3 rounded">
+            <div class="row cover-img rounded" :style="{backgroundImage: `url(${currentDev.coverImg})`}">
+              <img class="rounded-circle dev-info-img" :src="currentDev.picture" alt="Developer Picture">
+            </div>
+            <div class="row card-bg justify-content-end align-items-center">
+              <div class="col-10 ps-4 pt-2 text-start d-flex justify-content-between">
+                <h1 class="text-light">{{ currentDev.name }}</h1>
+                <p class="mb-0 pb-0 text-light">
+                  <a :href="currentDev.github">
+                    <i class="mdi mdi-github"></i>
+                  </a>
+                </p>
+              </div>
+              <div class="col-12 text-light py-4 ps-5">{{ currentDev.bio }}</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <!-- <section class="row bg-height">
-      <div class="col-2 d-none d-md-flex flex-column dark-bg">
-        <div class="row me-1 my-4 card-bg text-white p-2 rounded"  v-for="dev in devs" :key="dev">
-          <div :title="`${dev.name}'s information`" class="col-5">
-            <img class="dev-side-img rounded-circle" :src="dev.picture" alt="Developer Picture">
-          </div>
-          <div class="col-12 col-md-4">
-              <p class="ps-3 mb-0">{{ dev.name }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-9 col-12 text-white d-flex flex-column align-items-center px-0">
-        <div class="d-flex align-items-center">
-          <img class="panda-logo" src="../assets/img/valorPanda.png" alt="Valor Logo">
-          <h2>About Us</h2>
-        </div>
-        <div class="w-md-75 w-100">
-          <div class="card-bg mx-3 p-3 rounded">
-            <div class="cover-img" :style="{backgroundImage: `url(${currentDev.coverImg})`}">
-              <img class="rounded-circle dev-img" :src="currentDev.picture" alt="Developer Picture">
-            </div>
-            <div>
-              <p class="w-25 pt-3 pe-5 ">{{ currentDev.name }}</p>
-              <p> {{ currentDev.bio }}</p>
-            </div>
-            <div>
-              <a :href="currentDev.github"><i title="github" class="mdi mdi-github"></i></a>
-              <p>reminder to put socials and stuff here</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
   </div>
 </template>
 
@@ -98,25 +81,26 @@ a{
   object-fit: cover;
   object-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
-.dev-img{
-  height: 8rem;
+.dev-info-img{
+  width: 10rem;
   aspect-ratio: 1/1;
-  object-fit: cover;
   position: relative;
-  right: -5%;
-  top: 58%;
+  right: -1%;
+  top:45%;
 }
 
 .dev-side-img{
   height: 5rem;
   aspect-ratio: 1/1;
   object-fit: cover;
+  
 }
 
 .panda-logo{
-  height: 8rem;
+  height: 9rem;
   aspect-ratio: 1/1;
   object-fit: cover;
 }
@@ -131,6 +115,14 @@ a{
 .card-bg{
     background-color: #444444;
 }
-// @media
+@media(max-width: 1188px){
+  .dev-info-img{
+    width: 6rem;
+    height: 6rem;
+    position: relative;
+    right: 1%;
+    top: 65%;
+  }
+}
 
 </style>
