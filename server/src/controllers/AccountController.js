@@ -7,11 +7,21 @@ export class AccountController extends BaseController {
     super('account')
     this.router
       .get('/query', this.getAllProfilesByQuery)
+      .get('/:accountId', this.getAccountById)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
       .put('', this.editAccount)
   }
 
+  async getAccountById(req, res, next) {
+    try {
+      const accountId = req.params.accountId
+      const account = await accountService.getAccountById(accountId)
+      return res.send(account)
+    } catch (error) {
+      next(error)
+    }
+  }
   async getAllProfilesByQuery(req, res, next) {
     try {
       const query = req.query
