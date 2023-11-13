@@ -1,6 +1,6 @@
 <template>
 <div v-for="tournament in myTournaments" :key="tournament.id" class="col-12 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
-    <img v-if="tournament.imgUrl" :src="tournament.imgUrl" class="tournament-image w-100 h-75"/>
+    <img v-if="tournament.imgUrl" :src="tournament.imgUrl" class="tournament-image w-100"/>
     <img v-else-if="!tournament.imgUrl && tournament.gameImg" :src="tournament.gameImg" class="tournament-image w-100"/>
     <div class="d-flex flex-column justify-content-between">
         <p class="fs-5 ps-2 text-light text-center pt-2">{{ tournament.name }}</p>

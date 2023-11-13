@@ -7,7 +7,7 @@
                 <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
                 <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
                     <li @click="sortByNew()" type="button"><a class="dropdown-item color-match text-light">Sort by New</a></li>
-                    <li type="button"><a class="dropdown-item">Sort By Old</a></li>
+                    <li @click="sortByOld" type="button"><a class="dropdown-item">Sort By Old</a></li>
                 </ul>
             </div>
         </div>
@@ -15,7 +15,7 @@
     </div>
     <div class="row w-100">
         <div v-for="player in participatedIn" :key="player.id" class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
-            <img v-if="player.tournament.imgUrl" :src="player.tournament.imgUrl" class="w-100 h-75 tournament-image">
+            <img v-if="player.tournament.imgUrl" :src="player.tournament.imgUrl" class="w-100 tournament-image">
             <img v-else-if="!player.tournament.imgUrl && player.tournament.gameImg" :src="player.tournament.gameImg" class="w-100 tournament-image">
             <img v-else-if="!player.tournament.imgUrl && !player.tournament.gameImg" src="src/assets/img/valorPanda.png" class="w-100 tournament-image">
             <div class="d-flex flex-column justify-content-between">
@@ -54,6 +54,14 @@ export default {
         async sortByNew(){
             try {
                 await tournamentsService.sortByNew()
+            } catch (error) {
+                Pop.error(error)
+                logger.error(error)
+            }
+        },
+        async sortByOld(){
+            try {
+                await tournamentsService.sortByOld()
             } catch (error) {
                 Pop.error(error)
                 logger.error(error)
