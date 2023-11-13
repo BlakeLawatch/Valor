@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { computed, onMounted, onUnmounted} from 'vue';
+import { computed, onMounted, onUnmounted, watchEffect} from 'vue';
 import { AppState } from '../AppState';
 import ProfileCardVue from '../components/ProfileCard.vue'
 import TournamentsCreatedByMe from '../components/TournamentsCreatedByMe.vue';
@@ -44,10 +44,11 @@ export default {
   setup() {
     const route = useRoute()
     onMounted(()=>{
+      AppState.profile = {},
       getProfileById()
     })
     onUnmounted(()=>{
-      AppState.profile = []
+      AppState.profile = {}
     })
     async function getProfileById(){
       try {
@@ -61,6 +62,7 @@ export default {
     return {
       account: computed(() => AppState.account),
       profile: computed(()=> AppState.profile),
+      
     }
   },
   components: { ProfileCardVue, TournamentsCreatedByMe, TournamentsParticipatedIn }
