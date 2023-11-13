@@ -1,125 +1,135 @@
 <template>
-    <!-- TODO MAKE THIS PAGE LOOK GOOD -->
-    <div class="container-fluid">
-        <section class="row p-3">
-            <div class="col-12">
-                <div class="dark-bg rounded p-3">
-                    <div class="text-center rounded card-bg">
-                        <h1 class="text-white">{{ game.name }}</h1>
-                        <img :src="game.cover?.url" alt="">
-                        <section class="row">
-                            <div class="col-4">
-                                <h3 class="text-white">Search Tournament</h3>
-                            </div>
-                            <select v-model="filteredTournamentType"
-                                class="form-select" aria-label="Default select example">
-                                <option selected>Open this select menu</option>
-                                <option v-for="tournamentType in tournamentTypes" :key="tournamentType">
-                                    {{ tournamentType }}</option>
-                            </select>
-                        </section>
-                        <div v-if="tournaments.length > 0" class="text-start p-3">
-                            <form class="form-inline d-flex px-5">
-                                <input v-model="searchEditable" class="form-control mr-sm-2" type="search"
-                                    placeholder="Search for your tournament here..." aria-label="Search">
-                                <!-- <button class="btn btn-outline-success mx-3 my-2 my-sm-0" type="submit">Search</button> -->
-                            </form>
+  <!-- TODO MAKE THIS PAGE LOOK GOOD -->
+  <div class="container-fluid">
+    <section class="row p-3">
+        <div class="col-12">
+            <div class="dark-bg rounded p-3">
+                <div class="text-center rounded card-bg p-2">
+                    <h1 class="card-text">{{ game.name }}</h1>
+                    <img class="img-fluid w-100" :src="game.cover?.url" alt="">
+                    <section class="row justify-content-center">
+                      <h3 class="card-text text-center my-2">Search Tournament</h3>
+                        <div class="col-4">
+                          <p class="card-text">Filter By</p>
+                          <select v-model="filteredTournamentType" class="form-select btn-valor" placeholder="Filter By">
+                              <option v-for="tournamentType in tournamentTypes" :key="tournamentType">
+                                  {{ tournamentType }}
+                              </option>
+                          </select>
+                        </div>
+                        <div class="col-4">
+                          <p class="card-text">Sort By</p>
+                          <select v-model="filteredSortType" class="form-select btn-valor">
+                            <option v-for="sortType in sortTypes" :key="sortType">
+                              {{ sortType }}
+                            </option>
+                          </select>
+                        </div>
+                    </section>
+                        <div v-if="tournaments.length > 0" class="text-start p-3 col-8">
+                          <form class="form-inline d-flex px-5">
+                            <input v-model="searchEditable" class="form-control mr-sm-2" type="search"
+                                placeholder="Search for your tournament here..." aria-label="Search">
+                            <!-- <button class="btn btn-outline-success mx-3 my-2 my-sm-0" type="submit">Search</button> -->
+                          </form>
                         </div>
                         <div v-else>
-                            <h3 class="text-white my-3">
+                            <h3 class="card-text my-3">
                                 this game currently does not have any active or future tournaments.
                             </h3>
                         </div>
-                    </div>
                 </div>
             </div>
-        </section>
-        <section class="row">
-            <div class="col-12">
-                <section class="row d-flex justify-content-center">
-                    <div class="col-8">
-                        <div class="mb-3" v-for="tournament in tournaments" :key="tournament.id">
-                            <ActiveTournamentCard :tournament="tournament" />
-                        </div>
-                    </div>
-                </section>
+        </div>
+    </section>
+    <section class="row">
+      <div class="col-12">
+        <section class="row d-flex justify-content-center">
+          <div class="col-8">
+            <div class="mb-3" v-for="tournament in tournaments" :key="tournament.id">
+                <ActiveTournamentCard :tournament="tournament" />
             </div>
+          </div>
         </section>
-    </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 
 <script>
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, watchEffect, ref } from 'vue';
-import { logger } from '../utils/Logger';
+import { computed, watchEffect, ref } from 'vue';
 import { gamesService } from '../services/GamesService';
 import Pop from '../utils/Pop';
 import { tournamentsService } from '../services/TournamentsService';
 import ActiveTournamentCard from '../components/ActiveTournamentCard.vue';
+
 export default {
-    setup() {
-        const route = useRoute();
-        // const sortByHighEntrants = ref(true);
-        const sortTypes = ['Entrants (high)', 'Entrants (low)']
-        const tournamentTypes = ['Online only', 'In person'];
-        const searchEditable = ref('');
-        const filteredTournamentType = ref('')
-        watchEffect(() => {
-            route;
-            getGameAndTournamentsById();
-        });
-        watchEffect(() => {
-            searchEditable
-            filterTournaments()
-        });
-        function filterTournaments() {
-            try {
-                tournamentsService.filterTournaments(searchEditable.value)
-            } catch (error) {
-                Pop.error(error)
-            }
-        }
-        async function getGameAndTournamentsById() {
-            try {
-                await gamesService.getGameById(route.params.gameId);
-                await tournamentsService.getTournamentsByGameId(route.params.gameId);
-            }
-            catch (error) {
-                Pop.error(error);
-            }
-        }
-        return {
-            searchEditable,
-            filteredTournamentType,
-            tournamentTypes,
-            sortTypes,
-            game: computed(() => AppState.activeGame),
-            // tournaments: computed(() => AppState.searchedTournaments),
-            tournaments: computed(() => {
-                if (filteredTournamentType.value) {
-                    if(filteredTournamentType.value == 'Online only'){
-                      return AppState.activeTournaments.filter(tournament => tournament.onlineOnly)
-                    }
-                    else{
-                      return AppState.activeTournaments.filter(tournament => tournament.onlineOnly == false)
-                    }
-                    
-                } 
-                else {
-                    return AppState.activeTournaments
-                }
-            }),
-            changeFilterType(tournamentType) {
-                filteredTournamentType.value = tournamentType
-            }
-
-
-
-        };
-    },
-    components: { ActiveTournamentCard }
+  setup() {
+      const route = useRoute();
+      // const sortByHighEntrants = ref(true);
+      const sortTypes = ['Entrants (high)', 'Entrants (low)']
+      const tournamentTypes = ['Online only', 'In person'];
+      const searchEditable = ref('');
+      const filteredTournamentType = ref('')
+      const filteredSortType = ref('')
+      watchEffect(() => {
+          route;
+          getGameAndTournamentsById();
+      });
+      watchEffect(() => {
+          searchEditable
+          filterTournaments()
+      });
+      function filterTournaments() {
+          try {
+              tournamentsService.filterTournaments(searchEditable.value)
+          } catch (error) {
+              Pop.error(error)
+          }
+      }
+      async function getGameAndTournamentsById() {
+          try {
+              await gamesService.getGameById(route.params.gameId);
+              await tournamentsService.getTournamentsByGameId(route.params.gameId);
+          }
+          catch (error) {
+              Pop.error(error);
+          }
+      }
+      return {
+          searchEditable,
+          filteredTournamentType,
+          tournamentTypes,
+          sortTypes,
+          filteredSortType,
+          game: computed(() => AppState.activeGame),
+          tournaments: computed(() => {
+              if (filteredTournamentType.value) {
+                let filteredAndSortedTournaments = AppState.activeTournaments
+                  if(filteredTournamentType.value == 'Online only'){
+                    filteredAndSortedTournaments = AppState.activeTournaments.filter(tournament => tournament.onlineOnly)
+                  }
+                  else{
+                    filteredAndSortedTournaments =  AppState.activeTournaments.filter(tournament => tournament.onlineOnly == false)
+                  }
+                  if(filteredSortType.value == 'Entrants (high)'){
+                    filteredAndSortedTournaments.sort((t1,t2) => t1.playerCount - t2.playerCount)
+                  }
+                  else{
+                    filteredAndSortedTournaments.sort((t1,t2) => t2.playerCount - t1.playerCount)
+                  }
+                  return filteredAndSortedTournaments
+              } 
+              else {
+                  return AppState.activeTournaments
+              }
+          }),
+      };
+  },
+  components: { ActiveTournamentCard }
 };
 </script>
 
@@ -140,11 +150,18 @@ img {
     height: 15rem;
 }
 
-.coolBg {
-    background-color: #444444;
+.btn-valor {
+    background-color: #2ca58d;
+    color: white;
+    font-weight: bold;
 }
 
-.color-match {
-    background-color: #2ca58d;
+p{
+  margin-bottom: 0;
+}
+
+.card-text{
+  color: white;
+  text-shadow: 1px 0px 5px black;
 }
 </style>
