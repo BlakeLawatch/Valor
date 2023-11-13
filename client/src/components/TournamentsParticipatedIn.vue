@@ -37,7 +37,6 @@ import { logger } from '../utils/Logger';
 export default {
     setup(){
     onMounted(()=>{
-        AppState.tournamentsParticipatedIn = [],
         getParticipatedIn()
     })
     async function getParticipatedIn(){

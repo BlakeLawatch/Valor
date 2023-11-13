@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { computed, onMounted} from 'vue';
+import { computed, onMounted, onUnmounted} from 'vue';
 import { AppState } from '../AppState';
 import ProfileCardVue from '../components/ProfileCard.vue'
 import TournamentsCreatedByMe from '../components/TournamentsCreatedByMe.vue';
@@ -45,6 +45,9 @@ export default {
     const route = useRoute()
     onMounted(()=>{
       getProfileById()
+    })
+    onUnmounted(()=>{
+      AppState.profile = []
     })
     async function getProfileById(){
       try {
