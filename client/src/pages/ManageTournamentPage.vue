@@ -154,10 +154,7 @@
                             </div>
                             <input v-model="tournamentEditable.isLocked" type="checkbox" class="rounded" id="isLocked">
                             <div class="mb-1">
-                                <div>
-                                    <label>Cancel Tournament</label>
-                                </div>
-                                <button @click.prevent="cancelTournament()" class="btn btn-danger" title="cancel tournament">🗑️</button>
+                                <button @click.prevent="cancelTournament()" class="btn btn-danger" title="cancel tournament">Cancel Tournament</button>
                             </div>
                         </div>
                     </div>
@@ -167,7 +164,7 @@
 
                     <!-- SECTION form button -->
                     <div class="p-2 text-end">
-                        <button type="submit" title="submit edit" class="btn btn-success">Submit Edit</button>
+                            <button type="submit" title="submit edit" class="btn btn-success">Submit Edit</button>
                     </div>
                 </form>
             </div>
