@@ -1,7 +1,7 @@
 <template>
     <div class="row text-light p-2 w-100">
         <div class="d-flex">
-            <p class="fs-5">Tournaments that {{ account.name }} has participated in:</p>
+            <p class="fs-5">Tournaments that {{ profile.name }} has participated in:</p>
             <div class="dropdown">
                 <!-- TODO figure out how to filter these -->
                 <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
@@ -42,7 +42,7 @@ export default {
     })
     async function getParticipatedIn(){
         try {
-            const accountId = AppState.account.id
+            const accountId = AppState.profile.id
             await playersService.getParticipatedIn(accountId)
             logger.log(AppState.tournamentsParticipatedIn)
         } catch (error) {
@@ -53,6 +53,7 @@ export default {
     return {
         account: computed(() => AppState.account),
         participatedIn: computed(()=> AppState.tournamentsParticipatedIn),
+        profile: computed(()=> AppState.profile),
     }
     }
 };
