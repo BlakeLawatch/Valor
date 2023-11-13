@@ -10,7 +10,7 @@
   Search
 </p> -->
         <form @submit.prevent="homeSearch()" class="form-inline d-flex">
-          <input v-model="editable" class="form-control mr-sm-2" required type="search" placeholder="Search"
+          <input v-model="editable" maxlength="50" class="form-control mr-sm-2" required type="search" placeholder="Search"
             aria-label="Search">
           <button class="btn my-2 my-sm-0 ms-3 color-match text-light" type="submit">Search</button>
         </form>
@@ -25,6 +25,9 @@
             <GameCard :game="game" />
           </div>
         </section>
+      </div>
+      <div v-if="checkGames == 'nothing'">
+<p class="text-white">No Games Named {{ noName }}</p>
       </div>
       <div v-if="searchedTournaments.length > 0" class="col-md-8 col-12">
         <h1 class="text-white mt-5">
@@ -95,7 +98,10 @@ import { accountService } from '../services/AccountService';
 export default {
   setup() {
     const editable = ref('');
+    const inputName = ref('')
+    const checkGames = ref('')
     const route = useRoute()
+
 
     watchEffect(() => {
       route
@@ -119,8 +125,11 @@ export default {
 
 
     return {
+      inputName,
       editable,
+      checkGames,
       tournaments: computed(() => AppState.activeTournaments),
+      noName: computed(()=> inputName),
       activeTournaments: computed(() => AppState.activeTournaments.filter(tournament => tournament.startDate <= new Date() && tournament.endDate > new Date())),
       // { startDate: { $gt: new Date().getUTCDate() } }).limit(10)
       games: computed(() => AppState.games),
@@ -128,9 +137,11 @@ export default {
       profiles: computed(() => AppState.profiles),
       async homeSearch() {
         try {
+          inputName.value = editable.value
           const body = { search: editable.value };
           const query = { name: editable.value }
-          await gamesService.homeSearch(body);
+          const isGames = await gamesService.homeSearch(body);
+          checkGames.value = isGames
           await accountService.searchByPlayerName(query)
           await tournamentsService.searchTournamentsByName(query)
         }

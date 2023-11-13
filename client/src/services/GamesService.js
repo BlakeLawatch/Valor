@@ -6,10 +6,10 @@ import { api } from "./AxiosService"
 class GamesService{
 
     async getGameOptions(body){
-        logger.log('body', body)
+        // logger.log('body', body)
         const newBody = {search: body}
         const res = await api.post('api/twitch', newBody)
-logger.log('searched games', res.data)
+// logger.log('searched games', res.data)
 AppState.createFormGames = res.data.map(g => new Game(g))
     }
 
@@ -20,8 +20,15 @@ AppState.createFormGames = res.data.map(g => new Game(g))
 
 async homeSearch(body){
     const res = await api.post('api/twitch', body)
-    // logger.log("game", res.data)
-    AppState.games = res.data.map(g=> new Game(g))
+    logger.log("game", res.data)
+    if(!res.data[0]){
+        AppState.games = res.data
+        return 'nothing'
+    }
+    else{
+        AppState.games = res.data.map(g=> new Game(g))
+        return 'something'
+    }
     // logger.log(AppState.games)
 
 }
