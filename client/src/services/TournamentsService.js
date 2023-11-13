@@ -93,6 +93,12 @@ clearData() {
     AppState.activeTournament = null
 }
 
+async registerForTournament(tournamentId){
+    const res = await api.post('api/players', {tournamentId})
+    logger.log('registered', res.data)
+    AppState.activeTournament.playerCount++
+}
+
 }
 
 
