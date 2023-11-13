@@ -4,8 +4,8 @@
             <div class="col-12 text-center">
                 <h1 class="text-white underline">{{ tournament.name }}</h1>
             </div>
-            <div class="col-12 d-flex justify-content-center mt-3">
-                <form @submit.prevent="editActiveTournament()" class="editFormCard w-100">
+            <div class="col-12 d-flex justify-content-center mt-3 rounded">
+                <form @submit.prevent="editActiveTournament()" class="editFormCard rounded w-100">
                     <div class="d-flex ">
                         <div class="text-white p-2 col-4">
                             <div class="mb-1">
@@ -147,6 +147,7 @@ export default {
                 const tournamentId = route.params.tournamentId
                 const tournamentData = tournamentEditable.value
                 await tournamentsService.editActiveTournament(tournamentData, tournamentId)
+                // logger.log("I editied the page, good job")
                 Pop.success('You done did edit the page')
             } catch (error) {
                 Pop.error(error)
@@ -169,9 +170,9 @@ export default {
 
 .editFormCard{
 background-color: rgb(68, 68, 68);
-box-shadow: 0px 5px 6px black;
+box-shadow: 0px 5px 4px #2ca58d;
 
-border: 1px solid #2ca58d ;
+border: 1.5px solid #2ca58d ;
 }
 
 </style>
