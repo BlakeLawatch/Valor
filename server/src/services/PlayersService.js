@@ -56,7 +56,7 @@ class PlayersService {
 
   async deletePlayerById(playerId) {
     const player = await dbContext.Players.findById(playerId)
-    player.remove()
+    await player.remove()
     return `Player with id: ${playerId} has been deleted`
   }
 

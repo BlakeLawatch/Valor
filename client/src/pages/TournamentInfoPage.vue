@@ -10,7 +10,7 @@
     <div class="col-12 d-flex justify-content-between align-items-center my-2">
       <div>
         <p class="fs-5">{{ activeTournament.address }}</p>
-        <p>{{ activeTournament.playerCount?.toLocaleString() }} Entrant 
+        <p>{{ players.length }} Entrant 
           <span v-if="activeTournament.playerCount > 1">s</span>
         </p>
       </div>
@@ -52,10 +52,13 @@
         </div>
       </div>
       <div class="col-2">
-        <button @click="registerForTournament()" v-if="activeTournament.creatorId != account.id" :disabled="activeTournament.startDate.toLocaleDateString() < new Date().toLocaleDateString()" class="btn btn-valor w-100">Register</button>
-        <RouterLink v-else  :to="{name: 'ManageTournament', params: {tournamentId: activeTournament.id}}">
+        <RouterLink v-if="activeTournament.creatorId == account.id"  :to="{name: 'ManageTournament', params: {tournamentId: activeTournament.id}}">
           <button class="btn btn-valor w-100">Edit</button>
         </RouterLink>
+        <div v-else>
+          <button @click="registerForTournament()" v-if="players.find(p=> p.accountId == account.id) == null" :disabled="activeTournament.startDate.toLocaleDateString() < new Date().toLocaleDateString()" class="btn btn-valor w-100">Register</button>
+          <button @click="unregisterForTournament(players.find(p=> p.accountId == account.id))" v-else :disabled="activeTournament.startDate.toLocaleDateString() < new Date().toLocaleDateString()" class="btn btn-danger w-100">Unregister</button>
+        </div>
       </div>
     </div>
   </section>
@@ -70,6 +73,7 @@ import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue';
 import Pop from "../utils/Pop";
 import {tournamentsService} from "../services/TournamentsService.js"
 import {playersService} from "../services/PlayersService.js"
+import { logger } from "../utils/Logger";
 
 export default {
   setup(){
@@ -127,12 +131,26 @@ export default {
       players: computed(()=> AppState.playersInActiveTournament),
       async registerForTournament(){
         try {
+          // TODO MAKE THROW ERROR IF ALREADY REGISTERED
           const yes = await Pop.confirm('Are you sure you would like to register for this event?')
           if(!yes){
             return
           }
           await tournamentsService.registerForTournament(route.params.tournamentId)
           Pop.success('You have successfully registered for this event!')
+        } catch (error) {
+          Pop.error(error)
+        }
+      },
+      async unregisterForTournament(account){
+        try {
+          const yes = await Pop.confirm('Are you sure you would like to cancel your registration for this event?')
+          if(!yes){
+            return
+          }
+          logger.log('account', account)
+          await tournamentsService.unregisterForTournament( account.id)
+          Pop.success('Successfully unregistered for this event')
         } catch (error) {
           Pop.error(error)
         }

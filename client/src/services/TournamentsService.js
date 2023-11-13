@@ -1,5 +1,6 @@
 // import { applyStyles } from "@popperjs/core"
 import { AppState } from "../AppState"
+import { Player } from "../models/Player"
 import { Tournament } from "../models/Tournament"
 import { logger } from "../utils/Logger"
 // import Pop from "../utils/Pop"
@@ -95,8 +96,14 @@ clearData() {
 
 async registerForTournament(tournamentId){
     const res = await api.post('api/players', {tournamentId})
-    logger.log('registered', res.data)
-    AppState.activeTournament.playerCount++
+    // FIXME MAKE SEEDING HANDLED IN THE BACK END
+    res.data.seed = AppState.playersInActiveTournament.length + 1
+    AppState.playersInActiveTournament.push(new Player(res.data))
+}
+
+async unregisterForTournament( playerId){
+    const res = await api.delete(`api/players/${playerId}`)
+   AppState.playersInActiveTournament =  AppState.playersInActiveTournament.filter(t=> t.id != playerId)
 }
 
 }
