@@ -4,7 +4,7 @@
       <div class="col-2 dark-bg ">
 <div  v-for="dev in devs" :key="dev">
 <div @click="changeActiveDev(dev)" class="mx-3 my-4 card-bg d-flex align-items-center text-white p-2 rounded">
-<img class="dev-img rounded-circle" :src="dev.picture" alt="Developer Picture">
+<img class="dev-side-img rounded-circle" :src="dev.picture" alt="Developer Picture">
 <p class="ps-3">
   {{ dev.name }}
 </p>
@@ -20,13 +20,10 @@
   
    
 </div>
-<div>
-  <div class="bg-dark mx-3">
-<p>card thing</p>
-<p>{{ currentDev }}</p>
-  </div>
-  <div>
-    name
+<div class="w-75">
+  <div class="card-bg mx-3">
+<img class="rounded-circle dev-img" :src="currentDev.picture" alt="Developer Picture">
+<p>{{ currentDev.name }}</p>
   </div>
   <div>
     bio
@@ -62,9 +59,6 @@ export default {
       devs,
       changeActiveDev(dev){
         playersService.changeActiveDev(dev)
-      },
-      test(){
-        logger.log('test')
       }
 
     }
@@ -76,6 +70,12 @@ export default {
 <style lang="scss" scoped>
 
 .dev-img{
+  height: 8rem;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.dev-side-img{
   height: 5rem;
   aspect-ratio: 1/1;
   object-fit: cover;
