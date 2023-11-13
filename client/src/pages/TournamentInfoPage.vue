@@ -16,7 +16,10 @@
       </div>
       <div class="text-end">
         <p class="fs-5">{{ activeTournament.gameName }}</p>
-        <p>
+        <p v-if="activeTournament.startDate.toLocaleDateString() == activeTournament.endDate.toLocaleDateString()">
+{{ activeTournament.startDate.toLocaleDateString() }}
+        </p>
+        <p v-else>
           {{ activeTournament.startDate?.toLocaleDateString() }}
           -
           <span v-if="activeTournament.endDate < activeTournament.startDate">TBD</span>
@@ -45,11 +48,12 @@
           </p>
         </div>
       </div>
-      <!-- <div class="col-2">
-        <button v-if="" class="btn btn-valor w-100">Register</button>
-        <button v-else-if="activeTournament.creatorId == account.id" class="btn btn-valor w-100">Edit</button>
-        <button v-else :disabled="activeTournament.signUpDeadline < new Date()" class="btn btn-valor w-100">Register</button>
-      </div> -->
+      <div class="col-2">
+        <button @click="registerForTournament()" v-if="activeTournament.creatorId != account.id" :disabled="activeTournament.startDate.toLocaleDateString() < new Date().toLocaleDateString()" class="btn btn-valor w-100">Register</button>
+        <RouterLink v-else  :to="{name: 'ManageTournament', params: {tournamentId: activeTournament.id}}">
+          <button class="btn btn-valor w-100">Edit</button>
+        </RouterLink>
+      </div>
     </div>
   </section>
 </div>
@@ -116,7 +120,10 @@ export default {
       activeTournament: computed(() => AppState.activeTournament),
       countdown,
       account: computed(() => AppState.account),
-      players: computed(()=> AppState.playersInActiveTournament)
+      players: computed(()=> AppState.playersInActiveTournament),
+      async registerForTournament(){
+await tournamentsService.registerForTournament(this.account.id)
+      }
     }
   }
 };
