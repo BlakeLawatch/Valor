@@ -8,11 +8,15 @@ import { api } from "./AxiosService"
 class TournamentsService{
 
     async sortByNew(){
-        logger.log(AppState.tournamentsParticipatedIn)
         await AppState.tournamentsParticipatedIn.sort((a, b)=>{
-            return new Date(a.startDate) - new Date(b.startDate) 
+            return new Date(a.tournament.startDate) - new Date(b.tournament.startDate) 
         })
-        logger.log(AppState.tournamentsParticipatedIn)
+        return AppState.tournamentsParticipatedIn
+    }
+    async sortByOld(){
+        await AppState.tournamentsParticipatedIn.sort((a, b)=>{
+            return new Date(b.tournament.startDate) - new Date(a.tournament.startDate) 
+        })
         return AppState.tournamentsParticipatedIn
     }
     async getActiveTournaments(){

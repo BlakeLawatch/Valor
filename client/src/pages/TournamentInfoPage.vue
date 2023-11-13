@@ -27,25 +27,29 @@
     <div class="col-12 my-3">
       <p>{{ activeTournament.description }}</p>
     </div>
-    <div class="col-12 d-flex justify-content-between align-items-center my-2">
-      <div class="">
-        <p class="fs-5">$
-          <span v-if="activeTournament.prizePool" class="fw-bold">{{ activeTournament.prizePool }} </span>
-          <span v-else class="fw-bold">TBD </span>
-          Prize Pool
-        </p>
-        <p>Entry fee: $
-          <span v-if="activeTournament.entryPrice">{{ activeTournament.entryPrice }}</span>
-          <span v-else>TBD</span>
-        </p>
-        <p>Registration ends: 
-          <span v-if="activeTournament.signUpDeadline">{{ activeTournament.signUpDeadline?.toLocaleDateString() }}</span>
-          <span v-else>TBD</span>
-        </p>
+    <div class="d-flex justify-content-between align-items-center my-2">
+      <div class="col-10">
+        <div class="">
+          <p class="fs-5">$
+            <span v-if="activeTournament.prizePool" class="fw-bold">{{ activeTournament.prizePool }} </span>
+            <span v-else class="fw-bold">TBD </span>
+            Prize Pool
+          </p>
+          <p>Entry fee: $
+            <span v-if="activeTournament.entryPrice">{{ activeTournament.entryPrice }}</span>
+            <span v-else>TBD</span>
+          </p>
+          <p>Registration ends: 
+            <span v-if="activeTournament.signUpDeadline">{{ activeTournament.signUpDeadline?.toLocaleDateString() }}</span>
+            <span v-else>TBD</span>
+          </p>
+        </div>
       </div>
-      <div class="">
-        <button :disabled="activeTournament.signUpDeadline < new Date()" class="btn btn-success">Register</button>
-      </div>
+      <!-- <div class="col-2">
+        <button v-if="" class="btn btn-valor w-100">Register</button>
+        <button v-else-if="activeTournament.creatorId == account.id" class="btn btn-valor w-100">Edit</button>
+        <button v-else :disabled="activeTournament.signUpDeadline < new Date()" class="btn btn-valor w-100">Register</button>
+      </div> -->
     </div>
   </section>
 </div>
@@ -55,25 +59,40 @@
 <script>
 import { useRoute } from "vue-router";
 import { AppState } from '../AppState';
-import { computed, onMounted, ref, watchEffect } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue';
 import Pop from "../utils/Pop";
 import {tournamentsService} from "../services/TournamentsService.js"
+import {playersService} from "../services/PlayersService.js"
 
 export default {
   setup(){
     const route = useRoute()
     let countdown = ref('')
-    onMounted(()=> {
-      setInterval(getCountdownTime, 1000)
+    let countdownInterval = null
+    onMounted(() => {
+      countdownInterval = setInterval(getCountdownTime, 1000)
     })
-    watchEffect(()=> {
+    watchEffect(() => {
       route
       getTournamentById()
+      getPlayersByTournamentId()
+    })
+    onUnmounted(() => {
+      clearInterval(countdownInterval)
     })
     async function getTournamentById(){
       try {
         const tournamentId = route.params.tournamentId
         await tournamentsService.getTournamentById(tournamentId)
+      } 
+      catch (error) {
+        Pop.error(error)
+      }
+    }
+    async function getPlayersByTournamentId(){
+      try {
+        const tournamentId = route.params.tournamentId
+        await playersService.getPlayersByTournamentId(tournamentId)
       } 
       catch (error) {
         Pop.error(error)
@@ -95,7 +114,9 @@ export default {
     }
     return {
       activeTournament: computed(() => AppState.activeTournament),
-      countdown
+      countdown,
+      account: computed(() => AppState.account),
+      players: computed(()=> AppState.playersInActiveTournament)
     }
   }
 };
@@ -117,6 +138,11 @@ p{
 
 .timer{
   text-shadow: 0px 0px 7px black;
+}
+
+.btn-valor{
+  background-color: #2ca58d;
+  border: 0;
 }
 
 </style>
