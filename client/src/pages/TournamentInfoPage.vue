@@ -2,7 +2,7 @@
 <div v-if="activeTournament" class="container-fluid px-5 py-4">
   <section class="row text-light card-bg rounded p-2">
     <div class="col-12 py-2 px-0 banner-img d-flex align-items-center justify-content-center" :style="{backgroundImage: 'url(' + activeTournament.imgUrl + ')'}">
-      <p class="fs-1 timer">{{ activeTournament.countdownTime }}</p>
+      <p class="fs-1 timer">{{ countdown }}</p>
     </div>
     <div class="col-12 mt-3 text-center">
       <h2>{{ activeTournament.name }}</h2>
@@ -38,13 +38,17 @@
 <script>
 import { useRoute } from "vue-router";
 import { AppState } from '../AppState';
-import { computed, watchEffect } from 'vue';
+import { computed, onMounted, ref, watchEffect } from 'vue';
 import Pop from "../utils/Pop";
 import {tournamentsService} from "../services/TournamentsService.js"
 
 export default {
   setup(){
     const route = useRoute()
+    let countdown = ref('')
+    onMounted(()=> {
+      setInterval(getCountdownTime, 1000)
+    })
     watchEffect(()=> {
       route
       getTournamentById()
@@ -58,8 +62,24 @@ export default {
         Pop.error(error)
       }
     }
+    function getCountdownTime(){
+      const countdownDifference =  AppState.activeTournament.startDate.getTime() - new Date().getTime()
+      let days = Math.floor(countdownDifference / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((countdownDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((countdownDifference % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((countdownDifference % (1000 * 60)) / 1000);
+      if(countdownDifference < 0){
+        days = 0
+        hours = 0
+        minutes = 0
+        seconds = 0
+      }
+
+      countdown.value = `${days}d ${hours}h ${minutes}m ${seconds}s`
+    }
     return {
-      activeTournament: computed(() => AppState.activeTournament)
+      activeTournament: computed(() => AppState.activeTournament),
+      countdown
     }
   }
 };

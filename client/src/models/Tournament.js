@@ -30,16 +30,6 @@ export class Tournament {
         this.game = data.game
         this.playerCount = data.playerCount
     }
-    get countdownTime(){
-      const countdownDifference =  this.startDate.getTime() - new Date().getTime()
-      const days = Math.floor(countdownDifference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((countdownDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((countdownDifference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((countdownDifference % (1000 * 60)) / 1000);
-
-      const countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`
-      return countdown
-    }
 }
 
 
