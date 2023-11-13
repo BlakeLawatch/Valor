@@ -1,8 +1,10 @@
 <template>
-    <div class="col-10 mt-4" :style="{backgroundImage: `url(${profile.coverImg})`, objectPosition: `center`, objectFit: `cover`, backgroundSize: `cover`}">
-        <img class="rounded-circle account-picture" :src="profile.picture" alt="" />
+    <div class="col-10 mt-4 d-flex flex-column justify-content-end" :style="{backgroundImage: `url(${profile.coverImg})`, objectPosition: `center`, objectFit: `cover`, backgroundSize: `cover`}">
+        <div>
+            <img class="rounded-circle account-picture" :src="profile.picture" alt="" />
+        </div>
         <div class="row account-info-card d-flex justify-content-end">
-            <div class=" col-12 col-md-7 p-4 pe-2 d-flex flex-column">
+            <div class=" col-10 p-4 pe-2 d-flex flex-column">
             <h1 class=" pt-5 pt-0-md text-start">{{ profile.name }}</h1>
             <p class="text-start">{{ profile.bio }}</p>
             </div>
@@ -45,16 +47,12 @@ export default {
 
 
 <style lang="scss" scoped>
-.cover-image{
-object-fit: cover;
-object-position: center;
-}
+
 .account-picture{
 height: 8rem;
 width: 8rem;
 position: relative;
-right: -1%;
-top: 26%;
+top: 45%;
 }
 
 .account-info-card{
@@ -66,7 +64,7 @@ max-height: 60rem;
 .account-picture{
 height: 8rem;
 width: 8rem;
-top: 15%;
+top: 40%;
 }
 .cover-image{
 height: 15rem;
