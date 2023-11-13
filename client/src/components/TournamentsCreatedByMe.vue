@@ -4,9 +4,8 @@
         <div class="dropdown">
             <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTournaments" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu" aria-labelledby="filterMyTournaments">
-                <li type="button"><a class="dropdown-item">Sort By Default</a></li>
-                <li type="button"><a class="dropdown-item color-match text-light">Sort by New</a></li>
-                <li type="button"><a class="dropdown-item">Sort By Old</a></li>
+                <li @click="sortByNew()" type="button"><a class="dropdown-item color-match text-light">Sort by New</a></li>
+                <li @click="sortByOld()" type="button"><a class="dropdown-item">Sort By Old</a></li>
             </ul>
         </div>
     </div>
@@ -33,7 +32,7 @@ import { AppState } from '../AppState';
 import { computed, onMounted} from 'vue';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
-import { tournamentsService } from '../services/TournamentsService';
+import { tournamentsService } from '../services/TournamentsService.js';
 export default {
     setup(){
         onMounted(()=>{
@@ -56,6 +55,7 @@ export default {
         profile: computed(()=> AppState.profile),
         async sortByNew(){
             try {
+                // debugger
                 await tournamentsService.sortMyTournamentsByNew()
             } catch (error) {
                 Pop.error(error)
@@ -70,14 +70,6 @@ export default {
                 logger.error(error)
             }
         },
-        async sortByDefault(){
-            try {
-                await tournamentsService.sortMyTournamentsByDefault()
-            } catch (error) {
-                Pop.error(error)
-                logger.error(error)
-            }
-        }
     }
     }
 };
