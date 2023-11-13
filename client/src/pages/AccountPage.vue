@@ -10,10 +10,8 @@
           <div class="dropdown">
             <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTournaments" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu" aria-labelledby="filterMyTournaments">
-              <li><a class="dropdown-item" href="#">Newest</a></li>
-              <li><a class="dropdown-item" href="#">Oldest</a></li>
-              <li><a class="dropdown-item" href="#">Past</a></li>
-              <li><a class="dropdown-item" href="#">Future</a></li>
+              <li><a class="dropdown-item color-match text-light" href="#">Sort by New</a></li>
+              <li><a class="dropdown-item" href="#">Sort By Old</a></li>
             </ul>
           </div>
         </div>

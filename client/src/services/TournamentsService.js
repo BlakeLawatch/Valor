@@ -1,12 +1,20 @@
-import { applyStyles } from "@popperjs/core"
+// import { applyStyles } from "@popperjs/core"
 import { AppState } from "../AppState"
 import { Tournament } from "../models/Tournament"
 import { logger } from "../utils/Logger"
-import Pop from "../utils/Pop"
+// import Pop from "../utils/Pop"
 import { api } from "./AxiosService"
 
 class TournamentsService{
 
+    async sortByNew(){
+        logger.log(AppState.tournamentsParticipatedIn)
+        await AppState.tournamentsParticipatedIn.sort((a, b)=>{
+            return new Date(a.startDate) - new Date(b.startDate) 
+        })
+        logger.log(AppState.tournamentsParticipatedIn)
+        return AppState.tournamentsParticipatedIn
+    }
     async getActiveTournaments(){
         AppState.activeTournaments = []
         const res = await api.get(`api/tournaments`)

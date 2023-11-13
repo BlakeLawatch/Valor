@@ -6,10 +6,8 @@
                 <!-- TODO figure out how to filter these -->
                 <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
                 <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
-                    <li type="button"><a class="dropdown-item color-match text-light">Sort by New</a></li>
+                    <li @click="sortByNew()" type="button"><a class="dropdown-item color-match text-light">Sort by New</a></li>
                     <li type="button"><a class="dropdown-item">Sort By Old</a></li>
-                    <li type="button"><a class="dropdown-item color-match text-light">Past</a></li>
-                    <li type="button"><a class="dropdown-item">Future</a></li>
                 </ul>
             </div>
         </div>
@@ -33,6 +31,7 @@ import { computed, onMounted } from 'vue';
 import { playersService } from '../services/PlayersService';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
+import { tournamentsService } from '../services/TournamentsService';
 export default {
     setup(){
     onMounted(()=>{
@@ -52,6 +51,14 @@ export default {
         account: computed(() => AppState.account),
         participatedIn: computed(()=> AppState.tournamentsParticipatedIn),
         profile: computed(()=> AppState.profile),
+        async sortByNew(){
+            try {
+                await tournamentsService.sortByNew()
+            } catch (error) {
+                Pop.error(error)
+                logger.error(error)
+            }
+        }
     }
     }
 };
