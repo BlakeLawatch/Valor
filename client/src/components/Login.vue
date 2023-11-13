@@ -39,6 +39,8 @@
 import { computed } from 'vue'
 import { AppState } from '../AppState'
 import { AuthService } from '../services/AuthService'
+import { playersService } from '../services/PlayersService'
+import { tournamentsService } from '../services/TournamentsService'
 export default {
   setup() {
     return {
@@ -53,6 +55,12 @@ export default {
       async rescueProfilePage(){
         if(AppState.profile.id){
           AppState.profile = AppState.account
+          AppState.tournamentsParticipatedIn = []
+          AppState.myTournaments = []
+          const accountId = AppState.profile.id
+          await playersService.getParticipatedIn(accountId)
+          await tournamentsService.getMyTournaments(accountId)
+
         }
       }
     }
