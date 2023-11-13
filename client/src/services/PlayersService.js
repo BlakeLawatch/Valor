@@ -15,6 +15,13 @@ async getParticipatedIn(accountId){
     }
 }
 
+async getPlayersByTournamentId(tournamentId){
+  const res = await api.get(`api/tournaments/${tournamentId}/players`)
+  const players = res.data.map(obj => new Player(obj))
+  logger.log('[PLAYERS SERVICE] got players in active tournaments', players)
+  AppState.playersInActiveTournament = players
+}
+
 changeActiveDev(dev){
     AppState.activeDev = dev
 }

@@ -44,13 +44,73 @@
                     <input v-model="tournamentEditable.prizePool" type="text" class="rounded" id="prizePool" maxlength="10000">
                 </div>
 
+                <div class="text-white p-2 col-4">
+                    <div class="mb-1">
+                        <label for="imgUrl">Image</label>
+                    </div>
+                    <input v-model="tournamentEditable.imgUrl" type="url" class="rounded" id="imgUrl" maxlength="1000">
+                </div>
+
+
+            </div>
+
+            <div class="d-flex">
+
+                
+                <div class="text-white p-2 col-4">
+                        <div class="mb-1">
+                        <label for="facebookUrl">Facebook Link <i class="mdi mdi-facebook"></i> </label>
+                    </div>
+                    <input v-model="tournamentEditable.facebookUrl" type="url" class="rounded" id="facebookUrl" maxlength="10000">
+                </div>
+                
+                <div class="text-white p-2 col-4">
+                        <div class="mb-1">
+                        <label for="instagramUrl">Instagram Link <i class="mdi mdi-instagram"></i> </label>
+                    </div>
+                    <input v-model="tournamentEditable.instagramUrl" type="url" class="rounded" id="instagramUrl" maxlength="10000">
+                </div>
+
+                <div class="text-white p-2 col-4">
+                        <div class="mb-1">
+                        <label for="twitterUrl">Twitter Link <i class="mdi mdi-twitter"></i></label>
+                    </div>
+                    <input v-model="tournamentEditable.twitterUrl" type="url" class="rounded" id="twitterUrl" maxlength="10000">
+                </div>
+                
+                
+            </div>
+
+
+            <div class="d-flex">
+            
                     <div class="text-white p-2 col-4">
                         <div class="mb-1">
-                        <label for="liveStreamUrl">Livestream Link</label>
+                        <label for="youtubeUrl">YouTube Link <i class="mdi mdi-youtube"></i> </label>
+                    </div>
+                    <input v-model="tournamentEditable.youtubeUrl" type="url" class="rounded" id="youtubeUrl" maxlength="10000">
+                   </div>
+
+
+
+                <div class="text-white p-2 col-4">
+                        <div class="mb-1">
+                        <label for="liveStreamUrl">Livestream Link <i class="mdi mdi-twitch"></i> </label>
                     </div>
                     <input v-model="tournamentEditable.liveStreamUrl" type="url" class="rounded" id="liveStreamUrl" maxlength="10000">
                 </div>
-            </div>
+               
+                        <div class="text-white p-2 col-4">
+                            <div class="mb-1">
+                                <label for="region" class="form-label">Region</label>
+                            </div>
+                            <select v-model="tournamentEditable.region" class="form-select"  name="" id="" >
+                                <option :value="region" v-for="region in region" :key="region">{{ region }}</option>
+                            </select>
+                        </div>
+
+                        
+                    </div>
 
             <div class="d-flex">
                     <div class="text-white p-2 col-4">
@@ -74,31 +134,14 @@
                     <input v-model="tournamentEditable.signUpDeadline" type="date" class="rounded" :min="todaysDate" id="signUpDeadline">
                 </div>  
             </div>
-                    <div class="d-flex">
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="region" class="form-label">Region</label>
-                            </div>
-                            <select v-model="tournamentEditable.region" class="form-select"  name="" id="" >
-                                <option :value="region" v-for="region in region" :key="region">{{ region }}</option>
-                            </select>
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="gameImg">Image</label>
-                            </div>
-                            <input v-model="tournamentEditable.gameImg" type="url" class="rounded" id="gameImg" maxlength="1000">
-                        </div>
-                        
-                    </div>
+                    
                     <div class="d-flex">
                         
                         <div class="text-white p-2 col-8">
                             <div class="mb-1">
                                 <label for="description">Description</label>
                             </div>
-                            <textarea v-model="tournamentEditable.description" type="url" class="rounded" cols="105" rows="7" id="description" maxlength="1000"></textarea>
+                            <textarea v-model="tournamentEditable.description" type="text" class="rounded" cols="105" rows="7" id="description" maxlength="1000"></textarea>
                         </div>
                         
                         <div class="text-white p-2 col-4 form-check">

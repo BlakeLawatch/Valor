@@ -3,7 +3,7 @@
         <div>
             <img class="rounded-circle account-picture" :src="profile.picture" alt="" />
         </div>
-        <div class="row account-info-card d-flex justify-content-end">
+        <div class="row account-info-card d-flex">
             <div class=" col-10 p-4 pe-2 d-flex flex-column">
             <h1 class=" pt-5 pt-0-md text-start">{{ profile.name }}</h1>
             <p class="text-start">{{ profile.bio }}</p>
@@ -49,30 +49,29 @@ export default {
 <style lang="scss" scoped>
 
 .account-picture{
-height: 8rem;
-width: 8rem;
+height: 11rem;
+width: 11rem;
 position: relative;
+right:-1%;
 top: 45%;
 }
 
 .account-info-card{
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
-max-height: 60rem;
+max-height: max-content;
+justify-content: end;
 }
 @media (max-width: 823px){
 .account-picture{
-height: 8rem;
-width: 8rem;
+height: 11rem;
+width: 11rem;
 top: 40%;
-}
-.cover-image{
-height: 15rem;
-object-fit: cover;
-object-position: center;
+right: -20%;
 }
 .account-info-card{
 max-height: max-content;
+justify-content: center;
 }
 
 }
