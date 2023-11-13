@@ -32,7 +32,7 @@
         </h1>
         <section class="row">
           <div class="col-12 mt-4">
-            <div v-for="tournament in searchedTournaments" :key="tournament.id">
+            <div class="mt-4" v-for="tournament in searchedTournaments" :key="tournament.id">
               <ActiveTournamentCard :tournament="tournament" />
             </div>
           </div>
