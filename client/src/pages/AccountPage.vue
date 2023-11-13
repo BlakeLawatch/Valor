@@ -44,10 +44,11 @@ export default {
   setup() {
     const route = useRoute()
     onMounted(()=>{
+      AppState.profile = {},
       getProfileById()
     })
     onUnmounted(()=>{
-      AppState.profile = []
+      AppState.profile = {}
     })
     async function getProfileById(){
       try {

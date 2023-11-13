@@ -18,8 +18,8 @@
                 Create 
             </button>
             </div>
-            <router-link v-if="account.id" :to="{name: 'Account', params: {accountId: account.id}}">
-              <div class="list-group-item dropdown-item list-group-item-action text-light coolBg">
+            <router-link @click="rescueProfilePage()" v-if="account.id" :to="{name: 'Account', params: {accountId: account.id}}">
+              <div type="button" class="list-group-item dropdown-item list-group-item-action text-light coolBg">
                 Manage Account
               </div>
 
@@ -49,7 +49,8 @@ export default {
       },
       async logout() {
         AuthService.logout({ returnTo: window.location.origin })
-      }
+      },
+      
     }
   }
 }
