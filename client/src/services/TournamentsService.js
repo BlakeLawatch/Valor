@@ -57,6 +57,11 @@ class TournamentsService{
 
     }
 
+    async cancelTournament(tournamentId) {
+        await api.delete(`api/tournaments/${tournamentId}`)
+        AppState.activeTournament = AppState.activeTournament.filter((tournament) => tournament.id != tournamentId)
+    }
+
     async searchTournamentsByName(query){
         const res = await api.get(`api/tournaments/query?name=${query.name}`)
         logger.log('searched touneys', res.data)
@@ -71,7 +76,9 @@ AppState.searchedTournaments = AppState.activeTournaments.filter(t => t.name.toL
 
     }
 
-
+clearData() {
+    AppState.activeTournament = null
+}
 
 }
 

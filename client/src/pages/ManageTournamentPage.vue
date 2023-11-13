@@ -231,12 +231,16 @@ export default {
         },
 
         async cancelTournament(){
-            const yes = await Pop.confirm("Are you sure you want to cancel your tournament?")
+            try {
+                const yes = await Pop.confirm("Are you sure you want to cancel your tournament?")
             if (!yes) {
                 return
             }
             const tournamentId = route.params.tournamentId
-            // await 
+            await tournamentsService.cancelTournament(tournamentId)
+            } catch (error) {
+                Pop.error(error)
+            }
         }
       }
     }
