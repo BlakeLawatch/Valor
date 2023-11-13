@@ -20,7 +20,7 @@ export class Tournament {
         this.isCancelled = data.isCancelled
         this.isPublished = data.isPublished
         this.gameName = data.gameName
-        this.gameImg = data.gameImg || "src/assets/img/valorPanda.png"
+        this.gameImg = data.gameImg || "src/assets/img/valorPanda.png" 
         this.instagramUrl = data.instagramUrl
         this.facebookUrl = data.facebookUrl
         this.twitterUrl = data.twitterUrl
