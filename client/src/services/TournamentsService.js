@@ -19,6 +19,19 @@ class TournamentsService{
         })
         return AppState.tournamentsParticipatedIn
     }
+    async sortMyTournamentsByNew(){
+        // logger.log(AppState.myTournaments)
+        await AppState.myTournaments.sort((a, b)=>{
+            return new Date(a.startDate) - new Date(b.startDate)
+        })
+        return AppState.myTournaments
+    }
+    async sortMyTournamentsByOld(){
+        await AppState.myTournaments.sort((a, b)=>{
+            return new Date(b.startDate) - new Date(a.startDate)
+        })
+        return AppState.myTournaments
+    }
     async getActiveTournaments(){
         AppState.activeTournaments = []
         const res = await api.get(`api/tournaments`)
