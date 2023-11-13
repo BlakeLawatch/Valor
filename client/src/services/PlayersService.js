@@ -14,6 +14,10 @@ async getParticipatedIn(accountId){
         logger.error(error)
     }
 }
+
+changeActiveDev(dev){
+    AppState.activeDev = dev
+}
 }
 
 export const playersService = new PlayersService
