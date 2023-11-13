@@ -1,7 +1,7 @@
 <template>
     <div class="row text-light p-2 w-100">
         <div class="d-flex">
-            <p class="fs-5">Tournaments that {{ account.name }} has participated in:</p>
+            <p class="fs-5">Tournaments that {{ profile.name }} has participated in:</p>
             <div class="dropdown">
                 <!-- TODO figure out how to filter these -->
                 <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
@@ -21,8 +21,7 @@
             <img v-else-if="!player.tournament.imgUrl && player.tournament.gameImg" :src="player.tournament.gameImg" class="w-100 h-75 tournament-image">
             <img v-else-if="!player.tournament.imgUrl && !player.tournament.gameImg" src="src/assets/img/valorPanda.png" class="w-100 h-75 tournament-image">
             <div class="d-flex flex-column justify-content-between">
-                <p class="fs-5 ps-2 text-light">{{ player.tournament.name }}</p>
-            </div>
+                <p class="fs-5 ps-2 text-light">{{ player.tournament.name }}</p>            </div>
         </div>
     </div>
 </template>
@@ -37,12 +36,11 @@ import { logger } from '../utils/Logger';
 export default {
     setup(){
     onMounted(()=>{
-        AppState.tournamentsParticipatedIn = [],
         getParticipatedIn()
     })
     async function getParticipatedIn(){
         try {
-            const accountId = AppState.account.id
+            const accountId = AppState.profile.id
             await playersService.getParticipatedIn(accountId)
             logger.log(AppState.tournamentsParticipatedIn)
         } catch (error) {
@@ -53,6 +51,7 @@ export default {
     return {
         account: computed(() => AppState.account),
         participatedIn: computed(()=> AppState.tournamentsParticipatedIn),
+        profile: computed(()=> AppState.profile),
     }
     }
 };

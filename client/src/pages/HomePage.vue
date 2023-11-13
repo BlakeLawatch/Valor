@@ -110,6 +110,7 @@ export default {
         await tournamentsService.getActiveTournaments()
         AppState.games = []
         AppState.searchedTournaments = []
+        AppState.profiles = []
       } catch (error) {
         Pop.error(error)
       }

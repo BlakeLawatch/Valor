@@ -4,26 +4,40 @@
         <section class="row p-3">
             <div class="col-12">
                 <div class="dark-bg rounded p-3">
-<div class="text-center rounded card-bg">
-    <p class="text-white">
-        {{ game.name }}
-    </p>
-    <img :src="game.cover?.url" alt="">
-    <div v-if="tournaments.length >0" class="text-start p-3">
-        <p class="text-white fs-2">
-            Search Tournament By
-        </p>
-        <form class="form-inline d-flex">
-            <input v-model="searchEditable" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <!-- <button class="btn btn-outline-success mx-3 my-2 my-sm-0" type="submit">Search</button> -->
-        </form>
-    </div>
-    <div v-else>
-<p class="text-white">
-    this game has no tournaments and this is a placeholder, make this look better soon pls
-</p>
-    </div>
-</div>
+                    <div class="text-center rounded card-bg">
+                        <h1 class="text-white">{{ game.name }}</h1>
+                        <img :src="game.cover?.url" alt="">
+                        <section class="row">
+                            <div class="col-4">
+                                <h3 class="text-white">Search Tournament</h3>
+                            </div>
+                            <div class=" col-4 dropdown text-end me-3">
+                                <button class="btn btn-secondary color-match dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Filter
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Entrants (high)</a></li>
+                                    <li><a class="dropdown-item" href="#">Entrants (low)</a></li>
+                                    <li><a class="dropdown-item" href="#">Online</a></li>
+                                    <li><a class="dropdown-item" href="#">In-person</a></li>
+                                </ul>
+                            </div>
+
+                        </section>
+                        <div v-if="tournaments.length > 0" class="text-start p-3">
+                            <form class="form-inline d-flex px-5">
+                                <input v-model="searchEditable" class="form-control mr-sm-2" type="search"
+                                    placeholder="Search for your tournament here..." aria-label="Search">
+                                <!-- <button class="btn btn-outline-success mx-3 my-2 my-sm-0" type="submit">Search</button> -->
+                            </form>
+                        </div>
+                        <div v-else>
+                            <h3 class="text-white my-3">
+                                this game currently does not have any active or future tournaments.
+                            </h3>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -33,7 +47,6 @@
                     <div class="col-8">
                         <div class="mb-3" v-for="tournament in tournaments" :key="tournament.id">
                             <ActiveTournamentCard :tournament="tournament" />
-
                         </div>
                     </div>
                 </section>
@@ -60,11 +73,11 @@ export default {
             route;
             getGameAndTournamentsById();
         });
-        watchEffect(()=> {
+        watchEffect(() => {
             searchEditable
-filterTournaments()
+            filterTournaments()
         });
-        function filterTournaments(){
+        function filterTournaments() {
             try {
                 tournamentsService.filterTournaments(searchEditable.value)
             } catch (error) {
@@ -83,7 +96,7 @@ filterTournaments()
         return {
             searchEditable,
             game: computed(() => AppState.activeGame),
-            tournaments: computed(()=> AppState.searchedTournaments)
+            tournaments: computed(() => AppState.searchedTournaments)
         };
     },
     components: { ActiveTournamentCard }
@@ -92,13 +105,26 @@ filterTournaments()
 
 
 <style lang="scss" scoped>
-
-.dark-bg{
+.dark-bg {
     background-color: #242726;
 }
 
-.card-bg{
+.card-bg {
     background-color: #444444;
 }
 
+img {
+    object-fit: cover;
+    object-position: center;
+    width: 15%;
+    height: 15rem;
+}
+
+.coolBg {
+    background-color: #444444;
+}
+
+.color-match {
+    background-color: #2ca58d;
+}
 </style>
