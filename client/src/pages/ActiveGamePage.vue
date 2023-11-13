@@ -7,37 +7,41 @@
                 <div class="text-center rounded card-bg p-2">
                     <h1 class="card-text">{{ game.name }}</h1>
                     <img class="img-fluid w-100" :src="game.cover?.url" alt="">
-                    <section class="row justify-content-center">
-                      <h3 class="card-text text-center my-2">Search Tournament</h3>
-                        <div class="col-4">
-                          <p class="card-text">Filter By</p>
-                          <select v-model="filteredTournamentType" class="form-select btn-valor" placeholder="Filter By">
-                              <option v-for="tournamentType in tournamentTypes" :key="tournamentType">
-                                  {{ tournamentType }}
-                              </option>
-                          </select>
-                        </div>
-                        <div class="col-4">
-                          <p class="card-text">Sort By</p>
-                          <select v-model="filteredSortType" class="form-select btn-valor">
-                            <option v-for="sortType in sortTypes" :key="sortType">
-                              {{ sortType }}
+                    <section class="row justify-content-center align-items-center">
+                      <div class="col-12">
+                        <h3 class="card-text text-center my-2">Search Tournament</h3>
+                      </div>
+                      
+                      <div v-if="tournaments.length > 0" class="text-start p-3 col-7">
+                        <label class="text-white" for="searchForm">Search</label>
+                        <form @submit.prevent="" class="" name="searchForm">
+                          <input v-model="searchEditable" class="form-control mr-sm-2" type="search"
+                              placeholder="Search for your tournament here..." aria-label="Search">
+                          <!-- <button class="btn btn-outline-success mx-3 my-2 my-sm-0" type="submit">Search</button> -->
+                        </form>
+                      </div>
+                      <div v-else>
+                          <h3 class="card-text my-3">
+                              this game currently does not have any active or future tournaments.
+                          </h3>
+                      </div>
+                      <div class="col-2 text-start">
+                        <label for="filterBy" class="text-white">Filter By</label>
+                        <select v-model="filteredTournamentType" class="form-select btn-valor" name="filterBy">
+                            <option v-for="tournamentType in tournamentTypes" :key="tournamentType">
+                                {{ tournamentType }}
                             </option>
-                          </select>
-                        </div>
+                        </select>
+                      </div>
+                      <div class="col-2 text-start">
+                        <label for="sortBy" class="text-white">Sort By</label>
+                        <select v-model="filteredSortType" class="form-select btn-valor" name="sortBy">
+                          <option v-for="sortType in sortTypes" :key="sortType">
+                            {{ sortType }}
+                          </option>
+                        </select>
+                      </div>
                     </section>
-                        <div v-if="tournaments.length > 0" class="text-start p-3 col-8">
-                          <form class="form-inline d-flex px-5">
-                            <input v-model="searchEditable" class="form-control mr-sm-2" type="search"
-                                placeholder="Search for your tournament here..." aria-label="Search">
-                            <!-- <button class="btn btn-outline-success mx-3 my-2 my-sm-0" type="submit">Search</button> -->
-                          </form>
-                        </div>
-                        <div v-else>
-                            <h3 class="card-text my-3">
-                                this game currently does not have any active or future tournaments.
-                            </h3>
-                        </div>
                 </div>
             </div>
         </div>
@@ -107,25 +111,29 @@ export default {
           filteredSortType,
           game: computed(() => AppState.activeGame),
           tournaments: computed(() => {
-              if (filteredTournamentType.value) {
-                let filteredAndSortedTournaments = AppState.activeTournaments
-                  if(filteredTournamentType.value == 'Online only'){
-                    filteredAndSortedTournaments = AppState.activeTournaments.filter(tournament => tournament.onlineOnly)
-                  }
-                  else{
-                    filteredAndSortedTournaments =  AppState.activeTournaments.filter(tournament => tournament.onlineOnly == false)
-                  }
-                  if(filteredSortType.value == 'Entrants (high)'){
-                    filteredAndSortedTournaments.sort((t1,t2) => t1.playerCount - t2.playerCount)
-                  }
-                  else{
-                    filteredAndSortedTournaments.sort((t1,t2) => t2.playerCount - t1.playerCount)
-                  }
-                  return filteredAndSortedTournaments
-              } 
-              else {
-                  return AppState.activeTournaments
+            let filteredAndSortedTournaments = AppState.activeTournaments
+            if (filteredTournamentType.value) {
+              if(filteredTournamentType.value == 'Online only'){
+                filteredAndSortedTournaments = AppState.activeTournaments.filter(tournament => tournament.onlineOnly)
               }
+              else{
+                filteredAndSortedTournaments =  AppState.activeTournaments.filter(tournament => tournament.onlineOnly == false)
+              }
+              return filteredAndSortedTournaments
+            }
+            if(filteredSortType.value){
+              if(filteredSortType.value == 'Entrants (high)'){
+                filteredAndSortedTournaments.sort((t1,t2) => t2.playerCount - t1.playerCount)
+              }
+              else{
+                filteredAndSortedTournaments.sort((t1,t2) => t1.playerCount - t2.playerCount)
+              }
+            } 
+            else {
+                return AppState.activeTournaments
+            }
+            return filteredAndSortedTournaments
+
           }),
       };
   },
