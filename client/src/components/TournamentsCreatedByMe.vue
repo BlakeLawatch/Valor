@@ -4,6 +4,7 @@
         <div class="dropdown">
             <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTournaments" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu" aria-labelledby="filterMyTournaments">
+                <li><a class="dropdown-item">Sort By Default</a></li>
                 <li><a class="dropdown-item color-match text-light">Sort by New</a></li>
                 <li><a class="dropdown-item">Sort By Old</a></li>
             </ul>
@@ -42,7 +43,6 @@ export default {
         })
     async function getMyTournaments(){
         try {
-            // debugger
             const accountId = AppState.profile.id
             await tournamentsService.getMyTournaments(accountId)
         } catch (error) {
@@ -53,7 +53,31 @@ export default {
     return {  
         myTournaments: computed(() => AppState.myTournaments),
         account: computed(()=> AppState.account),
-        profile: computed(()=> AppState.profile)
+        profile: computed(()=> AppState.profile),
+        async sortByNew(){
+            try {
+                await tournamentsService.sortMyTournamentsByNew()
+            } catch (error) {
+                Pop.error(error)
+                logger.error(error)
+            }
+        },
+        async sortByOld(){
+            try {
+                await tournamentsService.sortMyTournamentsByOld()
+            } catch (error) {
+                Pop.error(error)
+                logger.error(error)
+            }
+        },
+        async sortByDefault(){
+            try {
+                await tournamentsService.sortMyTournamentsByDefault()
+            } catch (error) {
+                Pop.error(error)
+                logger.error(error)
+            }
+        }
     }
     }
 };
