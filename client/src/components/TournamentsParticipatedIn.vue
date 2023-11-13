@@ -21,8 +21,7 @@
             <img v-else-if="!player.tournament.imgUrl && player.tournament.gameImg" :src="player.tournament.gameImg" class="w-100 h-75 tournament-image">
             <img v-else-if="!player.tournament.imgUrl && !player.tournament.gameImg" src="src/assets/img/valorPanda.png" class="w-100 h-75 tournament-image">
             <div class="d-flex flex-column justify-content-between">
-                <p class="fs-5 ps-2 text-light">{{ player.tournament.name }}</p>
-            </div>
+                <p class="fs-5 ps-2 text-light">{{ player.tournament.name }}</p>            </div>
         </div>
     </div>
 </template>
