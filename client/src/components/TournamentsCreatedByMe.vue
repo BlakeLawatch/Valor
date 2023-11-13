@@ -4,14 +4,14 @@
     <img v-else-if="!tournament.imgUrl && tournament.gameImg" :src="tournament.gameImg" class="tournament-image w-100 h-50"/>
     <div class="h-50 d-flex flex-column justify-content-between">
         <p class="fs-5 ps-2 text-light">{{ tournament.name }}</p>
-    <div class="w-100 d-flex justify-content-end pe-2 pb-1">
+    <div v-if="tournament.creatorId == account.id" class="w-100 d-flex justify-content-end pe-2 pb-1">
         <RouterLink :to="{name: 'ManageTournament', params: {tournamentId: tournament.id}}">
             <button class="btn color-match text-light"> Edit</button>
         </RouterLink>
     </div>
     </div>
 </div>
-<div v-if="myTournaments == []">{{ account.name }} has not created any tournaments</div>
+<div v-if="myTournaments == []">{{ profile.name }} has not created any tournaments</div>
 </template>
 
 
@@ -31,7 +31,7 @@ export default {
     async function getMyTournaments(){
         try {
             // debugger
-            const accountId = AppState.account.id
+            const accountId = AppState.profile.id
             await tournamentsService.getMyTournaments(accountId)
         } catch (error) {
             Pop.error(error)
@@ -40,7 +40,8 @@ export default {
     }
     return {  
         myTournaments: computed(() => AppState.myTournaments),
-        account: computed(()=> AppState.account)
+        account: computed(()=> AppState.account),
+        profile: computed(()=> AppState.profile)
     }
     }
 };

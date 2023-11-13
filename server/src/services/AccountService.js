@@ -56,6 +56,10 @@ function sanitizeBody(body) {
 }
 
 class AccountService {
+  async getAccountById(accountId) {
+    const foundAccount = await dbContext.Account.findById(accountId, 'name picture bio coverImg twitchUrl youtubeUrl twitterUrl fscebookUrl instagramUrl websiteUrl')
+    return foundAccount
+  }
   async getAllProfilesByQuery(query) {
     let profiles = await dbContext.Profiles.find({ name: { $regex: `${query.name}` } }, 'name picture')
     return profiles
