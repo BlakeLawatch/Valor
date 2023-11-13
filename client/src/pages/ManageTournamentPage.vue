@@ -153,6 +153,12 @@
                                 <label for="isLocked">Lock Tournament</label>
                             </div>
                             <input v-model="tournamentEditable.isLocked" type="checkbox" class="rounded" id="isLocked">
+                            <div class="mb-1">
+                                <div>
+                                    <label>Cancel Tournament</label>
+                                </div>
+                                <button @click="cancelTournament()" class="btn btn-danger" title="cancel tournament">🗑️</button>
+                            </div>
                         </div>
                     </div>
 
@@ -219,6 +225,19 @@ export default {
                 const tournamentData = tournamentEditable.value
                 await tournamentsService.editActiveTournament(tournamentData, tournamentId)
                 Pop.success('You done did edit the page')
+            } catch (error) {
+                Pop.error(error)
+            }
+        },
+
+        async cancelTournament(){
+            try {
+                const yes = await Pop.confirm("Are you sure you want to cancel your tournament?")
+            if (!yes) {
+                return
+            }
+            const tournamentId = route.params.tournamentId
+            await tournamentsService.cancelTournament(tournamentId)
             } catch (error) {
                 Pop.error(error)
             }

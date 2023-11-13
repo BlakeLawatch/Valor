@@ -61,7 +61,9 @@ import ActiveTournamentCard from '../components/ActiveTournamentCard.vue';
 export default {
     setup() {
         const route = useRoute();
-        const tournamentTypes = ['Entrants (high)', 'Entrants (low)', 'Online only', 'In person'];
+        // const sortByHighEntrants = ref(true);
+        const sortTypes = ['Entrants (high)', 'Entrants (low)']
+        const tournamentTypes = ['Online only', 'In person'];
         const searchEditable = ref('');
         const editable = ref({}),
             filteredTournamentType = ref('')
@@ -94,6 +96,7 @@ export default {
             filteredTournamentType,
             tournamentTypes,
             editable,
+            sortTypes,
             game: computed(() => AppState.activeGame),
             tournaments: computed(() => AppState.searchedTournaments),
             activeTournament: computed(() => {
