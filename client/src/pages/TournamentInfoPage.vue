@@ -16,15 +16,18 @@
       </div>
       <div class="text-end">
         <p class="fs-5">{{ activeTournament.gameName }}</p>
-        <p v-if="activeTournament.startDate.toLocaleDateString() == activeTournament.endDate.toLocaleDateString()">
-{{ activeTournament.startDate.toLocaleDateString() }}
-        </p>
-        <p v-else>
-          {{ activeTournament.startDate?.toLocaleDateString() }}
-          -
-          <span v-if="activeTournament.endDate < activeTournament.startDate">TBD</span>
-          <span v-else>{{ activeTournament.endDate?.toLocaleDateString() }}</span>
-        </p>
+        <div v-if="activeTournament.startDate">
+
+          <p v-if="activeTournament.startDate.toLocaleDateString() == activeTournament.endDate.toLocaleDateString()">
+            {{ activeTournament.startDate.toLocaleDateString() }}
+          </p>
+          <p v-else>
+            {{ activeTournament.startDate?.toLocaleDateString() }}
+            -
+            <span v-if="activeTournament.endDate < activeTournament.startDate">TBD</span>
+            <span v-else>{{ activeTournament.endDate?.toLocaleDateString() }}</span>
+          </p>
+        </div>
       </div>
     </div>
     <div class="col-12 my-3">
@@ -117,12 +120,22 @@ export default {
 
     }
     return {
+      route,
       activeTournament: computed(() => AppState.activeTournament),
       countdown,
       account: computed(() => AppState.account),
       players: computed(()=> AppState.playersInActiveTournament),
       async registerForTournament(){
-await tournamentsService.registerForTournament(this.account.id)
+        try {
+          const yes = await Pop.confirm('Are you sure you would like to register for this event?')
+          if(!yes){
+            return
+          }
+          await tournamentsService.registerForTournament(route.params.tournamentId)
+          Pop.success('You have successfully registered for this event!')
+        } catch (error) {
+          Pop.error(error)
+        }
       }
     }
   }

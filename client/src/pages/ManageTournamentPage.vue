@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid p-5">
-        <section class="row">
+        <section v-if="!tournamentEditable.isCancelled" class="row">
             <div class="col-12 text-center">
                 <h1 class="text-white underline">{{ tournament.name }}</h1>
             </div>
@@ -141,7 +141,7 @@
                             <div class="mb-1">
                                 <label for="description">Description</label>
                             </div>
-                            <textarea v-model="tournamentEditable.description" type="text" class="rounded" cols="105" rows="7" id="description" maxlength="1000"></textarea>
+                            <textarea v-model="tournamentEditable.description" type="text" class="rounded w-100" rows="7" id="description" maxlength="1000"></textarea>
                         </div>
                         
                         <div class="text-white p-2 col-4 form-check">
@@ -171,6 +171,10 @@
                     </div>
                 </form>
             </div>
+        </section>
+        <section v-else>
+            <h1 class="text-light">You canceled this tournament</h1>
+            <button @click.prevent="cancelTournament()" class="btn btn-success" title="cancel tournament">Restore this tournament</button>
         </section>
     </div>
 
@@ -232,7 +236,7 @@ export default {
 
         async cancelTournament(){
             try {    
-            const yes = await Pop.confirm("Are you sure you want to cancel your tournament?")
+            const yes = await Pop.confirm("Are you sure about that?")
             if (!yes) {
                 return
             }

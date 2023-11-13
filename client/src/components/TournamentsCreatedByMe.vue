@@ -1,6 +1,6 @@
 <template>
-    <div class="text-light p-2 d-flex">
-        <p class="fs-5">{{ profile.name }}'s tournaments:</p>
+        <div class="text-light p-2 d-flex">
+            <p class="fs-5">{{ profile.name }}'s tournaments:</p>
         <div class="dropdown">
             <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTournaments" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu" aria-labelledby="filterMyTournaments">
@@ -11,8 +11,8 @@
     </div>
     <div v-if="profile.id" class="row w-100">
         <div v-for="tournament in myTournaments" :key="tournament.id" class="col-12 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
-            <img v-if="tournament.imgUrl" :src="tournament.imgUrl" class="tournament-image w-100"/>
-            <img v-else-if="!tournament.imgUrl && tournament.gameImg" :src="tournament.gameImg" class="tournament-image w-100"/>
+            <img v-if="!tournament.isCancelled" :src="tournament.imgUrl || tournament.gameImg" class="tournament-image w-100"/>
+            <img v-else src="https://media.istockphoto.com/id/1227115202/photo/a-red-stamp-on-a-white-background-cancelled.webp?b=1&s=170667a&w=0&k=20&c=RPueqU4VVfs98bOCqlCPifC7EcKze6CksprK4o_K3no=" class="tournament-image w-100"/>
             <div class="d-flex flex-column justify-content-between">
                 <p class="fs-5 ps-2 text-light text-center pt-2">{{ tournament.name }}</p>
                 <div v-if="tournament.creatorId == account.id" class="w-100 d-flex justify-content-end pe-2 pb-1">
@@ -23,7 +23,7 @@
             </div>
         </div>
         </div>
-<div v-if="myTournaments == []">{{ profile.name }} has not created any tournaments</div>
+        <div v-if="myTournaments == []">{{ profile.name }} has not created any tournaments</div>
 </template>
 
 
@@ -50,6 +50,7 @@ export default {
         }
     }
     return {  
+        myTournament: computed(() => AppState.activeTournament),
         myTournaments: computed(() => AppState.myTournaments),
         account: computed(()=> AppState.account),
         profile: computed(()=> AppState.profile),
