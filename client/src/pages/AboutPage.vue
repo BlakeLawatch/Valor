@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-2 col-12 dark-bg bg-height order-2 order-md-1">
-        <div v-for="dev in devs" :key="dev.id" class="row my-5 ms-1" role="button" @click="changeActiveDev(dev)" >
+        <div v-for="dev in devs" :key="dev.id" class="row my-5 ms-1" :title="dev.name" role="button" @click="changeActiveDev(dev)" >
         <div class="col-11 card-bg d-flex align-items-center justify-content-start py-2 rounded flex-column flex-lg-row">
           <img :src="dev.picture" class="rounded-circle dev-side-img">
           <p class="pb-0 mb-0 ps-3 text-light">{{ dev.name }}</p>
@@ -22,9 +22,9 @@
             <div class="row card-bg justify-content-end align-items-center">
               <div class="col-10 ps-4 pt-2 text-start d-flex justify-content-between">
                 <h1 class="text-light">{{ currentDev.name }}</h1>
-                <p class="mb-0 pb-0 text-light">
+                <p class="mb-0 pb-0 text-light" type="button" :title="currentDev.github">
                   <a :href="currentDev.github">
-                    <i class="mdi mdi-github"></i>
+                    <i class="mdi mdi-github fs-2"></i>
                   </a>
                 </p>
               </div>
