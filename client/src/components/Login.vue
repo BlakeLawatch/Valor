@@ -50,7 +50,11 @@ export default {
       async logout() {
         AuthService.logout({ returnTo: window.location.origin })
       },
-      
+      async rescueProfilePage(){
+        if(AppState.profile.id){
+          AppState.profile = AppState.account
+        }
+      }
     }
   }
 }
