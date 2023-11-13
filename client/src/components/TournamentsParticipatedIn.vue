@@ -7,7 +7,7 @@
                 <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
                 <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
                     <li @click="sortByNew()" type="button"><a class="dropdown-item color-match text-light">Sort by New</a></li>
-                    <li @click="sortByOld" type="button"><a class="dropdown-item">Sort By Old</a></li>
+                    <li @click="sortByOld()" type="button"><a class="dropdown-item">Sort By Old</a></li>
                 </ul>
             </div>
         </div>

@@ -3,15 +3,15 @@
     <section v-if="profile.id" class="row justify-content-center text-light">
       <ProfileCardVue/>
     </section>
-    <div class="row pt-5 justify-content-center">
+    <div v-if="profile.id" class="row pt-5 justify-content-center">
       <div class="col-10">
         <div class="text-light p-2 d-flex">
           <p class="fs-5">{{ profile.name }}'s tournaments:</p>
           <div class="dropdown">
             <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTournaments" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu" aria-labelledby="filterMyTournaments">
-              <li><a class="dropdown-item color-match text-light" href="#">Sort by New</a></li>
-              <li><a class="dropdown-item" href="#">Sort By Old</a></li>
+              <li><a class="dropdown-item color-match text-light">Sort by New</a></li>
+              <li><a class="dropdown-item">Sort By Old</a></li>
             </ul>
           </div>
         </div>

@@ -1,16 +1,28 @@
 <template>
-<div v-for="tournament in myTournaments" :key="tournament.id" class="col-12 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
-    <img v-if="tournament.imgUrl" :src="tournament.imgUrl" class="tournament-image w-100"/>
-    <img v-else-if="!tournament.imgUrl && tournament.gameImg" :src="tournament.gameImg" class="tournament-image w-100"/>
-    <div class="d-flex flex-column justify-content-between">
-        <p class="fs-5 ps-2 text-light text-center pt-2">{{ tournament.name }}</p>
-    <div v-if="tournament.creatorId == account.id" class="w-100 d-flex justify-content-end pe-2 pb-1">
-        <RouterLink :to="{name: 'ManageTournament', params: {tournamentId: tournament.id}}">
-            <button class="btn color-match text-light"> Edit</button>
-        </RouterLink>
+    <div class="text-light p-2 d-flex">
+        <p class="fs-5">{{ profile.name }}'s tournaments:</p>
+        <div class="dropdown">
+            <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTournaments" data-bs-toggle="dropdown" aria-expanded="false"></button>
+            <ul class="dropdown-menu" aria-labelledby="filterMyTournaments">
+                <li><a class="dropdown-item color-match text-light">Sort by New</a></li>
+                <li><a class="dropdown-item">Sort By Old</a></li>
+            </ul>
+        </div>
     </div>
-    </div>
-</div>
+    <div v-if="profile.id" class="row w-100">
+        <div v-for="tournament in myTournaments" :key="tournament.id" class="col-12 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
+            <img v-if="tournament.imgUrl" :src="tournament.imgUrl" class="tournament-image w-100"/>
+            <img v-else-if="!tournament.imgUrl && tournament.gameImg" :src="tournament.gameImg" class="tournament-image w-100"/>
+            <div class="d-flex flex-column justify-content-between">
+                <p class="fs-5 ps-2 text-light text-center pt-2">{{ tournament.name }}</p>
+                <div v-if="tournament.creatorId == account.id" class="w-100 d-flex justify-content-end pe-2 pb-1">
+                    <RouterLink :to="{name: 'ManageTournament', params: {tournamentId: tournament.id}}">
+                        <button class="btn color-match text-light"> Edit</button>
+                    </RouterLink>
+                </div>
+            </div>
+        </div>
+        </div>
 <div v-if="myTournaments == []">{{ profile.name }} has not created any tournaments</div>
 </template>
 
