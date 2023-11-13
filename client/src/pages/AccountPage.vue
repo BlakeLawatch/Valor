@@ -5,7 +5,7 @@
     </section>
     <div v-if="profile.id" class="row pt-5 justify-content-center">
       <div class="col-10">
-        <TournamentsCreatedByMe/>
+          <TournamentsCreatedByMe/>
       </div>
       <div v-if="profile.id" class="col-10">
         <!-- NOTE take things to put in component from here so you can properly v-if them -->
