@@ -77,10 +77,19 @@ class TournamentsService{
   }
 
   async searchTournamentsByName(query){
+    // AppState.activeTournaments = []
     const res = await api.get(`api/tournaments/query?name=${query.name}`)
     logger.log('searched touneys', res.data)
-    AppState.searchedTournaments = res.data.map(t=> new Tournament(t))
+    if(!res.data[0]){
+        AppState.searchedTournaments = res.data
+        return 'nothing'
+    }
+    else{
+        AppState.searchedTournaments = res.data.map(t=> new Tournament(t))
+return 'something'
+    }
   }
+
 
   
   async registerForTournament(tournamentId){
