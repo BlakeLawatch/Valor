@@ -4,5 +4,6 @@ export class Video{
         this.videoUrl = data.videoUrl
         this.accountId = data.accountId
         this.title = data.title || 'Untitled Video'
+        this.createdAt = new Date(data.createdAt)
     }
 }

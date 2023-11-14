@@ -7,7 +7,7 @@ import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 
 class TournamentsService{
-
+// SECTION sort filters
   async sortByNew(){
     await AppState.tournamentsParticipatedIn.sort((a, b)=>{
         return new Date(a.tournament.startDate) - new Date(b.tournament.startDate) 
@@ -33,6 +33,7 @@ class TournamentsService{
     })
     return AppState.myTournaments
   }
+  //  SECTION filters end here
   async getActiveTournaments(){
     AppState.activeTournaments = []
     const res = await api.get(`api/tournaments`)

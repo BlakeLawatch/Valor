@@ -42,7 +42,7 @@ export default {
         editable,
         async addVideo(){
             try {
-                // debugger
+                editable.value.createdAt = new Date
                 await videosService.addVideo(editable.value)
                 editable.value = {}
                 Modal.getOrCreateInstance('#addClipModal').hide()

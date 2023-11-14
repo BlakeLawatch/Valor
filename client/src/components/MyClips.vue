@@ -5,8 +5,8 @@
         <div class="dropdown">
                 <button class="btn color-match dropdown-toggle mx-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
                 <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
-                    <li type="button"><a class="dropdown-item color-match text-light">Sort by Future</a></li>
-                    <li type="button"><a class="dropdown-item">Sort By Past</a></li>
+                    <li @click="sortNew()" type="button"><a class="dropdown-item color-match text-light">Sort by Newest</a></li>
+                    <li @click="sortOld()" type="button"><a class="dropdown-item">Sort By Oldest</a></li>
                 </ul>
             </div>
             <button v-if="account.id == profile.id" type="button" class="btn color-match text-light" data-bs-toggle="modal" data-bs-target="#addClipModal">
@@ -60,6 +60,22 @@ export default {
                 if(!yes){return}
                 // debugger
                 await videosService.destroyClip(videoId)
+            } catch (error) {
+                Pop.error(error)
+                logger.error(error)
+            }
+        },
+        async sortNew(){
+            try {
+                await videosService.sortNew()
+            } catch (error) {
+                Pop.error(error)
+                logger.error(error)
+            }
+        },
+        async sortOld(){
+            try {
+                await videosService.sortOld()
             } catch (error) {
                 Pop.error(error)
                 logger.error(error)

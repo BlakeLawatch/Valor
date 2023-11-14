@@ -32,5 +32,30 @@ async destroyClip(videoId){
         logger.error(error)
     }
 }
+// SECTION sorting clips here
+async sortNew(){
+    try {
+        await AppState.videos.sort((a, b)=>{
+            return new Date(a.createdAt) - new Date(b.createdAt) 
+        })
+    return AppState.videos
+    } catch (error) {
+        Pop.error(error)
+        logger.error(error)
+    }
+    
+}
+async sortOld(){
+    try {
+        await AppState.videos.sort((a, b)=>{
+            return new Date(b.createdAt) - new Date(a.createdAt) 
+        })
+    return AppState.videos
+    } catch (error) {
+        Pop.error(error)
+        logger.error(error)
+    }
+    
+}
 }
 export const videosService = new VideosService()
