@@ -2,7 +2,7 @@
     <div class="container-fluid p-5">
         <section v-if="!tournamentEditable.isCancelled" class="row">
             <div class="col-12 text-center">
-                <h1 class="text-white underline">{{ tournament.name }}</h1>
+                <h1 class="text-white textShadow underline">{{ tournament.name }}</h1>
             </div>
             <div class="col-12 d-flex justify-content-center mt-3 rounded">
                 <form @submit.prevent="editActiveTournament()" class="editFormCard rounded w-100">
@@ -44,8 +44,8 @@
                             <div class="mb-1">
                                 <label for="prizePool">Prizes</label>
                             </div>
-                            <input v-model="tournamentEditable.prizePool" type="text" class="rounded" id="prizePool"
-                                maxlength="10000">
+                            <input v-model="tournamentEditable.prizePool" type="number" class="rounded" id="prizePool"
+                                max="1000000001">
                         </div>
 
                         <div class="text-white p-2 col-4">
@@ -191,17 +191,17 @@
         </section>
         <section class="row mt-4">
             <div class="col-12 text-center">
-                <h1 class="text-white underline">Manage Players</h1>
+                <h1 class="text-white textShadow underline">Manage Players</h1>
             </div>
             <section class="row mt-5">
                 <div class="col-4">
-                    <h1 class="text-white editFormCard rounded">Participants: </h1>
+                    <h1 class="text-white textShadow editFormCard rounded">Participants: </h1>
                     <div class="text-white mt-4 d-flex" v-for="player in players" :key="player.id">
                         <div class="editFormCard d-flex rounded w-100">
-                            <img class="rounded-circle" :src="player.profile.picture" alt="">
+                            <img class="rounded-circle mx-3 mt-2 mb-2" :src="player.profile.picture" alt="">
                             <h4 class="mx-3">{{ player.profile.name }}</h4>
-                            <div class="d-flex align-self-end justify-content-end">
-                                <p class="mx-2">Seed: {{ player.seed }}</p>
+                            <p class="mx-2">Seed: {{ player.seed }}</p>
+                            <div class="d-flex align-self-end ">
                             </div>
                         </div>
                     </div>
@@ -319,6 +319,10 @@ img {
     box-shadow: 0px 5px 4px #2ca58d;
     
     border: 1.5px solid #2ca58d;
+}
+
+.textShadow {
+  text-shadow: 2px 2px 4px #2ca58d;
 }
 
 textarea {
