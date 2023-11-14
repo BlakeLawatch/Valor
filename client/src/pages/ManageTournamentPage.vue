@@ -248,7 +248,6 @@ export default {
         })
         async function getMyTournamentById() {
             try {
-                // debugger
                 const tournamentId = route.params.tournamentId
                 await tournamentsService.getTournamentById(tournamentId)
             } catch (error) {
