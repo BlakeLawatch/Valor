@@ -12,9 +12,8 @@
       <div class="col-12 d-flex justify-content-between align-items-center my-2">
         <div>
           <p class="fs-5">{{ activeTournament.address }}</p>
-          <p>{{ players.length }} Entrant
-            <span v-if="activeTournament.playerCount > 1">s</span>
-          </p>
+          <p v-if="activeTournament.playerCount > 1">{{ players.length }} Entrants</p>
+          <p v-else>{{ players.length }} Entrant</p>
         </div>
         <div class="text-end">
           <h2>{{ activeTournament.gameName }}</h2>
@@ -62,10 +61,10 @@
           </RouterLink>
           <div v-else>
             <button @click="registerForTournament()" v-if="players.find(p => p.accountId == account.id) == null"
-              :disabled="activeTournament.startDate.toLocaleDateString() < new Date().toLocaleDateString()"
+              :disabled="activeTournament.startDate?.toLocaleDateString() < new Date().toLocaleDateString()"
               class="btn btn-valor w-100">Register</button>
             <button @click="unregisterForTournament(players.find(p => p.accountId == account.id))" v-else
-              :disabled="activeTournament.startDate.toLocaleDateString() < new Date().toLocaleDateString()"
+              :disabled="activeTournament.startDate?.toLocaleDateString() < new Date().toLocaleDateString()"
               class="btn btn-danger w-100">Unregister</button>
           </div>
         </div>
