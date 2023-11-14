@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO MAKE SEARCH IN THE BACK END NOT CASE SPECIFIC -->
   <div class="container-fluid">
     <section class="row d-flex justify-content-center">
       <div class="col-12 text-center text-white">
@@ -10,15 +9,24 @@
   Search
 </p> -->
         <form @submit.prevent="homeSearch()" class="form-inline d-flex">
-          <input v-model="editable" maxlength="50" class="form-control mr-sm-2" required type="search" placeholder="Search"
+          <input v-model="editable" maxlength="50" class="form-control mr-sm-2" type="search" placeholder="Search"
             aria-label="Search">
           <button class="btn my-2 my-sm-0 ms-3 color-match text-light" type="submit">Search</button>
         </form>
       </div>
     </section>
-    <section class="row d-flex justify-content-center">
-      <div v-if="games.length > 0" class="col-md-8 col-12">
-        <h1 class="text-white mt-5 ">Games
+    <div v-if="checkGames == 'nothing' && checkTournaments == 'nothing' && checkProfiles == 'nothing'">
+      <section class="row d-flex justify-content-center">
+        <div class="col-md-8 col-12 mt-4 text-white fs-3">
+          <h2>Nothing Found Named {{ noName }}</h2>
+        </div>
+      </section>
+    </div>
+    <div v-else>
+
+      <section class="row d-flex justify-content-center">
+        <div v-if="games.length > 0" class="col-md-8 col-12">
+          <h1 class="text-white fs-3 mt-5 ">Games
         </h1>
         <section class="row">
           <div class="col-md-4 col-12 mt-4" v-for="game in games" :key="game.id">
@@ -26,13 +34,18 @@
           </div>
         </section>
       </div>
-      <div v-if="checkGames == 'nothing'">
-<p class="text-white">No Games Named {{ noName }}</p>
+      <div  v-if="checkGames == 'nothing'">
+        <section class="row d-flex justify-content-center">
+          <div class="col-md-8 col-12 mt-4">
+            <h2 class="text-white fs-3">No Games Named {{ noName }}</h2>
+          </div>
+        </section>
       </div>
+      
       <div v-if="searchedTournaments.length > 0" class="col-md-8 col-12">
-        <h1 class="text-white mt-5">
+        <h3 class="text-white mt-5">
           Tournaments
-        </h1>
+        </h3>
         <section class="row">
           <div class="col-12 mt-4">
             <div class="mt-4" v-for="tournament in searchedTournaments" :key="tournament.id">
@@ -41,8 +54,15 @@
           </div>
         </section>
       </div>
+      <div v-if="checkTournaments == 'nothing'">
+        <section class="row d-flex justify-content-center">
+          <div class="col-md-8 col-12 mt-4">
+            <h3 class="text-white fs-3">No Tournaments Named {{ noName }}</h3>
+          </div>
+        </section>
+      </div>
       <div v-if="profiles.length > 0" class="col-md-8 col-12">
-        <h2 class="text-white mt-5 fs-1">Profiles</h2>
+        <h4 class="text-white mt-5 fs-3">Profiles</h4>
         <section class="row mb-5">
           <div class="col-md-3 col-6 mt-4" v-for="profile in profiles" :key="profile.id">
             <RouterLink :to="{name: 'Account', params: {accountId: profile.id}}">
@@ -58,8 +78,16 @@
             </div>
         </section>
       </div>
+      <div v-if="checkProfiles == 'nothing'">
+        <section class="row d-flex justify-content-center">
+          <div class="col-md-8 col-12 mt-4">
+            <h4 class="text-white fs-3">No Profiles Named {{ noName }}</h4>
+            
+          </div>
+        </section>
+      </div>
       <!-- FIXME IF NO GAMES SHOW UP IN THE SEARCH THESE STILL SHOW FIX PLS -->
-      <div v-if="games.length == 0" class="col-md-8">
+      <div v-if="checkGames == ''" class="col-md-8">
         <h1 class="text-white mt-5">Active Tournaments</h1>
         <section class="row">
           <div class="col-12 mt-4 text-white" v-for="tournament in activeTournaments" :key="tournament.id">
@@ -80,6 +108,7 @@
       </div>
     </section>
   </div>
+</div>
 </template>
 
 <script>
@@ -100,6 +129,8 @@ export default {
     const editable = ref('');
     const inputName = ref('')
     const checkGames = ref('')
+    const checkTournaments = ref('')
+    const checkProfiles = ref('')
     const route = useRoute()
 
 
@@ -113,6 +144,9 @@ export default {
     async function getActiveTournaments() {
       try {
         editable.value = ''
+        checkGames.value = ''
+        checkTournaments.value = ''
+        checkProfiles.value = ''
         await tournamentsService.getActiveTournaments()
         AppState.games = []
         AppState.searchedTournaments = []
@@ -128,6 +162,8 @@ export default {
       inputName,
       editable,
       checkGames,
+      checkTournaments,
+      checkProfiles,
       tournaments: computed(() => AppState.activeTournaments),
       noName: computed(()=> inputName),
       activeTournaments: computed(() => AppState.activeTournaments.filter(tournament => tournament.startDate <= new Date() && tournament.endDate > new Date())),
@@ -137,13 +173,19 @@ export default {
       profiles: computed(() => AppState.profiles),
       async homeSearch() {
         try {
+          if(editable.value == ''){
+            getActiveTournaments()
+            return
+          }
           inputName.value = editable.value
           const body = { search: editable.value };
           const query = { name: editable.value }
           const isGames = await gamesService.homeSearch(body);
           checkGames.value = isGames
-          await accountService.searchByPlayerName(query)
-          await tournamentsService.searchTournamentsByName(query)
+          const isPlayers = await accountService.searchByPlayerName(query)
+          checkProfiles.value = isPlayers
+          const isTournaments = await tournamentsService.searchTournamentsByName(query)
+          checkTournaments.value = isTournaments
         }
         catch (error) {
           Pop.error(error);

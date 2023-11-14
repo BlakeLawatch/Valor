@@ -14,12 +14,14 @@
     </div>
     <div class="row w-100">
         <div v-for="player in participatedIn" :key="player.id" class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
+            <router-link :to="{name: 'TournamentInfoPage', params: {tournamentId: player.tournament.id}}"> 
             <img v-if="player.tournament.imgUrl" :src="player.tournament.imgUrl" class="w-100 tournament-image">
             <img v-else-if="!player.tournament.imgUrl && player.tournament.gameImg" :src="player.tournament.gameImg" class="w-100 tournament-image">
             <img v-else-if="!player.tournament.imgUrl && !player.tournament.gameImg" src="src/assets/img/valorPanda.png" class="w-100 tournament-image">
             <div class="d-flex flex-column justify-content-between">
                 <p class="fs-5 ps-2 text-light">{{ player.tournament.name }}</p>            </div>
-        </div>
+            </router-link>
+            </div>
     </div>
 </template>
 

@@ -12,25 +12,19 @@
                     <h3 class="card-text text-center my-2">Search Tournament</h3>
                   </div>
                   
-                  <div v-if="tournaments.length > 0" class="text-start p-3 col-7">
+                  <div class="text-start p-3 col-7">
                     <label class="text-white" for="searchForm">Search</label>
-                    <form @submit.prevent="" class="" name="searchForm">
-                      <input v-model="searchEditable" class="form-control mr-sm-2" type="search"
-                          placeholder="Search for your tournament here..." aria-label="Search">
-                      <!-- <button class="btn btn-outline-success mx-3 my-2 my-sm-0" type="submit">Search</button> -->
+                    <form @submit.prevent="filterTournaments()" class="" name="searchForm">
+                      <div class="input-group">
+                        <input v-model="searchEditable" class="form-control mr-sm-2" type="search"
+                            placeholder="Search for your tournament here..." aria-label="Search">
+                        <button class="btn btn-valor mdi mdi-magnify" type="submit"></button>
+                      </div>
                     </form>
-                  </div>
-                  <div v-else>
-                    <h3 v-if="filteredTournamentType" class="card-text my-3">
-                      No tournaments exist with the given criteria
-                    </h3>
-                    <h3 v-else class="card-text my-3">
-                      This game currently does not have any active or future tournaments.
-                    </h3>
                   </div>
                   <div class="col-2 text-start">
                     <label for="filterBy" class="text-white">Filter By</label>
-                    <select v-model="filteredTournamentType" class="form-select btn-valor" name="filterBy">
+                    <select v-model="filteredTournamentType" class="form-select border-0" name="filterBy">
                       <option v-for="tournamentType in tournamentTypes" :key="tournamentType">
                           {{ tournamentType }}
                       </option>
@@ -38,7 +32,7 @@
                   </div>
                   <div class="col-2 text-start">
                     <label for="sortBy" class="text-white">Sort By</label>
-                    <select v-model="filteredSortType" class="form-select btn-valor" name="sortBy">
+                    <select v-model="filteredSortType" class="form-select border-0" name="sortBy">
                       <option v-for="sortType in sortTypes" :key="sortType">
                         {{ sortType }}
                       </option>
@@ -53,15 +47,23 @@
     <section class="row">
       <div class="col-12">
         <section class="row d-flex justify-content-center">
-          <div class="col-8">
+          <div v-if="tournaments.length > 0" class="col-8">
             <div class="mb-3" v-for="tournament in tournaments" :key="tournament.id">
                 <ActiveTournamentCard :tournament="tournament" />
             </div>
           </div>
+          <div v-else class="col-8">
+            <h3 v-if="filteredTournamentType" class="card-text my-3">
+              No tournaments exist with the given criteria
+            </h3>
+            <h3 v-else class="card-text my-3">
+              This game currently does not have any active or future tournaments.
+            </h3>
+          </div>
         </section>
       </div>
     </section>
-    
+
   </div>
 </template>
 
@@ -92,11 +94,17 @@ export default {
           searchEditable
           filterTournaments()
       });
-      function filterTournaments() {
+      async function filterTournaments() {
           try {
-              tournamentsService.filterTournaments(searchEditable.value)
-          } catch (error) {
-              Pop.error(error)
+            if(searchEditable.value == ''){
+              await tournamentsService.getTournamentsByGameId(route.params.gameId)
+            }
+            else{
+              await tournamentsService.filterTournaments(searchEditable.value)
+            }
+          }
+          catch (error) {
+            Pop.error(error)
           }
       }
       async function getGameAndTournamentsById() {
@@ -138,7 +146,8 @@ export default {
           }),
           filterType(tournamentType){
             filteredTournamentType.value = tournamentType
-          }
+          },
+          filterTournaments
       };
   },
   components: { ActiveTournamentCard }
