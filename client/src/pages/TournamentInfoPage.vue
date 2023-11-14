@@ -1,7 +1,7 @@
 <template>
   <div v-if="activeTournament" class="container-fluid px-5 py-4">
     <!-- Info section -->
-    <section class="row text-light card-bg rounded p-2">
+    <section class="row text-light card-bg formCard rounded p-2">
       <div class="col-12 py-2 px-0 banner-img d-flex align-items-center justify-content-center"
         :style="{ backgroundImage: 'url(' + activeTournament.imgUrl + ')' }">
         <p class="fs-1 timer">{{ countdown }}</p>
@@ -72,7 +72,7 @@
     </section>
     <section class="row text-center">
       <div class="col-12 text-center">
-        <h1 class="text-center text-white text-shadow">This tournament is live!</h1>
+        <h1 class="text-center text-white text-shadow mt-4">This tournament is live!</h1>
         <iframe :src="activeTournament.liveStreamUrl" height="540" width="860" allowfullscreen>
         </iframe>
       </div>
@@ -202,4 +202,12 @@ p {
 .text-shadow {
   text-shadow: 2px 2px 4px #2ca58d;
 }
+
+.formCard {
+    background-color: rgb(68, 68, 68);
+    box-shadow: 0px 5px 4px #2ca58d;
+    
+    border: 1.5px solid #2ca58d;
+}
+
 </style>
