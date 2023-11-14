@@ -34,7 +34,9 @@ export default {
 :root {
   --main-height: calc(100vh - 32px - 64px);
 }
-
+*{
+  user-select: none;
+}
 
 footer {
   display: grid;
