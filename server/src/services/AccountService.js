@@ -57,7 +57,7 @@ function sanitizeBody(body) {
 
 class AccountService {
   async getAccountById(accountId) {
-    const foundAccount = await dbContext.Account.findById(accountId, 'name picture bio coverImg twitchUrl youtubeUrl twitterUrl fscebookUrl instagramUrl websiteUrl')
+    const foundAccount = await dbContext.Account.findById(accountId, 'name picture bio coverImg twitchUrl youtubeUrl twitterUrl facebookUrl instagramUrl websiteUrl').populate('Video')
     return foundAccount
   }
   async getAllProfilesByQuery(query) {
@@ -95,6 +95,9 @@ class AccountService {
     )
     return account
   }
-
+  async createVideo(videoData) {
+    const newVideo = await dbContext.Videos.create(videoData)
+    return newVideo
+  }
 }
 export const accountService = new AccountService()

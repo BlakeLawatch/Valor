@@ -11,6 +11,7 @@ export class AccountController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
       .put('', this.editAccount)
+      .post('/video', this.createVideo)
   }
 
   async getAccountById(req, res, next) {
@@ -46,6 +47,17 @@ export class AccountController extends BaseController {
       const accountData = req.body
       const editedAccount = await accountService.updateAccount(userData, accountData)
       return res.send(editedAccount)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async createVideo(req, res, next) {
+    try {
+      const userId = req.userInfo.id
+      const videoData = req.body
+      videoData.accountId = userId
+      const video = await accountService.createVideo(videoData)
+      return res.send(video)
     } catch (error) {
       next(error)
     }
