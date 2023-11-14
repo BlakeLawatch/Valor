@@ -6,8 +6,18 @@ export class VideosController extends BaseController {
     constructor() {
         super('api/videos')
         this.router
+            .get('/:accountId/video', this.getVideosByAccount)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('/video', this.createVideo)
+    }
+    async getVideosByAccount(req, res, next) {
+        try {
+            const accountId = req.params.accountId
+            const videos = await videosService.getVideosByAccount(accountId)
+            return res.send(videos)
+        } catch (error) {
+            next(error)
+        }
     }
     async createVideo(req, res, next) {
         try {
