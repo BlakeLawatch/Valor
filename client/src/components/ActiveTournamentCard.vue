@@ -4,7 +4,7 @@
             <!--  flip the isLive boolean with $gt -->
             <section class="row">
                 <div class="col-12 col-md-6">
-                    <img class="img-fluid" :src="tournament.gameImg" alt="">
+                    <img class="img-fluid" :src="tournament.gameImg" alt="" :title="tournament.gameName">
                 </div>
                 <div class="col-6 col-md-3">
                     <h1>{{ tournament.name }}</h1>
