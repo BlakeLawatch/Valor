@@ -72,7 +72,7 @@
     <!-- live stream link -->
     <section class="row text-center">
       <div class="col-12 text-center">
-        <h2 class="text-center text-white fs-1 text-shadow">This tournament is live!</h2>
+        <h3 class="text-center text-white fs-1 text-shadow">This tournament is live!</h3>
         <iframe :src="activeTournament.liveStreamUrl" height="540" width="860" allowfullscreen>
         </iframe>
       </div>
@@ -84,7 +84,7 @@
     <!-- player search -->
     <section v-if="players.length>0" class="row">
       <div class="col-12 text-white  text-center">
-        <h3 class="fs-1 text-shadow  my-3">Participants</h3>
+        <h4 class="fs-1 text-shadow  my-3">Participants</h4>
       </div>
       <div class="d-flex mb-3 justify-content-center">
         <input v-model="editable" type="search" class="form-control w-25" id="searchPlayers"  placeholder="Search Participants">
