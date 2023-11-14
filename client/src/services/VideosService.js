@@ -23,5 +23,14 @@ async addVideo(editable){
         logger.error(error)
     }
 }
+async destroyClip(videoId){
+    try {
+        await api.delete(`api/videos/${videoId}`)
+        AppState.videos = AppState.videos.filter(video => video.id != videoId)
+    } catch (error) {
+        Pop.error(error)
+        logger.error(error)
+    }
+}
 }
 export const videosService = new VideosService()

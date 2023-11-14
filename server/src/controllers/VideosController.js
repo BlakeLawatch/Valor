@@ -1,6 +1,6 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController.js";
-import { videosService } from "../services/VideoService.js";
+import { videosService } from "../services/VideosService.js";
 
 export class VideosController extends BaseController {
     constructor() {
@@ -9,6 +9,7 @@ export class VideosController extends BaseController {
             .get('/:accountId/video', this.getVideosByAccount)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createVideo)
+            .delete('/:videoId', this.destroyVideo)
     }
     async getVideosByAccount(req, res, next) {
         try {
@@ -26,6 +27,16 @@ export class VideosController extends BaseController {
             videoData.accountId = userId
             const video = await videosService.createVideo(videoData)
             return res.send(video)
+        } catch (error) {
+            next(error)
+        }
+    }
+    async destroyVideo(req, res, next) {
+        try {
+            const userId = req.userInfo.id
+            const videoToBeDestroyed = req.params.videoId
+            const deletedVideo = await videosService.destroyVideo(videoToBeDestroyed, userId)
+            return res.send(deletedVideo)
         } catch (error) {
             next(error)
         }

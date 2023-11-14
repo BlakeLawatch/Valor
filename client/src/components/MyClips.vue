@@ -9,7 +9,7 @@
                     <li type="button"><a class="dropdown-item">Sort By Past</a></li>
                 </ul>
             </div>
-            <button type="button" class="btn color-match text-light" data-bs-toggle="modal" data-bs-target="#addClipModal">
+            <button v-if="account.id == profile.id" type="button" class="btn color-match text-light" data-bs-toggle="modal" data-bs-target="#addClipModal">
                 +
             </button>
             <AddClipModal/>
@@ -17,8 +17,12 @@
 </div>
 <div class="row w-100">
     <div v-for="video in videos" :key="video.id" class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
-    <embed :src="video.videoUrl" class="clip-embed w-100" :title="video.videoUrl">
-    <p class="fs-5 text-light">{{ video.title }}</p>
+    <iframe :src="video.videoUrl" class="clip-embed w-100" :title="video.videoUrl"></iframe>
+    <div class="d-flex justify-content-between">
+        <p class="fs-5 text-light">{{ video.title }}</p>
+        <button v-if="account.id == profile.id" @click="destroyClip(video.id)" class="btn btn-danger m-1"><i class="mdi mdi-delete"></i></button>
+    </div>
+    
     </div>
 </div>
 </template>
@@ -50,6 +54,17 @@ export default {
         profile: computed(()=> AppState.profile),
         account: computed(()=> AppState.account),
         videos: computed(()=>AppState.videos),
+        async destroyClip(videoId){
+            try {
+                const yes = await Pop.confirm('Are you sure you want to delete this clip?')
+                if(!yes){return}
+                // debugger
+                await videosService.destroyClip(videoId)
+            } catch (error) {
+                Pop.error(error)
+                logger.error(error)
+            }
+        }
     }
     },
     components: {AddClipModal}
