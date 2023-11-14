@@ -193,6 +193,21 @@
             <div class="col-12 text-center">
                 <h1 class="text-white underline">Manage Players</h1>
             </div>
+            <section class="row">
+                <div class="col-3">
+                    <h1 class="text-white editFormCard">Participants: </h1>
+                    <div class="text-white mt-4 d-flex" v-for="player in players" :key="player.id">
+                        <h3 class="mx-2">{{ player.seed }}</h3>
+                        <div class="editFormCard d-flex ">
+                            <img class="rounded-circle" :src="player.profile.picture" alt="">
+                            <h4 class="mx-3">{{ player.profile.name }}</h4>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-9 text-end">
+                        <h1 class="text-white">Placeholder for bracket</h1>
+                    </div>
+        </section>
         </section>
     </div>
 </template>
@@ -206,6 +221,7 @@ import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import { useRoute, useRouter } from 'vue-router';
 import { router } from '../router';
+import { playersService } from '../services/PlayersService';
 export default {
     setup() {
         const tournamentEditable = ref({})
@@ -215,6 +231,7 @@ export default {
         watchEffect(() => {
             route,
                 getMyTournamentById()
+                getPlayersByTournamentId()
         })
         watchEffect(() => {
             if (AppState.activeTournament) {
@@ -234,10 +251,20 @@ export default {
                 logger.error(error)
             }
         }
+
+        async function getPlayersByTournamentId() {
+            try {
+                const tournamentId = route.params.tournamentId
+                await playersService.getPlayersByTournamentId(tournamentId)
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
         return {
             region,
             router,
             tournamentEditable,
+            players: computed(() => AppState.playersInActiveTournament),
             tournament: computed(() => AppState.activeTournament),
             account: computed(() => AppState.account),
             todaysDate: new Date().toISOString().substring(0, 10),
@@ -272,6 +299,11 @@ export default {
 
 
 <style lang="scss" scoped>
+
+img {
+    height: 8vh;
+    width: 8vh;
+}
 .underline {
     text-decoration: underline;
     margin-top: 3px;
