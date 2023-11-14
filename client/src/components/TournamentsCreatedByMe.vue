@@ -2,22 +2,22 @@
         <div class="text-light p-2 d-flex">
             <p class="fs-5">{{ profile.name }}'s tournaments:</p>
         <div class="dropdown">
-            <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTournaments" data-bs-toggle="dropdown" aria-expanded="false"></button>
+            <button class="btn color-match dropdown-toggle ms-2" title="Sort" type="button" id="filterMyTournaments" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu" aria-labelledby="filterMyTournaments">
-                <li @click="sortByNew()" type="button"><a class="dropdown-item color-match text-light">Sort by Future</a></li>
-                <li @click="sortByOld()" type="button"><a class="dropdown-item">Sort By Past</a></li>
+                <li @click="sortByNew()" title="Sort New" type="button"><a class="dropdown-item color-match text-light">Sort by Future</a></li>
+                <li @click="sortByOld()" title="Sort Old" type="button"><a class="dropdown-item">Sort By Past</a></li>
             </ul>
         </div>
     </div>
     <div v-if="profile.id" class="row w-100">
-        <div v-for="tournament in myTournaments" :key="tournament.id" class="col-12 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
+        <div v-for="tournament in myTournaments" title="View Tournament's Page" :key="tournament.id" class="col-12 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
             <router-link :to="{name: 'TournamentInfoPage', params: {tournamentId: tournament.id}}"> 
                 <img v-if="!tournament.isCancelled" :src="tournament.imgUrl || tournament.gameImg" class="tournament-image w-100"/>
                 <img v-else src="https://media.istockphoto.com/id/1227115202/photo/a-red-stamp-on-a-white-background-cancelled.webp?b=1&s=170667a&w=0&k=20&c=RPueqU4VVfs98bOCqlCPifC7EcKze6CksprK4o_K3no=" class="tournament-image w-100"/>
             </router-link>
             <div class="d-flex flex-column justify-content-between">
                 <p class="fs-5 ps-2 text-light text-center pt-2">{{ tournament.name }}</p>
-                <div v-if="tournament.creatorId == account.id" class="w-100 d-flex justify-content-end pe-2 pb-1">
+                <div v-if="tournament.creatorId == account.id" title="Edit Tournament" class="w-100 d-flex justify-content-end pe-2 pb-1">
                     <RouterLink :to="{name: 'ManageTournament', params: {tournamentId: tournament.id}}">
                         <button class="btn color-match text-light"> Edit</button>
                     </RouterLink>

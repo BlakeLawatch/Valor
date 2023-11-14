@@ -3,17 +3,17 @@
         <div class="d-flex">
             <p class="fs-5">Tournaments that {{ profile.name }} has participated in:</p>
             <div class="dropdown">
-                <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                <button class="btn color-match dropdown-toggle ms-2" title="Sort" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
                 <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
-                    <li @click="sortByNew()" type="button"><a class="dropdown-item color-match text-light">Sort by Future</a></li>
-                    <li @click="sortByOld()" type="button"><a class="dropdown-item">Sort By Past</a></li>
+                    <li @click="sortByNew()" title="Sort New" type="button"><a class="dropdown-item color-match text-light">Sort by Future</a></li>
+                    <li @click="sortByOld()" title="Sort Old" type="button"><a class="dropdown-item">Sort By Past</a></li>
                 </ul>
             </div>
         </div>
         
     </div>
     <div class="row w-100">
-        <div v-for="player in participatedIn" :key="player.id" class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
+        <div v-for="player in participatedIn" title="View Tournament Info" :key="player.id" class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
             <router-link :to="{name: 'TournamentInfoPage', params: {tournamentId: player.tournament.id}}"> 
             <img v-if="player.tournament.imgUrl" :src="player.tournament.imgUrl" class="w-100 tournament-image">
             <img v-else-if="!player.tournament.imgUrl && player.tournament.gameImg" :src="player.tournament.gameImg" class="w-100 tournament-image">

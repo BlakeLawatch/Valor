@@ -8,6 +8,7 @@ class VideosService{
 async getMyClips(accountId){
     try {
         const res = await api.get(`api/videos/${accountId}/video`)
+        logger.log('videos coming from API', res.data)
         AppState.videos = res.data.map((video) => new Video(video))
     } catch (error) {
         Pop.error(error)

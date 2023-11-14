@@ -64,7 +64,7 @@
       <div v-if="profiles.length > 0" class="col-md-8 col-12">
         <h4 class="text-white mt-5 fs-3">Profiles</h4>
         <section class="row mb-5">
-          <div class="col-md-3 col-6 mt-4" v-for="profile in profiles" :key="profile.id">
+          <div class="col-md-4 col-6 mt-4" v-for="profile in profiles" :key="profile.id">
             <RouterLink :to="{name: 'Account', params: {accountId: profile.id}}">
               
               <div class="d-flex align-items-center box-bg p-3 rounded">

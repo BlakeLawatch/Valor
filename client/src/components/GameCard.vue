@@ -1,12 +1,14 @@
 <template>
     <!-- TODO make imgs have better quality. Read up on api cover section -->
-    <div class="coolBg p-3 rounded">
-        <RouterLink :to="{name: 'ActiveGame', params: {gameId: game.id}}">
-            <p class="text-white text-center">{{ game.name }}</p>
-            <img v-if="game.cover?.url" :src="game.cover?.url" alt="">
-            <img v-else src="src/assets/img/valorPanda.png">
-        </RouterLink>
+    <RouterLink :to="{name: 'ActiveGame', params: {gameId: game.id}}" :title="game.name">
+    <div class="row coolBg rounded mx-1">
+      <div class="col-12 my-2">
+        <p class="text-white text-center">{{ game.name }}</p>
+      </div>
+      <img class="rounded-bottom" v-if="game.cover?.url" :src="game.cover?.url" alt="">
+      <img v-else src="src/assets/img/valorPanda.png">
     </div>
+    </RouterLink>
 </template>
 
 
@@ -38,5 +40,10 @@ img {
     width: 100%;
     object-fit: cover;
     object-position: center;
+    margin: 0;
+    padding: 0;
+}
+p{
+  margin-bottom: 0;
 }
 </style>

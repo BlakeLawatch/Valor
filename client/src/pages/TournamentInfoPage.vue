@@ -1,7 +1,7 @@
 <template>
   <div v-if="activeTournament" class="container-fluid px-5 py-4">
     <!-- Info section -->
-    <section class="row text-light card-bg rounded p-2">
+    <section class="row text-light card-bg formCard rounded p-2">
       <div class="col-12 py-2 px-0 banner-img d-flex align-items-center justify-content-center"
         :style="{ backgroundImage: 'url(' + activeTournament.imgUrl + ')' }">
         <p class="fs-1 timer">{{ countdown }}</p>
@@ -12,9 +12,8 @@
       <div class="col-12 d-flex justify-content-between align-items-center my-2">
         <div>
           <p class="fs-5">{{ activeTournament.address }}</p>
-          <p>{{ players.length }} Entrant
-            <span v-if="activeTournament.playerCount > 1">s</span>
-          </p>
+          <p v-if="activeTournament.playerCount > 1">{{ players.length }} Entrants</p>
+          <p v-else>{{ players.length }} Entrant</p>
         </div>
         <div class="text-end">
           <h2>{{ activeTournament.gameName }}</h2>
@@ -61,10 +60,10 @@
           </RouterLink>
           <div v-else>
             <button @click="registerForTournament()" v-if="players.find(p => p.accountId == account.id) == null"
-              :disabled="activeTournament.startDate.toLocaleDateString() < new Date().toLocaleDateString()"
+              :disabled="activeTournament.startDate?.toLocaleDateString() < new Date().toLocaleDateString()"
               class="btn btn-valor w-100">Register</button>
             <button @click="unregisterForTournament(players.find(p => p.accountId == account.id))" v-else
-              :disabled="activeTournament.startDate.toLocaleDateString() < new Date().toLocaleDateString()"
+              :disabled="activeTournament.startDate?.toLocaleDateString() < new Date().toLocaleDateString()"
               class="btn btn-danger w-100">Unregister</button>
           </div>
         </div>
@@ -252,4 +251,12 @@ p {
 .text-shadow {
   text-shadow: 2px 2px 4px #2ca58d;
 }
+
+.formCard {
+    background-color: rgb(68, 68, 68);
+    box-shadow: 0px 5px 4px #2ca58d;
+    
+    border: 1.5px solid #2ca58d;
+}
+
 </style>

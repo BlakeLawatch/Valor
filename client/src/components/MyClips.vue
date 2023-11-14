@@ -3,26 +3,30 @@
     <div class="d-flex align-items-center">
         <p class="fs-5 text-light mb-0">{{ profile.name }}'s clips:</p>
         <div class="dropdown">
-                <button class="btn color-match dropdown-toggle mx-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                <button class="btn color-match dropdown-toggle mx-2" type="button" title="Sort" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
                 <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
-                    <li @click="sortNew()" type="button"><a class="dropdown-item color-match text-light">Sort by Newest</a></li>
-                    <li @click="sortOld()" type="button"><a class="dropdown-item">Sort By Oldest</a></li>
+                    <li @click="sortNew()" title="Sort New" type="button"><a class="dropdown-item color-match text-light">Sort by Newest</a></li>
+                    <li @click="sortOld()" title="Sort Old" type="button"><a class="dropdown-item">Sort By Oldest</a></li>
                 </ul>
             </div>
-            <button v-if="account.id == profile.id" type="button" class="btn color-match text-light" data-bs-toggle="modal" data-bs-target="#addClipModal">
+            <button v-if="account.id == profile.id" type="button" title="Add Clip" class="btn color-match text-light" data-bs-toggle="modal" data-bs-target="#addClipModal">
                 +
             </button>
             <AddClipModal/>
     </div>
 </div>
-<div class="row w-100">
-    <div v-for="video in videos" :key="video.id" class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
-    <iframe :src="video.videoUrl" class="clip-embed w-100" :title="video.videoUrl"></iframe>
+
+<!-- CheerfulYawningVulturePeanutButterJellyTime -->
+<div v-if="videos != []" class="row w-100">
+    <div v-for="video in videos" :key="video.id" class="col-12 col-md-9 col-lg-4 m-3 account-info-card px-0">
+    <iframe :src="video.videoUrl" class="clip-embed w-100" :title="video.videoUrl" height="220rem"></iframe>
     <div class="d-flex justify-content-between">
-        <p class="fs-5 text-light">{{ video.title }}</p>
-        <button v-if="account.id == profile.id" @click="destroyClip(video.id)" class="btn btn-danger m-1"><i class="mdi mdi-delete"></i></button>
+        <p class="fs-5 text-light ps-3">{{ video.title }}</p>
+        <div>
+            <button v-if="account.id == profile.id" @click="destroyClip(video.id)" title="Delete Clip" class="btn btn-danger m-1"><i class="mdi mdi-delete"></i></button>
+        </div>
+        
     </div>
-    
     </div>
 </div>
 </template>
@@ -100,6 +104,5 @@ height: max-content;
 .clip-embed{
     object-fit: cover;
     object-position: center;
-    height: 12rem;
 }
 </style>
