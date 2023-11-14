@@ -189,6 +189,11 @@
             <button @click.prevent="cancelTournament()" class="btn btn-success" title="cancel tournament">Restore this
                 tournament</button>
         </section>
+        <section class="row mt-4">
+            <div class="col-12 text-center">
+                <h1 class="text-white underline">Manage Players</h1>
+            </div>
+        </section>
     </div>
 </template>
 
