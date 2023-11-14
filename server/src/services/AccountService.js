@@ -61,7 +61,7 @@ class AccountService {
     return foundAccount
   }
   async getAllProfilesByQuery(query) {
-    let profiles = await dbContext.Profiles.find({ name: { $regex: `${query.name}` } }, 'name picture')
+    let profiles = await dbContext.Profiles.find({ name: { $regex: `${query.name}`, $options: 'i' } }, 'name picture')
     return profiles
   }
   /**
