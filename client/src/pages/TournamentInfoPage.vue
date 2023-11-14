@@ -72,8 +72,7 @@
       </div>
     </section>
     <section class="row">
-      <iframe src="https://player.twitch.tv/?channel={{activeTournament.liveStreamUrl}}&parent=localhost&autoplay=true"
-        height="720" width="1280" allowfullscreen>
+      <iframe :src="activeTournament.liveStreamUrl" height="720" width="1280" allowfullscreen>
       </iframe>
 
     </section>
@@ -144,6 +143,7 @@ export default {
       countdown,
       account: computed(() => AppState.account),
       players: computed(() => AppState.playersInActiveTournament),
+
       async registerForTournament() {
         try {
           // TODO MAKE THROW ERROR IF ALREADY REGISTERED

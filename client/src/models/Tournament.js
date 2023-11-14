@@ -14,7 +14,7 @@ export class Tournament {
         this.capacity = data.capacity
         this.onlineOnly = data.onlineOnly
         this.imgUrl = data.imgUrl
-        this.liveStreamUrl = data.liveStreamUrl
+        this.liveStreamUrl = `https://player.twitch.tv/?channel=${data.liveStreamUrl}&parent=localhost&autoplay=true` 
         this.winnerId = data.winnerId
         this.isLocked = data.isLocked
         this.isCancelled = data.isCancelled
