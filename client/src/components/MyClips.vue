@@ -17,7 +17,7 @@
 </div>
 <div class="row w-100">
     <div v-for="video in videos" :key="video.id" class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
-    <a>{{ video.videoUrl }}</a>
+    <embed :src="video.videoUrl" class="clip-embed w-100" :title="video.title">
     <p class="fs-5 text-light">{{ video.title }}</p>
     </div>
 </div>
@@ -65,5 +65,10 @@ background-color: #2ca58d;
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
 height: max-content;
+}
+.clip-embed{
+    object-fit: cover;
+    object-position: center;
+    height: 12rem;
 }
 </style>
