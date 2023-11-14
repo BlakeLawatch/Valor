@@ -18,9 +18,13 @@
             <img v-if="player.tournament.imgUrl" :src="player.tournament.imgUrl" class="w-100 tournament-image">
             <img v-else-if="!player.tournament.imgUrl && player.tournament.gameImg" :src="player.tournament.gameImg" class="w-100 tournament-image">
             <img v-else-if="!player.tournament.imgUrl && !player.tournament.gameImg" src="src/assets/img/valorPanda.png" class="w-100 tournament-image">
-            <div class="d-flex flex-column justify-content-between">
-                <p class="fs-5 ps-2 text-light">{{ player.tournament.name }}</p>            </div>
             </router-link>
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="fs-5 ps-2 mb-0 text-light">{{ player.tournament.name }}</p>
+                <div v-if="profile.id == account.id" class="m-1">
+                    <button @click="unregister(player.id)" class="btn btn-danger" title="Stop Attending"><i class="mdi mdi-delete"></i></button>
+                </div>
+            </div>
             </div>
     </div>
 </template>
@@ -71,6 +75,16 @@ export default {
         async sortByDefault(){
             try {
                 await tournamentsService.sortByDefault()
+            } catch (error) {
+                Pop.error(error)
+                logger.error(error)
+            }
+        },
+        async unregister(playerId){
+            try {
+                const yes = await Pop.confirm(`Are you sure you no longer want to participate in this tournament?`)
+                if(!yes){return}
+                await playersService.unregister(playerId)
             } catch (error) {
                 Pop.error(error)
                 logger.error(error)
