@@ -9,7 +9,7 @@
             <div class="modal-body text-dark">
                 <form @submit.prevent="editAccount()">
                     <div class="w-100 d-flex justify-content-between">
-                        <div class="condensed-milk p-2">
+                        <div class="condensed-milk p-2 text-start">
                             <label for="name" class="form-label fs-5">Name</label>
                             <input v-model="editable.name" type="text" maxlength="100" class="form-control" placeholder="Give yourself a new name">
                         </div>
@@ -19,16 +19,16 @@
                         </div>
                     </div>
                     <div class="w-100 d-flex justify-content-between">
-                        <div class="condensed-milk p-2">
+                        <div class="condensed-milk p-2 text-start">
                             <label for="coverImg" class="form-label fs-5">Profile Background</label>
-                            <input v-model="editable.coverImg" type="url" maxlength="500" class="form-control" placeholder="Give yourself a new name">
+                            <input v-model="editable.coverImg" type="url" maxlength="500" class="form-control" placeholder="Personalize the background of your profile with an image!">
                         </div>
                         <div class="condensed-milk p-2">
                             <label for="twitchUrl" class="form-label fs-5">Twitch Link</label>
                             <input v-model="editable.twitchUrl" type="url" maxlength="500" class="form-control" placeholder="feeling twitchy today?">
                         </div>
                     </div>
-                    <div class="w-100 d-flex justify-content-between">
+                    <div class="w-100 d-flex justify-content-between text-start">
                         <div class="condensed-milk p-2">
                             <label for="twitterUrl" class="form-label fs-5">Twitter Link</label>
                             <input v-model="editable.twitterUrl" type="url" maxlength="500" class="form-control" placeholder="For birds of all feathers">
@@ -38,7 +38,7 @@
                             <input v-model="editable.youtubeUrl" type="url" maxlength="500" class="form-control" placeholder="Your very own tube!">
                         </div>
                     </div>
-                    <div class="w-100 d-flex justify-content-between">
+                    <div class="w-100 d-flex justify-content-between text-start">
                         <div class="condensed-milk p-2">
                             <label for="facebookUrl" class="form-label fs-5">Facebook Link</label>
                             <input v-model="editable.facebookUrl" type="url" maxlength="500" class="form-control" placeholder="A face so unique you could write a book about it">
@@ -49,11 +49,11 @@
                         </div>
                     </div>
                     
-                    <div>
+                    <div class="text-start">
                         <label for="websiteUrl" class="form-label fs-5">Website Link</label>
                         <input v-model="editable.websiteUrl" type="url" maxlength="500" class="form-control" placeholder="seeing the sites">
                     </div>
-                    <div>
+                    <div class="text-start">
                         <label for="bio" class="form-label fs-5">Biography</label>
                         <textarea v-model="editable.bio" rows="5" maxlength="1000" class="form-control" placeholder="Ever wanted to write an autobiograpjy? Well now you can!"></textarea>
                     </div>
@@ -71,8 +71,8 @@
 
 
 <script>
-import { AppState } from '../AppState';
-import { computed, reactive, onMounted, popScopeId, ref } from 'vue';
+// import { AppState } from '../AppState';
+import { ref } from 'vue';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
 import { Modal } from 'bootstrap';
