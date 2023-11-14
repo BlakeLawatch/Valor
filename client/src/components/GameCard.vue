@@ -1,8 +1,8 @@
 <template>
     <!-- TODO make imgs have better quality. Read up on api cover section -->
-    <RouterLink :to="{name: 'ActiveGame', params: {gameId: game.id}}">
+    <RouterLink :to="{name: 'ActiveGame', params: {gameId: game.id}}" :title="game.name">
     <div class="row coolBg rounded mx-1">
-      <div class="col-12 my-1">
+      <div class="col-12 my-2">
         <p class="text-white text-center">{{ game.name }}</p>
       </div>
       <img class="rounded-bottom" v-if="game.cover?.url" :src="game.cover?.url" alt="">
