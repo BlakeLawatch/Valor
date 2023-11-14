@@ -96,8 +96,6 @@ clearData() {
 
 async registerForTournament(tournamentId){
     const res = await api.post('api/players', {tournamentId})
-    // FIXME MAKE SEEDING HANDLED IN THE BACK END
-    res.data.seed = AppState.playersInActiveTournament.length + 1
     AppState.playersInActiveTournament.push(new Player(res.data))
 }
 
