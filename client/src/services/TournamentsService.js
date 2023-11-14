@@ -72,7 +72,7 @@ class TournamentsService{
     }
 
     async cancelTournament(tournamentId) {
-       const res = await api.delete(`api/tournaments/${tournamentId}`)
+        const res = await api.delete(`api/tournaments/${tournamentId}`)
         AppState.activeTournament = new Tournament(res.data)
     }
 
@@ -101,7 +101,7 @@ async registerForTournament(tournamentId){
 
 async unregisterForTournament( playerId){
     const res = await api.delete(`api/players/${playerId}`)
-   AppState.playersInActiveTournament =  res.data.map(p => new Player(p))
+    AppState.playersInActiveTournament =  res.data.map(p => new Player(p))
 }
 
 }
