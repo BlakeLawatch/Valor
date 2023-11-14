@@ -18,9 +18,4 @@ export const AccountSchema = new Schema(
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
-AccountSchema.virtual('Video', {
-  localField: '_id',
-  foreignField: 'accountId',
-  ref: 'Video',
-})
 
