@@ -2,7 +2,7 @@
     <div class="container-fluid p-5">
         <section v-if="!tournamentEditable.isCancelled" class="row">
             <div class="col-12 text-center">
-                <h1 class="text-white underline">{{ tournament.name }}</h1>
+                <h1 class="text-white textShadow underline">{{ tournament.name }}</h1>
             </div>
             <div class="col-12 d-flex justify-content-center mt-3 rounded">
                 <form @submit.prevent="editActiveTournament()" class="editFormCard rounded w-100">
@@ -191,11 +191,11 @@
         </section>
         <section class="row mt-4">
             <div class="col-12 text-center">
-                <h1 class="text-white underline">Manage Players</h1>
+                <h1 class="text-white textShadow underline">Manage Players</h1>
             </div>
             <section class="row mt-5">
                 <div class="col-4">
-                    <h1 class="text-white editFormCard rounded">Participants: </h1>
+                    <h1 class="text-white textShadow editFormCard rounded">Participants: </h1>
                     <div class="text-white mt-4 d-flex" v-for="player in players" :key="player.id">
                         <div class="editFormCard d-flex rounded w-100">
                             <img class="rounded-circle mx-3 mt-2 mb-2" :src="player.profile.picture" alt="">
@@ -319,6 +319,10 @@ img {
     box-shadow: 0px 5px 4px #2ca58d;
     
     border: 1.5px solid #2ca58d;
+}
+
+.textShadow {
+  text-shadow: 2px 2px 4px #2ca58d;
 }
 
 textarea {
