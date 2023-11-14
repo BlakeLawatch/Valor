@@ -3,7 +3,7 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class TournamentsService {
   async getTournamentsByQuery(query) {
-    const tournaments = await dbContext.Tournaments.find({ name: { $regex: `${query.name}` } },)
+    const tournaments = await dbContext.Tournaments.find({ name: { $regex: `${query.name}`, $options: 'i' } },)
     return tournaments
   }
   getTournamentByGameId(gameId) {

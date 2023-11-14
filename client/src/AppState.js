@@ -24,6 +24,8 @@ export const AppState = reactive({
   activeTournaments: [],
   /** @type {import('./models/Tournament.js').Tournament []} */
   activeTournament: {},
+  /**@type {import('./models/Video.js').Video []} */
+  videos: [],
   
   /** @type {import('./models/Tournament.js').Tournament [] || []} */
   searchedTournaments: [],
