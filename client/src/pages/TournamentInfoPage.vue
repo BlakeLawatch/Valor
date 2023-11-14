@@ -71,9 +71,10 @@
       </div>
     </section>
     <section class="row">
-      <iframe src="https://player.twitch.tv/?channel=linkzr&parent=www.example.com" frameborder="0" allowfullscreen="true"
-        scrolling="no" height="378" width="620"></iframe>
-
+      <iframe
+        src="https://clips.twitch.tv/embed?clip=ComfortableSillyAlbatrossTBCheesePull-L6smyx4werCeH2Nd&parent=localhost&autoplay=true"
+        height="720" width="1280" allowfullscreen>
+      </iframe>
 
     </section>
   </div>
