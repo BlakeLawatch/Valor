@@ -1,27 +1,25 @@
 <template>
-    <RouterLink :to="{ name: 'TournamentInfoPage', params: { tournamentId: tournament.id } }">
-        <div class="coolBg p-3 rounded text-light">
-            <!--  flip the isLive boolean with $gt -->
-            <section class="row">
-                <div class="col-12 col-md-6">
-                    <img class="img-fluid" :src="tournament.gameImg" alt="" :title="tournament.gameName">
-                </div>
-                <div class="col-6 col-md-3">
-                    <h1>{{ tournament.name }}</h1>
-                    <h4 class="mt-5">{{ tournament.gameName }}</h4>
-                    <h5 v-if="tournament.capacity"> Total Capacity: {{ tournament.capacity }}</h5>
-                </div>
-                <div class="col-6 col-md-3 text-center">
-                    <h5>{{ tournament.address }}</h5>
-                    <h5 v-if="tournament.endDate == null">{{ tournament.startDate.toLocaleDateString() }}</h5>
-                    <h5 v-else>{{ tournament.startDate.toLocaleDateString() }} - {{ tournament.endDate.toLocaleDateString()
-                    }}</h5>
-                    <p v-if="tournament.entryPrice > 0" class="fs-2 mt-5">Entry Fee: ${{ tournament.entryPrice }}</p>
-                    <p v-else class="fs-2 mt-5">No Entry Fee</p>
-                </div>
-            </section>
-        </div>
-    </RouterLink>
+  <RouterLink :to="{ name: 'TournamentInfoPage', params: { tournamentId: tournament.id } }">
+    <section class="row coolBg p-2 rounded text-light">
+      <!--  flip the isLive boolean with $gt -->
+      <div class="col-12 col-md-6">
+          <img class="img-fluid" :src="tournament.gameImg" alt="">
+      </div>
+      <div class="col-6 col-md-3">
+          <p>{{ tournament.name }}</p>
+          <p>{{ tournament.gameName }}</p>
+          <p v-if="tournament.capacity"> Total Capacity: {{ tournament.capacity }}</p>
+      </div>
+      <div class="col-6 col-md-3 text-center">
+          <p>{{ tournament.address }}</p>
+          <p v-if="tournament.endDate == null">{{ tournament.startDate.toLocaleDateString() }}</p>
+          <p v-else>{{ tournament.startDate.toLocaleDateString() }} - {{ tournament.endDate.toLocaleDateString()
+          }}</p>
+          <p v-if="tournament.entryPrice > 0" class="">Entry Fee: ${{ tournament.entryPrice }}</p>
+          <p v-else class="">No Entry Fee</p>
+      </div>
+    </section>
+  </RouterLink>
 </template>
 
 
