@@ -101,7 +101,7 @@ async registerForTournament(tournamentId){
 
 async unregisterForTournament( playerId){
     const res = await api.delete(`api/players/${playerId}`)
-   AppState.playersInActiveTournament =  AppState.playersInActiveTournament.filter(t=> t.id != playerId)
+   AppState.playersInActiveTournament =  res.data.map(p => new Player(p))
 }
 
 }
