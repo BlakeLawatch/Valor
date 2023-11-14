@@ -4,48 +4,52 @@
     <section class="row p-3">
         <div class="col-12">
             <div class="dark-bg rounded p-3">
-                <div class="text-center rounded card-bg p-2">
-                    <h1 class="card-text">{{ game.name }}</h1>
-                    <img class="img-fluid w-100" :src="game.cover?.url" alt="">
-                    <section class="row justify-content-center align-items-center">
-                      <div class="col-12">
-                        <h3 class="card-text text-center my-2">Search Tournament</h3>
-                      </div>
-                      
-                      <div v-if="tournaments.length > 0" class="text-start p-3 col-7">
-                        <label class="text-white" for="searchForm">Search</label>
-                        <form @submit.prevent="" class="" name="searchForm">
-                          <input v-model="searchEditable" class="form-control mr-sm-2" type="search"
-                              placeholder="Search for your tournament here..." aria-label="Search">
-                          <!-- <button class="btn btn-outline-success mx-3 my-2 my-sm-0" type="submit">Search</button> -->
-                        </form>
-                      </div>
-                      <div v-else>
-                          <h3 class="card-text my-3">
-                              this game currently does not have any active or future tournaments.
-                          </h3>
-                      </div>
-                      <div class="col-2 text-start">
-                        <label for="filterBy" class="text-white">Filter By</label>
-                        <select v-model="filteredTournamentType" class="form-select btn-valor" name="filterBy">
-                            <option v-for="tournamentType in tournamentTypes" :key="tournamentType">
-                                {{ tournamentType }}
-                            </option>
-                        </select>
-                      </div>
-                      <div class="col-2 text-start">
-                        <label for="sortBy" class="text-white">Sort By</label>
-                        <select v-model="filteredSortType" class="form-select btn-valor" name="sortBy">
-                          <option v-for="sortType in sortTypes" :key="sortType">
-                            {{ sortType }}
-                          </option>
-                        </select>
-                      </div>
-                    </section>
-                </div>
+              <div class="text-center rounded card-bg p-2">
+                <h1 class="card-text">{{ game.name }}</h1>
+                <img class="img-fluid w-100" :src="game.cover?.url" alt="">
+                <section class="row justify-content-center align-items-center">
+                  <div class="col-12">
+                    <h3 class="card-text text-center my-2">Search Tournament</h3>
+                  </div>
+                  
+                  <div v-if="tournaments.length > 0" class="text-start p-3 col-7">
+                    <label class="text-white" for="searchForm">Search</label>
+                    <form @submit.prevent="" class="" name="searchForm">
+                      <input v-model="searchEditable" class="form-control mr-sm-2" type="search"
+                          placeholder="Search for your tournament here..." aria-label="Search">
+                      <!-- <button class="btn btn-outline-success mx-3 my-2 my-sm-0" type="submit">Search</button> -->
+                    </form>
+                  </div>
+                  <div v-else>
+                    <h3 v-if="filteredTournamentType" class="card-text my-3">
+                      No tournaments exist with the given criteria
+                    </h3>
+                    <h3 v-else class="card-text my-3">
+                      This game currently does not have any active or future tournaments.
+                    </h3>
+                  </div>
+                  <div class="col-2 text-start">
+                    <label for="filterBy" class="text-white">Filter By</label>
+                    <select v-model="filteredTournamentType" class="form-select btn-valor" name="filterBy">
+                      <option v-for="tournamentType in tournamentTypes" :key="tournamentType">
+                          {{ tournamentType }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-2 text-start">
+                    <label for="sortBy" class="text-white">Sort By</label>
+                    <select v-model="filteredSortType" class="form-select btn-valor" name="sortBy">
+                      <option v-for="sortType in sortTypes" :key="sortType">
+                        {{ sortType }}
+                      </option>
+                    </select>
+                  </div>
+                </section>
+              </div>
             </div>
         </div>
     </section>
+
     <section class="row">
       <div class="col-12">
         <section class="row d-flex justify-content-center">
@@ -57,6 +61,7 @@
         </section>
       </div>
     </section>
+    
   </div>
 </template>
 
@@ -119,7 +124,6 @@ export default {
               else{
                 filteredAndSortedTournaments =  AppState.activeTournaments.filter(tournament => tournament.onlineOnly == false)
               }
-              return filteredAndSortedTournaments
             }
             if(filteredSortType.value){
               if(filteredSortType.value == 'Entrants (high)'){
@@ -129,12 +133,12 @@ export default {
                 filteredAndSortedTournaments.sort((t1,t2) => t1.playerCount - t2.playerCount)
               }
             } 
-            else {
-                return AppState.activeTournaments
-            }
             return filteredAndSortedTournaments
 
           }),
+          filterType(tournamentType){
+            filteredTournamentType.value = tournamentType
+          }
       };
   },
   components: { ActiveTournamentCard }

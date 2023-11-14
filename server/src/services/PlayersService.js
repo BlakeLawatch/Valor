@@ -28,7 +28,10 @@ class PlayersService {
     return players
   }
 
-  async createPlayer(playerData) {
+  async createPlayer(playerData, tournamentId) {
+    const players = this.getPlayersByTournamentId(tournamentId.tournamentId)
+    const num = (await players).length + 1
+    playerData.seed = num
     const player = await dbContext.Players.create(playerData)
     await player.populate('profile')
     await player.populate('tournament', 'name gameName')
@@ -57,7 +60,13 @@ class PlayersService {
   async deletePlayerById(playerId) {
     const player = await dbContext.Players.findById(playerId)
     await player.remove()
-    return `Player with id: ${playerId} has been deleted`
+    const tournamentId = await player.tournamentId
+    const remainingPlayers = await this.getPlayersByTournamentId(tournamentId)
+    let seed = 1;
+    (await remainingPlayers).forEach(p => {
+      p.seed = seed; p.save(); seed++;
+    })
+    return remainingPlayers;
   }
 
 }

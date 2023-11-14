@@ -60,10 +60,11 @@ export class PlayersController extends BaseController {
 
   async createPlayer(req, res, next) {
     try {
+      const tournamentId = req.body
       const playerData = req.body
       const accountId = req.userInfo.id
       playerData.accountId = accountId
-      const player = await playersService.createPlayer(playerData)
+      const player = await playersService.createPlayer(playerData, tournamentId)
       res.send(player)
     }
     catch (error) {
