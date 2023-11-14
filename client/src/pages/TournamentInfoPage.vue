@@ -71,10 +71,12 @@
         </div>
       </div>
     </section>
-    <section class="row">
-      <iframe :src="activeTournament.liveStreamUrl" height="720" width="1280" allowfullscreen>
-      </iframe>
-
+    <section class="row text-center">
+      <div class="col-12 text-center">
+        <h1 class="text-center text-white text-shadow">This tournament is live!</h1>
+        <iframe :src="activeTournament.liveStreamUrl" height="540" width="860" allowfullscreen>
+        </iframe>
+      </div>
     </section>
   </div>
 </template>
