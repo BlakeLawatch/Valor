@@ -2,15 +2,13 @@
   <RouterLink :to="{ name: 'TournamentInfoPage', params: { tournamentId: tournament.id } }">
     <section class="row coolBg p-2 rounded text-light">
       <!--  flip the isLive boolean with $gt -->
-      <div class="col-12 col-md-6">
-          <img class="img-fluid" :src="tournament.gameImg" alt="">
+      <div class="col-12 col-md-6 p-0">
+          <img class="p-0 m-0" :src="tournament.gameImg" alt="">
       </div>
-      <div class="col-6 col-md-3">
+      <div class="col-12 col-md-6">
           <p>{{ tournament.name }}</p>
           <p>{{ tournament.gameName }}</p>
           <p v-if="tournament.capacity"> Total Capacity: {{ tournament.capacity }}</p>
-      </div>
-      <div class="col-6 col-md-3 text-center">
           <p>{{ tournament.address }}</p>
           <p v-if="tournament.endDate == null">{{ tournament.startDate.toLocaleDateString() }}</p>
           <p v-else>{{ tournament.startDate.toLocaleDateString() }} - {{ tournament.endDate.toLocaleDateString()
@@ -50,5 +48,10 @@ img {
 
 .coolBg {
     background-color: #444444;
+    height: 20vh;
+}
+
+p{
+  margin-bottom: 0;
 }
 </style>
