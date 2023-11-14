@@ -95,9 +95,5 @@ class AccountService {
     )
     return account
   }
-  async createVideo(videoData) {
-    const newVideo = await dbContext.Videos.create(videoData)
-    return newVideo
-  }
 }
 export const accountService = new AccountService()
