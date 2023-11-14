@@ -1,4 +1,5 @@
 <template>
+    <!-- TODO might want to be able to register in our own tournament -->
     <div class="container-fluid p-5">
         <section v-if="!tournamentEditable.isCancelled" class="row">
             <div class="col-12 text-center">
