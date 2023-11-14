@@ -72,7 +72,7 @@
     </section>
     <section class="row">
       <iframe
-        src="https://clips.twitch.tv/embed?clip=ComfortableSillyAlbatrossTBCheesePull-L6smyx4werCeH2Nd&parent=localhost&autoplay=true"
+        src="https://player.twitch.tv/?channel=hiswattson&parent=localhost&autoplay=true"
         height="720" width="1280" allowfullscreen>
       </iframe>
 
