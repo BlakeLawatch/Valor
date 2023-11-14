@@ -8,7 +8,7 @@ export class VideosController extends BaseController {
         this.router
             .get('/:accountId/video', this.getVideosByAccount)
             .use(Auth0Provider.getAuthorizedUserInfo)
-            .post('/video', this.createVideo)
+            .post('', this.createVideo)
     }
     async getVideosByAccount(req, res, next) {
         try {

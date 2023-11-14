@@ -14,5 +14,14 @@ async getMyClips(accountId){
         logger.error(error)
     }
 }
+async addVideo(editable){
+    try {
+        const res = await api.post(`api/videos`, editable)
+        AppState.videos.push(new Video(res.data))
+    } catch (error) {
+        Pop.error(error)
+        logger.error(error)
+    }
+}
 }
 export const videosService = new VideosService()

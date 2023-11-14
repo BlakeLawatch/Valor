@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form @submit.prevent="addVideo()">
                     <div class="p-2">
                         <label for="title" class="form-label fs-5">Title</label>
                         <input v-model="editable.title" type="text" maxlength="100" class="form-control" placeholder="Without this, your video is sad and nameless">
@@ -32,9 +32,9 @@
 import { ref } from 'vue';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
-import { accountService } from '../services/AccountService';
 // import { AppState } from '../AppState';
 import { Modal } from 'bootstrap';
+import { videosService } from '../services/VideosService';
 export default {
     setup(){
         const editable = ref({})
@@ -42,8 +42,8 @@ export default {
         editable,
         async addVideo(){
             try {
-                // await accountService.addVideo(editable.value)
-                logger.log(`function not working for now, come back later`)
+                // debugger
+                await videosService.addVideo(editable.value)
                 editable.value = {}
                 Modal.getOrCreateInstance('#addClipModal').hide()
             } catch (error) {

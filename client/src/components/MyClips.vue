@@ -17,7 +17,7 @@
 </div>
 <div class="row w-100">
     <div v-for="video in videos" :key="video.id" class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
-    <embed :src="video.videoUrl" class="clip-embed w-100" :title="video.title">
+    <embed :src="video.videoUrl" class="clip-embed w-100" :title="video.videoUrl">
     <p class="fs-5 text-light">{{ video.title }}</p>
     </div>
 </div>
