@@ -104,9 +104,9 @@
 
                         <div class="text-white p-2 col-4">
                             <div class="mb-1">
-                                <label for="liveStreamUrl">Livestream Link <i class="mdi mdi-twitch"></i> </label>
+                                <label for="liveStreamUrl">Twitch Username <i class="mdi mdi-twitch"></i> </label>
                             </div>
-                            <input v-model="tournamentEditable.liveStreamUrl" type="url" class="rounded" id="liveStreamUrl"
+                            <input v-model="tournamentEditable.liveStreamUrl" type="text" class="rounded" id="liveStreamUrl"
                                 maxlength="10000">
                         </div>
 

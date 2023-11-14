@@ -1,5 +1,6 @@
 <template>
   <div v-if="activeTournament" class="container-fluid px-5 py-4">
+    <!-- Info section -->
     <section class="row text-light card-bg rounded p-2">
       <div class="col-12 py-2 px-0 banner-img d-flex align-items-center justify-content-center"
         :style="{ backgroundImage: 'url(' + activeTournament.imgUrl + ')' }">
@@ -71,8 +72,7 @@
       </div>
     </section>
     <section class="row">
-      <iframe
-        src="https://player.twitch.tv/?channel=hiswattson&parent=localhost&autoplay=true"
+      <iframe src="https://player.twitch.tv/?channel={{activeTournament.liveStreamUrl}}&parent=localhost&autoplay=true"
         height="720" width="1280" allowfullscreen>
       </iframe>
 
