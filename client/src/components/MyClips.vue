@@ -3,13 +3,13 @@
     <div class="d-flex align-items-center">
         <p class="fs-5 text-light mb-0">{{ profile.name }}'s clips:</p>
         <div class="dropdown">
-                <button class="btn color-match dropdown-toggle mx-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                <button class="btn color-match dropdown-toggle mx-2" type="button" title="Sort" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
                 <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
-                    <li @click="sortNew()" type="button"><a class="dropdown-item color-match text-light">Sort by Newest</a></li>
-                    <li @click="sortOld()" type="button"><a class="dropdown-item">Sort By Oldest</a></li>
+                    <li @click="sortNew()" title="Sort New" type="button"><a class="dropdown-item color-match text-light">Sort by Newest</a></li>
+                    <li @click="sortOld()" title="Sort Old" type="button"><a class="dropdown-item">Sort By Oldest</a></li>
                 </ul>
             </div>
-            <button v-if="account.id == profile.id" type="button" class="btn color-match text-light" data-bs-toggle="modal" data-bs-target="#addClipModal">
+            <button v-if="account.id == profile.id" type="button" title="Add Clip" class="btn color-match text-light" data-bs-toggle="modal" data-bs-target="#addClipModal">
                 +
             </button>
             <AddClipModal/>
@@ -23,7 +23,7 @@
     <div class="d-flex justify-content-between">
         <p class="fs-5 text-light ps-3">{{ video.title }}</p>
         <div>
-            <button v-if="account.id == profile.id" @click="destroyClip(video.id)" class="btn btn-danger m-1"><i class="mdi mdi-delete"></i></button>
+            <button v-if="account.id == profile.id" @click="destroyClip(video.id)" title="Delete Clip" class="btn btn-danger m-1"><i class="mdi mdi-delete"></i></button>
         </div>
         
     </div>
