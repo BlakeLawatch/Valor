@@ -1,11 +1,17 @@
 <template>
   <nav class="navbar p-3 navbar-expand-lg navbar-dark navbar-bg px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+    <router-link v-if="route.name != 'Home'" class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex align-items-center">
         <img alt="logo" src="../assets/img/valorPanda.png" height="70" />
         <p class="valor mb-0 px-2"> Valor</p>
       </div>
     </router-link>
+    <div v-else class="navbar-brand d-flex">
+      <div  @click="reload()" class="d-flex align-items-center">
+        <img alt="logo" src="../assets/img/valorPanda.png" height="70" />
+        <p class="valor mb-0 px-2"> Valor</p>
+    </div>
+    </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -25,10 +31,17 @@
 </template>
 
 <script>
+import { useRoute } from 'vue-router';
 import Login from './Login.vue';
 export default {
   setup() {
-    return {}
+    const route = useRoute()
+    return {
+      route,
+      reload(){
+        window.location.reload()
+      }
+    }
   },
   components: { Login }
 }
