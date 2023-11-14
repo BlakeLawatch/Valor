@@ -42,7 +42,8 @@ export default {
         editable,
         async addVideo(){
             try {
-                await accountService.addVideo(editable.value)
+                // await accountService.addVideo(editable.value)
+                logger.log(`function not working for now, come back later`)
                 editable.value = {}
                 Modal.getOrCreateInstance('#addClipModal').hide()
             } catch (error) {
