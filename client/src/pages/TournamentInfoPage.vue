@@ -1,5 +1,6 @@
 <template>
   <div v-if="activeTournament" class="container-fluid px-5 py-4">
+    <!-- Info section -->
     <section class="row text-light card-bg rounded p-2">
       <div class="col-12 py-2 px-0 banner-img d-flex align-items-center justify-content-center"
         :style="{ backgroundImage: 'url(' + activeTournament.imgUrl + ')' }">
@@ -70,12 +71,30 @@
         </div>
       </div>
     </section>
-    <section class="row">
+    <!-- twitch link section -->
+    <section class="row p-3">
       <iframe
         src="https://player.twitch.tv/?channel=hiswattson&parent=localhost&autoplay=true"
         height="720" width="1280" allowfullscreen>
       </iframe>
 
+    </section>
+    <!-- bracket section -->
+    <section class="row">
+      <div class="col-12 text-white">
+        put the bracket here eventually and probably make it a component
+      </div>
+    </section>
+    <!-- players section -->
+    <section class="row" v-if="players.length>0">
+<div v-for="player in players" class="text-white" :key="player.id">
+  {{ player.profile.name }}
+
+</div>
+    </section>
+    <!-- FIXME STYLE THIS -->
+    <section v-else class="row text-white">
+<p>No one has entered this tournament</p>
     </section>
   </div>
 </template>
