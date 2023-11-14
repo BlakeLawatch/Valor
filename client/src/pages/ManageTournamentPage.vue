@@ -315,7 +315,7 @@ img {
 .editFormCard {
     background-color: rgb(68, 68, 68);
     box-shadow: 0px 5px 4px #2ca58d;
-
+    
     border: 1.5px solid #2ca58d;
 }
 
