@@ -11,55 +11,54 @@
                     <div class="w-100 d-flex justify-content-between">
                         <div class="condensed-milk p-2 text-start">
                             <label for="name" class="form-label fs-5">Name</label>
-                            <input v-model="editable.name" type="text" maxlength="100" class="form-control" placeholder="Give yourself a new name">
+                            <input v-model="editable.name" title="Name" type="text" maxlength="100" class="form-control" placeholder="Give yourself a new name">
                         </div>
                         <div class="condensed-milk p-2">
                             <label for="picture" class="form-label fs-5">Profile Picture</label>
-                            <input v-model="editable.picture" type="url" maxlength="500" class="form-control" placeholder="A new face">
+                            <input v-model="editable.picture" title="Profile Picture" type="url" maxlength="500" class="form-control" placeholder="A new face">
                         </div>
                     </div>
                     <div class="w-100 d-flex justify-content-between">
                         <div class="condensed-milk p-2 text-start">
                             <label for="coverImg" class="form-label fs-5">Profile Background</label>
-                            <input v-model="editable.coverImg" type="url" maxlength="500" class="form-control" placeholder="Personalize the background of your profile with an image!">
+                            <input v-model="editable.coverImg" title="Profile Background" type="url" maxlength="500" class="form-control" placeholder="Personalize the background of your profile with an image!">
                         </div>
                         <div class="condensed-milk p-2">
                             <label for="twitchUrl" class="form-label fs-5">Twitch Link</label>
-                            <input v-model="editable.twitchUrl" type="url" maxlength="500" class="form-control" placeholder="feeling twitchy today?">
+                            <input v-model="editable.twitchUrl" title="Twitch Account Link" type="url" maxlength="500" class="form-control" placeholder="feeling twitchy today?">
                         </div>
                     </div>
                     <div class="w-100 d-flex justify-content-between text-start">
                         <div class="condensed-milk p-2">
                             <label for="twitterUrl" class="form-label fs-5">Twitter Link</label>
-                            <input v-model="editable.twitterUrl" type="url" maxlength="500" class="form-control" placeholder="For birds of all feathers">
+                            <input v-model="editable.twitterUrl" title="Twitter Account Link" type="url" maxlength="500" class="form-control" placeholder="For birds of all feathers">
                         </div>
                         <div class="condensed-milk p-2">
                             <label for="youtubeUrl" class="form-label fs-5">Youtube Link</label>
-                            <input v-model="editable.youtubeUrl" type="url" maxlength="500" class="form-control" placeholder="Your very own tube!">
+                            <input v-model="editable.youtubeUrl" title="Youtube Account Link" type="url" maxlength="500" class="form-control" placeholder="Your very own tube!">
                         </div>
                     </div>
                     <div class="w-100 d-flex justify-content-between text-start">
                         <div class="condensed-milk p-2">
                             <label for="facebookUrl" class="form-label fs-5">Facebook Link</label>
-                            <input v-model="editable.facebookUrl" type="url" maxlength="500" class="form-control" placeholder="A face so unique you could write a book about it">
+                            <input v-model="editable.facebookUrl" title="Facebook Account Link" type="url" maxlength="500" class="form-control" placeholder="A face so unique you could write a book about it">
                         </div>
                         <div class="condensed-milk p-2">
                             <label for="instagramUrl" class="form-label fs-5">Instagram Link</label>
-                            <input v-model="editable.instagramUrl" type="url" maxlength="500" class="form-control" placeholder="Grams, created in an instant">
+                            <input v-model="editable.instagramUrl" title="Instagram Account Link" type="url" maxlength="500" class="form-control" placeholder="Grams, created in an instant">
                         </div>
                     </div>
-                    
                     <div class="text-start">
                         <label for="websiteUrl" class="form-label fs-5">Website Link</label>
-                        <input v-model="editable.websiteUrl" type="url" maxlength="500" class="form-control" placeholder="seeing the sites">
+                        <input v-model="editable.websiteUrl" title="Personal Website URL" type="url" maxlength="500" class="form-control" placeholder="seeing the sites">
                     </div>
                     <div class="text-start">
                         <label for="bio" class="form-label fs-5">Biography</label>
-                        <textarea v-model="editable.bio" rows="5" maxlength="1000" class="form-control" placeholder="Ever wanted to write an autobiograpjy? Well now you can!"></textarea>
+                        <textarea v-model="editable.bio" rows="5" title="Bio" maxlength="1000" class="form-control" placeholder="Ever wanted to write an autobiograpjy? Well now you can!"></textarea>
                     </div>
                     <div class="w-100 d-flex justify-content-end pt-3">
-                        <button class="btn btn-success me-3" type="submit">Submit</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-success me-3" title="Save Changes" type="submit">Submit</button>
+                        <button type="button" class="btn btn-secondary" title="Cancel" data-bs-dismiss="modal">Close</button>
                     </div>
                     
                 </form>
