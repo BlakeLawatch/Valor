@@ -16,20 +16,40 @@
     </div>
 </div>
 <div class="row w-100">
-    <div class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0"></div>
+    <div v-for="video in videos" :key="video.id" class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
+    <embed :src="video.videoUrl" class="clip-embed w-100" :title="video.title">
+    <p class="fs-5 text-light">{{ video.title }}</p>
+    </div>
 </div>
 </template>
 
 
 <script>
 import { AppState } from '../AppState';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import AddClipModal from './AddClipModal.vue';
+import Pop from '../utils/Pop';
+import { logger } from '../utils/Logger';
+import {videosService} from '../services/VideosService.js'
 export default {
     setup(){
+        onMounted(()=>{
+            getMyClips()
+        })
+        async function getMyClips(){
+            try {
+                const accountId = AppState.profile.id
+                await videosService.getMyClips(accountId)
+                logger.log(AppState.videos)
+            } catch (error) {
+                Pop.error(error)
+                logger.error(error)
+            }
+        }
     return {  
         profile: computed(()=> AppState.profile),
         account: computed(()=> AppState.account),
+        videos: computed(()=>AppState.videos),
     }
     },
     components: {AddClipModal}
@@ -45,5 +65,10 @@ background-color: #2ca58d;
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
 height: max-content;
+}
+.clip-embed{
+    object-fit: cover;
+    object-position: center;
+    height: 12rem;
 }
 </style>
