@@ -6,7 +6,7 @@
         <p class="valor mb-0 px-2"> Valor</p>
       </div>
     </router-link>
-    <div v-else class="navbar-brand d-flex">
+    <div v-else role="button" class="navbar-brand d-flex">
       <div  @click="reload()" class="d-flex align-items-center">
         <img alt="logo" src="../assets/img/valorPanda.png" height="70" />
         <p class="valor mb-0 px-2"> Valor</p>

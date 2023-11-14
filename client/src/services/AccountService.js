@@ -36,7 +36,14 @@ class AccountService {
 async searchByPlayerName(query){
   const res = await api.get(`/account/query?name=${query.name}`)
   logger.log('profiles', res.data)
-  AppState.profiles = res.data
+  if(!res.data[0]){
+    AppState.profiles = res.data
+    return 'nothing'
+  }
+  else{
+    AppState.profiles = res.data
+    return 'something'
+  }
 }
 
 
