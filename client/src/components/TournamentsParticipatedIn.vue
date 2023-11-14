@@ -3,7 +3,6 @@
         <div class="d-flex">
             <p class="fs-5">Tournaments that {{ profile.name }} has participated in:</p>
             <div class="dropdown">
-                <!-- TODO figure out how to filter these -->
                 <button class="btn color-match dropdown-toggle ms-2" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
                 <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
                     <li @click="sortByNew()" type="button"><a class="dropdown-item color-match text-light">Sort by Future</a></li>
