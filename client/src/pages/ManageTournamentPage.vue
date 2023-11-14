@@ -193,18 +193,20 @@
             <div class="col-12 text-center">
                 <h1 class="text-white underline">Manage Players</h1>
             </div>
-            <section class="row">
-                <div class="col-3">
-                    <h1 class="text-white editFormCard">Participants: </h1>
+            <section class="row mt-5">
+                <div class="col-4">
+                    <h1 class="text-white editFormCard rounded">Participants: </h1>
                     <div class="text-white mt-4 d-flex" v-for="player in players" :key="player.id">
-                        <h3 class="mx-2">{{ player.seed }}</h3>
-                        <div class="editFormCard d-flex ">
+                        <div class="editFormCard d-flex rounded w-100">
                             <img class="rounded-circle" :src="player.profile.picture" alt="">
                             <h4 class="mx-3">{{ player.profile.name }}</h4>
+                            <div class="d-flex align-self-end justify-content-end">
+                                <p class="mx-2">Seed: {{ player.seed }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                    <div class="col-9 text-end">
+                    <div class="col-8 text-end">
                         <h1 class="text-white">Placeholder for bracket</h1>
                     </div>
         </section>
