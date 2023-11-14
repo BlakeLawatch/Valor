@@ -33,6 +33,10 @@ AppState.filteredPlayers = AppState.playersInActiveTournament.filter(p=> p.profi
 changeActiveDev(dev){
     AppState.activeDev = dev
 }
+async unregister(playerId){
+    await api.delete(`/api/players/${playerId}`)
+    AppState.tournamentsParticipatedIn = AppState.tournamentsParticipatedIn.filter(player => player.id != playerId)
+}
 }
 
 export const playersService = new PlayersService
