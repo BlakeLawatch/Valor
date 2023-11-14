@@ -71,30 +71,12 @@
         </div>
       </div>
     </section>
-    <!-- twitch link section -->
-    <section class="row p-3">
+    <section class="row">
       <iframe
-        src="https://player.twitch.tv/?channel=hiswattson&parent=localhost&autoplay=true"
+        src="https://clips.twitch.tv/embed?clip=ComfortableSillyAlbatrossTBCheesePull-L6smyx4werCeH2Nd&parent=localhost&autoplay=true"
         height="720" width="1280" allowfullscreen>
       </iframe>
 
-    </section>
-    <!-- bracket section -->
-    <section class="row">
-      <div class="col-12 text-white">
-        put the bracket here eventually and probably make it a component
-      </div>
-    </section>
-    <!-- players section -->
-    <section class="row" v-if="players.length>0">
-<div v-for="player in players" class="text-white" :key="player.id">
-  {{ player.profile.name }}
-
-</div>
-    </section>
-    <!-- FIXME STYLE THIS -->
-    <section v-else class="row text-white">
-<p>No one has entered this tournament</p>
     </section>
   </div>
 </template>
