@@ -79,7 +79,7 @@
         </section>
       </div>
       <div v-if="checkProfiles == 'nothing'">
-        <section class="row d-flex justify-content-center">
+        <section class="row d-flex mb-4 justify-content-center">
           <div class="col-md-8 col-12 mt-4">
             <h4 class="text-white fs-3">No Profiles Named {{ noName }}</h4>
             
@@ -89,7 +89,7 @@
       <!-- FIXME IF NO GAMES SHOW UP IN THE SEARCH THESE STILL SHOW FIX PLS -->
       <div v-if="checkGames == ''" class="col-md-8">
         <h1 class="text-white mt-5">Active Tournaments</h1>
-        <section class="row">
+        <section class="row mb-4">
           <div class="col-12 mt-4 text-white" v-for="tournament in activeTournaments" :key="tournament.id">
             <!-- <div class="d-flex gap-5">
               <span>

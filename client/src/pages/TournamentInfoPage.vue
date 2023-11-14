@@ -49,8 +49,7 @@
             </p>
             <p v-if="activeTournament.startDate < new Date()"> Registration is over!</p>
             <p v-else>Registration ends:
-              <span v-if="activeTournament.signUpDeadline">{{ activeTournament.signUpDeadline?.toLocaleDateString()
-              }}</span>
+              <span v-if="activeTournament.signUpDeadline">{{ activeTournament.signUpDeadline?.toLocaleDateString()}}</span>
               <span v-else>TBD</span>
             </p>
           </div>
@@ -71,12 +70,41 @@
         </div>
       </div>
     </section>
+    <!-- live stream link -->
     <section class="row text-center">
       <div class="col-12 text-center">
-        <h1 class="text-center text-white text-shadow">This tournament is live!</h1>
+        <h2 class="text-center text-white fs-1 text-shadow">This tournament is live!</h2>
         <iframe :src="activeTournament.liveStreamUrl" height="540" width="860" allowfullscreen>
         </iframe>
       </div>
+    </section>
+    <!-- Bracket goes here -->
+    <section>
+
+    </section>
+    <!-- player search -->
+    <section v-if="players.length>0" class="row">
+      <div class="col-12 text-white  text-center">
+        <h3 class="fs-1 text-shadow  my-3">Participants</h3>
+      </div>
+      <div class="d-flex mb-3 justify-content-center">
+        <input v-model="editable" type="search" class="form-control w-25" id="searchPlayers"  placeholder="Search Participants">
+      </div>
+      <div class="d-flex">
+        <!-- TODO Make this look better  -->
+        <!-- TODO ? put this in component maybe? maybe not-->
+        <div class="d-flex text-white" v-for="player in filteredPlayers" :key="player.id"> 
+          <div class="m-3 card-bg rounded p-2 d-flex">
+            <div class="d-flex align-items-center pe-2">
+              <img class="rounded-circle player-img " :src="player.profile.picture" alt="">
+            </div>
+            <div>
+              <p class="mb-0">{{ player.profile.name }}</p>
+              <p>Seed: {{ player.seed }}</p>
+            </div>
+      </div>
+</div>
+</div>
     </section>
   </div>
 </template>
@@ -95,9 +123,14 @@ export default {
   setup() {
     const route = useRoute()
     let countdown = ref('')
+    let editable = ref('')
     let countdownInterval = null
     onMounted(() => {
       countdownInterval = setInterval(getCountdownTime, 1000)
+    })
+    watchEffect(()=> {
+      editable
+      filterParticipants()
     })
     watchEffect(() => {
       route
@@ -116,6 +149,14 @@ export default {
         Pop.error(error)
       }
     }
+async function filterParticipants(){
+  try {
+    playersService.filterParticipants(editable.value)
+  } catch (error) {
+    Pop.error(error)
+  }
+}
+
     async function getPlayersByTournamentId() {
       try {
         const tournamentId = route.params.tournamentId
@@ -140,11 +181,13 @@ export default {
 
     }
     return {
+      editable,
       route,
       activeTournament: computed(() => AppState.activeTournament),
       countdown,
       account: computed(() => AppState.account),
       players: computed(() => AppState.playersInActiveTournament),
+      filteredPlayers: computed(()=> AppState.filteredPlayers),
 
       async registerForTournament() {
         try {
@@ -183,6 +226,12 @@ p {
   margin-bottom: 0;
 }
 
+.player-img{
+  height: 2rem;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+}
 .card-bg {
   background-color: #444444;
 }
