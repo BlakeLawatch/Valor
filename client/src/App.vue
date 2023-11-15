@@ -47,4 +47,13 @@ footer {
 main{
   background-color: #2E3233;
 }
+::-webkit-scrollbar{
+    background-color: #2E3233;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #2ca58d;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #2ca58d;
+}
+
 </style>
