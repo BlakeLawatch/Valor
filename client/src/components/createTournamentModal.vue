@@ -30,7 +30,7 @@
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label"></label>
-                <textarea v-model="formEditable.description" name="description" class="rounded" required id="" cols="60" rows="8" maxlength="1000" placeholder="description..."></textarea>
+                <textarea v-model="formEditable.description" name="description" class="rounded w-100" required id="" rows="8" maxlength="1000" placeholder="description..."></textarea>
             </div>
            <div class="d-flex justify-content-end">
              <button type="submit" :disabled="selectedGame == '' " class="btn button-color ">Submit</button>
