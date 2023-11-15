@@ -3,7 +3,7 @@
     <div class="container-fluid p-5">
         <section v-if="!tournamentEditable.isCancelled" class="row">
             <div class="col-12 text-center">
-                <h1 class="text-white textShadow underline">{{ tournament.name }}</h1>
+                <h1 class="text-white text-break textShadow underline">{{ tournament.name }}</h1>
             </div>
             <div class="col-12 d-flex justify-content-center mt-3 rounded">
                 <form @submit.prevent="editActiveTournament()" class="editFormCard rounded w-100">
@@ -38,7 +38,7 @@
                                 <label for="address">Address</label>
                             </div>
                             <input v-model="tournamentEditable.address" type="text" class="rounded" id="address"
-                                maxlength="10000">
+                                maxlength="100">
                         </div>
 
                         <div class="text-white p-2 col-4">
@@ -136,7 +136,7 @@
                             <div class="mb-1">
                                 <label for="endDate">End Date</label>
                             </div>
-                            <input v-model="tournamentEditable.endDate" type="date" class="rounded" :min="todaysDate"
+                            <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.endDate" type="date" class="rounded" :min="tournamentEditable.startDate"
                                 id="endDate">
                         </div>
 
@@ -144,7 +144,7 @@
                             <div class="mb-1">
                                 <label for="signUpDeadline">Sign Up Deadline</label>
                             </div>
-                            <input v-model="tournamentEditable.signUpDeadline" type="date" class="rounded" :min="todaysDate"
+                            <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.signUpDeadline" type="date" class="rounded" :min="todaysDate" :max="tournamentEditable.startDate"
                                 id="signUpDeadline">
                         </div>
                     </div>
@@ -276,6 +276,17 @@ export default {
             todaysDate: new Date().toISOString().substring(0, 10),
             async editActiveTournament() {
                 try {
+                    if(tournamentEditable.value.startDate < this.todaysDate){
+                        Pop.error('test -1')
+                    }
+                    if(tournamentEditable.value.startDate > tournamentEditable.value.endDate){
+Pop.error('test')
+return
+                    }
+                    if(tournamentEditable.value.signUpDeadline > tournamentEditable.value.startDate || tournamentEditable.value.signUpDeadline < this.todaysDate){
+                        Pop.error('test 2')
+                        return
+                    }
                     const tournamentId = route.params.tournamentId
                     const tournamentData = tournamentEditable.value
                     await tournamentsService.editActiveTournament(tournamentData, tournamentId)
