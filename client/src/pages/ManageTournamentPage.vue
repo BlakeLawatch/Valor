@@ -239,7 +239,9 @@ export default {
                const editingTournament = { ...AppState.activeTournament }
                 editingTournament.startDate = editingTournament.startDate.toISOString().substring(0, 10)
                 editingTournament.endDate = editingTournament.endDate.toISOString().substring(0, 10)
-                editingTournament.signUpDeadline = editingTournament?.signUpDeadline.toISOString().substring(0, 10)
+                if(editingTournament.signUpDeadline) {
+                    editingTournament.signUpDeadline = editingTournament.signUpDeadline.toISOString().substring(0, 10)
+                }
                 tournamentEditable.value = editingTournament
             }
             else {
