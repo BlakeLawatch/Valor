@@ -209,7 +209,13 @@ export default {
 
       async registerForTournament() {
         try {
+          const players = players
+          const account = account
           // TODO MAKE THROW ERROR IF ALREADY REGISTERED
+          if(players.find(p => p.accountId == account.id)){
+Pop.error('you are already registered for this event')
+return
+          }
           const yes = await Pop.confirm('Are you sure you would like to register for this event?')
           if (!yes) {
             return
