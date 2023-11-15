@@ -1,11 +1,11 @@
 <template>
     <!-- TODO might want to be able to register in our own tournament -->
     <div class="container-fluid p-4">
-        <section v-if="!tournamentEditable.isCancelled" class="row">
+        <section v-if="!tournamentEditable.isCancelled" class="row justify-content-center">
             <div class="col-12 text-center">
                 <h1 class="text-white text-break textShadow underline">{{ tournament.name }}</h1>
             </div>
-            <div class="col-12 d-flex justify-content-center mt-3 rounded">
+            <div class="col-12 col-md-10 d-flex justify-content-center mt-3 rounded">
                 <EditTournamentForm/>
             </div>
         </section>
@@ -45,7 +45,7 @@ import { tournamentsService } from '../services/TournamentsService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import { useRoute, useRouter } from 'vue-router';
-import { router } from '../router';
+// import { router } from '../router';
 import { playersService } from '../services/PlayersService';
 import EditTournamentForm from '../components/EditTournamentForm.vue'
 export default {
