@@ -7,11 +7,11 @@
         <p class="fs-1 timer">{{ countdown }}</p>
       </div>
       <div class="col-12 mt-3 text-center">
-        <h1 class="text-shadow">{{ activeTournament.name }}</h1>
+        <h1 class="text-shadow text-break">{{ activeTournament.name }}</h1>
       </div>
       <div class="col-12 d-flex justify-content-between align-items-center my-2">
         <div>
-          <p class="fs-5">{{ activeTournament.address }}</p>
+          <p class="fs-5 text-break">{{ activeTournament.address }}</p>
           <p v-if="activeTournament.playerCount > 1">{{ players.length }} Entrants</p>
           <p v-else>{{ players.length }} Entrant</p>
         </div>
@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="col-12 my-3">
-        <p>{{ activeTournament.description }}</p>
+        <p class="text-break">{{ activeTournament.description }}</p>
       </div>
       <section class="row">
         <div class="justify-content-between align-items-center my-2">
@@ -57,9 +57,9 @@
           </div>
           <div class="col-12 text-end my 2 " v-if="!account.id">
             <!-- FIXME make look better pls -->
-              <p class="text-end"> Sign in to register!</p>
-              <button class="btn btn-valor button w-25" @click="login()" >Register</button>
-  
+            <p class="text-end"> Sign in to register!</p>
+            <button class="btn btn-valor button w-25" @click="login()">Register</button>
+
           </div>
 
           <div v-else class="col-12 my-2 text-end">

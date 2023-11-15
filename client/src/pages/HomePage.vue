@@ -112,8 +112,8 @@
 </template>
 
 <script>
-import { computed, onMounted, ref, watchEffect } from 'vue';
-import { logger } from '../utils/Logger';
+import { computed, ref, watchEffect } from 'vue';
+// import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import { gamesService } from '../services/GamesService'
 import GameCard from '../components/GameCard.vue';
@@ -121,7 +121,7 @@ import { AppState } from '../AppState';
 import ActiveTournamentCard from '../components/ActiveTournamentCard.vue';
 import { tournamentsService } from '../services/TournamentsService';
 import { useRoute } from 'vue-router';
-import { Tournament } from '../models/Tournament';
+// import { Tournament } from '../models/Tournament';
 import { accountService } from '../services/AccountService';
 
 export default {

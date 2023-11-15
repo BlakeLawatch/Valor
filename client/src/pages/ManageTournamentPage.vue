@@ -1,188 +1,12 @@
 <template>
     <!-- TODO might want to be able to register in our own tournament -->
-    <div class="container-fluid p-5">
-        <section v-if="!tournamentEditable.isCancelled" class="row">
+    <div class="container-fluid p-4">
+        <section v-if="!tournamentEditable.isCancelled" class="row justify-content-center">
             <div class="col-12 text-center">
                 <h1 class="text-white text-break textShadow underline">{{ tournament.name }}</h1>
             </div>
-            <div class="col-12 d-flex justify-content-center mt-3 rounded">
-                <form @submit.prevent="editActiveTournament()" class="editFormCard rounded w-100">
-                    <div class="d-flex ">
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="name">Name</label>
-                            </div>
-                            <input v-model="tournamentEditable.name" type="text" class="rounded" id="name" maxlength="75">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="entryPrice">Entry Price</label>
-                            </div>
-                            <input v-model="tournamentEditable.entryPrice" type="number" class="rounded" id="number"
-                                max="10000">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="capacity">Capacity</label>
-                            </div>
-                            <input v-model="tournamentEditable.capacity" type="number" class="rounded" id="number"
-                                max="10000">
-                        </div>
-                    </div>
-
-                    <div class="d-flex">
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="address">Address</label>
-                            </div>
-                            <input v-model="tournamentEditable.address" type="text" class="rounded" id="address"
-                                maxlength="100">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="prizePool">Prizes</label>
-                            </div>
-                            <input v-model="tournamentEditable.prizePool" type="number" class="rounded" id="prizePool"
-                                max="1000000001">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="imgUrl">Image</label>
-                            </div>
-                            <input v-model="tournamentEditable.imgUrl" type="url" class="rounded" id="imgUrl"
-                                maxlength="1000">
-                        </div>
-
-
-                    </div>
-
-                    <div class="d-flex">
-
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="facebookUrl">Facebook Link <i class="mdi mdi-facebook"></i> </label>
-                            </div>
-                            <input v-model="tournamentEditable.facebookUrl" type="url" class="rounded" id="facebookUrl"
-                                maxlength="10000">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="instagramUrl">Instagram Link <i class="mdi mdi-instagram"></i> </label>
-                            </div>
-                            <input v-model="tournamentEditable.instagramUrl" type="url" class="rounded" id="instagramUrl"
-                                maxlength="10000">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="twitterUrl">Twitter Link <i class="mdi mdi-twitter"></i></label>
-                            </div>
-                            <input v-model="tournamentEditable.twitterUrl" type="url" class="rounded" id="twitterUrl"
-                                maxlength="10000">
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="d-flex">
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="youtubeUrl">YouTube Link <i class="mdi mdi-youtube"></i> </label>
-                            </div>
-                            <input v-model="tournamentEditable.youtubeUrl" type="url" class="rounded" id="youtubeUrl"
-                                maxlength="10000">
-                        </div>
-
-
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="liveStreamUrl">Twitch Username <i class="mdi mdi-twitch"></i> </label>
-                            </div>
-                            <input v-model="tournamentEditable.liveStreamUrl" type="text" class="rounded" id="liveStreamUrl"
-                                maxlength="10000">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="region" class="form-label">Region</label>
-                            </div>
-                            <select v-model="tournamentEditable.region" class="form-select" name="" id="">
-                                <option :value="region" v-for="region in region" :key="region">{{ region }}</option>
-                            </select>
-                        </div>
-
-
-                    </div>
-
-                    <div class="d-flex">
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="startDate">Start Date</label>
-                            </div>
-                            <input v-model="tournamentEditable.startDate" type="date" class="rounded" :min="todaysDate"
-                                id="startDate">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="endDate">End Date</label>
-                            </div>
-                            <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.endDate" type="date" class="rounded" :min="tournamentEditable.startDate"
-                                id="endDate">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="signUpDeadline">Sign Up Deadline</label>
-                            </div>
-                            <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.signUpDeadline" type="date" class="rounded" :min="todaysDate" :max="tournamentEditable.startDate"
-                                id="signUpDeadline">
-                        </div>
-                    </div>
-
-                    <div class="d-flex">
-
-                        <div class="text-white p-2 col-8">
-                            <div class="mb-1">
-                                <label for="description">Description</label>
-                            </div>
-                            <textarea v-model="tournamentEditable.description" type="text" class="rounded w-100" rows="7"
-                                id="description" maxlength="1000"></textarea>
-                        </div>
-
-                        <div class="text-white p-2 col-4 form-check">
-                            <div class="mb-1">
-                                <label for="onlineOnly">Online Only</label>
-                            </div>
-                            <input v-model="tournamentEditable.onlineOnly" type="checkbox" class="rounded" id="onlineOnly">
-                            <div class="mb-1">
-                                <label for="isLocked">Lock Tournament</label>
-                            </div>
-                            <input v-model="tournamentEditable.isLocked" type="checkbox" class="rounded" id="isLocked">
-                            <div class="mb-1">
-                                <button @click.prevent="cancelTournament()" class="btn btn-danger"
-                                    title="cancel tournament">Cancel Tournament</button>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-                    <!-- SECTION form button -->
-                    <div class="p-2 text-end">
-                        <button type="submit" title="submit edit" class="btn btn-success">Submit Edit</button>
-                    </div>
-                </form>
+            <div class="col-12 col-md-10 d-flex justify-content-center mt-3 rounded">
+                <EditTournamentForm/>
             </div>
         </section>
         <section v-else>
@@ -194,21 +18,21 @@
             <div class="col-12 text-center">
                 <h1 class="text-white textShadow underline">Manage Players</h1>
             </div>
-            <section class="row mt-5">
-                <div class="col-4">
-                    <h1 class="text-white textShadow editFormCard rounded">Participants: </h1>
-                    <div class="text-white mt-4 d-flex" v-for="player in players" :key="player.id">
-                        <div class="editFormCard d-flex rounded w-100">
-                            <img class="rounded-circle mx-3 mt-2 mb-2" :src="player.profile.picture" alt="">
-                            <h6 class="mx-3">{{ player.profile.name }}</h6>
-                            <p class="mx-2">Seed: {{ player.seed }}</p>
-                        </div>
-                    </div>
-                </div>
-                    <div class="col-8 text-end">
-                        <h1 class="text-white">Placeholder for bracket</h1>
-                    </div>
         </section>
+        <section class="row mt-5 justify-content-center">
+            <div class="col-10">
+                <h1 class="text-white textShadow editFormCard rounded text-center">Participants: </h1>
+            </div>
+            <div class="col-2 text-white mt-4 d-flex" v-for="player in players" :key="player.id">
+                <div class="editFormCard d-flex rounded w-100">
+                    <img class="rounded-circle mx-3 mt-2 mb-2" :src="player.profile.picture" alt="">
+                    <h6 class="mx-3 text-break">{{ player.profile.name }}</h6>
+                    <p class="mx-2">Seed: {{ player.seed }}</p>
+                </div>
+            </div>
+            <div class="col-10 text-center mt-3">
+                <h1 class="text-white">Placeholder for bracket</h1>
+            </div>
         </section>
     </div>
 </template>
@@ -216,13 +40,14 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, watchEffect, ref } from 'vue';
+import { computed, ref, watchEffect} from 'vue';
 import { tournamentsService } from '../services/TournamentsService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import { useRoute, useRouter } from 'vue-router';
-import { router } from '../router';
+// import { router } from '../router';
 import { playersService } from '../services/PlayersService';
+import EditTournamentForm from '../components/EditTournamentForm.vue'
 export default {
     setup() {
         const tournamentEditable = ref({})
@@ -236,7 +61,7 @@ export default {
         })
         watchEffect(() => {
             if (AppState.activeTournament.id) {
-               const editingTournament = { ...AppState.activeTournament }
+                const editingTournament = { ...AppState.activeTournament }
                 editingTournament.startDate = editingTournament.startDate.toISOString().substring(0, 10)
                 editingTournament.endDate = editingTournament.endDate.toISOString().substring(0, 10)
                 if(editingTournament.signUpDeadline) {
@@ -299,7 +124,6 @@ return
                     Pop.error(error)
                 }
             },
-
             async cancelTournament() {
                 try {
                     const yes = await Pop.confirm("Are you sure about that?")
@@ -313,7 +137,8 @@ return
                 }
             }
         }
-    }
+    },
+    components:{EditTournamentForm}
 };
 </script>
 
@@ -331,7 +156,6 @@ img {
     text-decoration-thickness: 1.3px;
 }
 
-
 .editFormCard {
     background-color: rgb(68, 68, 68);
     box-shadow: 0px 5px 4px #2ca58d;
@@ -340,10 +164,6 @@ img {
 }
 
 .textShadow {
-  text-shadow: 2px 2px 4px #2ca58d;
-}
-
-textarea {
-    resize: none;
+text-shadow: 2px 2px 4px #2ca58d;
 }
 </style>
