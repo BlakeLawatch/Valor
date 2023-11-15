@@ -22,7 +22,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <p class="fs-5 ps-2 mb-0 text-light word-break">{{ player.tournament.name }}</p>
                     <div v-if="profile.id == account.id" class="m-1">
-                        <button @click.stop="unregister(player.id)" class="btn btn-danger" title="Stop Attending"><i class="mdi mdi-delete"></i></button>
+                        <button @click.prevent="unregister(player.id)" class="btn btn-danger" title="Stop Attending"><i class="mdi mdi-delete"></i></button>
                     </div>
                 </div>
             </router-link>
