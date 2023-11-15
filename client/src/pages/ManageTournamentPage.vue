@@ -22,18 +22,25 @@
         <section class="row mt-5 justify-content-center">
             <div class="col-10">
                 <h1 class="text-white textShadow editFormCard rounded text-center">Participants: </h1>
-            </div>
-            <div class="col-2 text-white mt-4 d-flex" v-for="player in players" :key="player.id">
-                <div class="editFormCard d-flex rounded w-100">
-                    <img class="rounded-circle mx-3 mt-2 mb-2" :src="player.profile.picture" alt="">
-                    <h6 class="mx-3 text-break">{{ player.profile.name }}</h6>
-                    <p class="mx-2">Seed: {{ player.seed }}</p>
+                <div v-if="players != []" class="row scroll me-1">
+                    <div class="col-12 col-md-3 text-white mt-4 d-flex" v-for="player in players" :key="player.id">
+                        <div class="editFormCard d-flex rounded w-100">
+                            <img class="rounded-circle mx-3 mt-2 mb-2" :src="player.profile.picture" alt="">
+                            <div class="d-flex flex-column justify-content-between">
+                                <h6 class="mx-3 text-break">{{ player.profile.name }}</h6>
+                                <p class="mx-3">Seed: {{ player.seed }}</p>
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
+        
             <div class="col-10 text-center mt-3">
                 <h1 class="text-white">Placeholder for bracket</h1>
             </div>
-        </section>
+        
     </div>
 </template>
 
@@ -165,5 +172,20 @@ img {
 
 .textShadow {
 text-shadow: 2px 2px 4px #2ca58d;
+}
+.scroll{
+    overflow-y: scroll;
+    max-height: 8rem;
+}
+::-webkit-scrollbar{
+    background-color: rgb(68, 68, 68);
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 6px #2ca58d;
+    border: 1.5px solid #2ca58d;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #2ca58d;
+    border-radius: 10px;
+    box-shadow: 0px 0px 6px #2E3233;
 }
 </style>
