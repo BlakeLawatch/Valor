@@ -1,186 +1,137 @@
 <template>
     <!-- TODO might want to be able to register in our own tournament -->
-    <div class="container-fluid p-5">
+    <div class="container-fluid p-4">
         <section v-if="!tournamentEditable.isCancelled" class="row">
             <div class="col-12 text-center">
                 <h1 class="text-white text-break textShadow underline">{{ tournament.name }}</h1>
             </div>
             <div class="col-12 d-flex justify-content-center mt-3 rounded">
                 <form @submit.prevent="editActiveTournament()" class="editFormCard rounded w-100">
-                    <div class="d-flex ">
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="name">Name</label>
-                            </div>
-                            <input v-model="tournamentEditable.name" type="text" class="rounded" id="name" maxlength="75">
+                    <div class="row p-4 justify-content-evenly mt-1 align-items-center">
+                        <div class="col-12 text-center">
+                            <h5 class="text-light mt-1">Tournament Info:</h5>
                         </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="entryPrice">Entry Price</label>
-                            </div>
-                            <input v-model="tournamentEditable.entryPrice" type="number" class="rounded" id="number"
+                        <div class="text-white col-12 col-md-4">
+                            <label for="name">Name</label>
+                            <input v-model="tournamentEditable.name" type="text" class="rounded w-100" id="name" maxlength="75">
+                        </div>
+                        <div class="text-white col-md-4 col-6">
+                            <label for="entryPrice">Entry Price</label>
+                            <input v-model="tournamentEditable.entryPrice" type="number" class="rounded w-100" id="number"
                                 max="10000">
                         </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
+                        <div class="text-white col-md-4 col-6">
                                 <label for="capacity">Capacity</label>
-                            </div>
-                            <input v-model="tournamentEditable.capacity" type="number" class="rounded" id="number"
+                            <input v-model="tournamentEditable.capacity" type="number" class="rounded w-100" id="number"
                                 max="10000">
                         </div>
-                    </div>
-
-                    <div class="d-flex">
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="address">Address</label>
-                            </div>
-                            <input v-model="tournamentEditable.address" type="text" class="rounded" id="address"
-                                maxlength="100">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="prizePool">Prizes</label>
-                            </div>
-                            <input v-model="tournamentEditable.prizePool" type="number" class="rounded" id="prizePool"
-                                max="1000000001">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="imgUrl">Image</label>
-                            </div>
-                            <input v-model="tournamentEditable.imgUrl" type="url" class="rounded" id="imgUrl"
-                                maxlength="1000">
-                        </div>
-
-
-                    </div>
-
-                    <div class="d-flex">
-
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="facebookUrl">Facebook Link <i class="mdi mdi-facebook"></i> </label>
-                            </div>
-                            <input v-model="tournamentEditable.facebookUrl" type="url" class="rounded" id="facebookUrl"
-                                maxlength="10000">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="instagramUrl">Instagram Link <i class="mdi mdi-instagram"></i> </label>
-                            </div>
-                            <input v-model="tournamentEditable.instagramUrl" type="url" class="rounded" id="instagramUrl"
-                                maxlength="10000">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="twitterUrl">Twitter Link <i class="mdi mdi-twitter"></i></label>
-                            </div>
-                            <input v-model="tournamentEditable.twitterUrl" type="url" class="rounded" id="twitterUrl"
-                                maxlength="10000">
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="d-flex">
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="youtubeUrl">YouTube Link <i class="mdi mdi-youtube"></i> </label>
-                            </div>
-                            <input v-model="tournamentEditable.youtubeUrl" type="url" class="rounded" id="youtubeUrl"
-                                maxlength="10000">
-                        </div>
-
-
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="liveStreamUrl">Twitch Username <i class="mdi mdi-twitch"></i> </label>
-                            </div>
-                            <input v-model="tournamentEditable.liveStreamUrl" type="text" class="rounded" id="liveStreamUrl"
-                                maxlength="10000">
-                        </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="region" class="form-label">Region</label>
-                            </div>
-                            <select v-model="tournamentEditable.region" class="form-select" name="" id="">
+                        <div class="text-white col-6 col-md-4 mt-1">
+                            <label for="region" class="form-label mb-0">Region</label>
+                            <select v-model="tournamentEditable.region" class="form-select w-100" name="" id="">
                                 <option :value="region" v-for="region in region" :key="region">{{ region }}</option>
                             </select>
                         </div>
-
-
+                        <div class="text-white col-6 col-md-4">
+                            <label for="address">Address</label>
+                            <input v-model="tournamentEditable.address" type="text" class="rounded w-100" id="address"
+                                maxlength="100">
+                        </div>
+                        <div class="text-white col-6 col-md-4 mt-1">
+                            <label for="prizePool">Prizes</label>
+                            <input v-model="tournamentEditable.prizePool" type="number" class="rounded w-100" id="prizePool"
+                                max="1000000001">
+                        </div>
+                        <div class="text-white col-6 col-md-4 mt-1">
+                            <label for="imgUrl">Image</label>
+                            <input v-model="tournamentEditable.imgUrl" type="url" class="rounded w-100" id="imgUrl"
+                                maxlength="1000">
+                        </div>
                     </div>
-
-                    <div class="d-flex">
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="startDate">Start Date</label>
-                            </div>
-                            <input v-model="tournamentEditable.startDate" type="date" class="rounded" :min="todaysDate"
+                    <div class="row p-4 justify-content-evenly">
+                        <div class="col-12 text-center">
+                            <h5 class="text-light mt-1">Dates and Deadlines:</h5>
+                        </div>
+                        <div class="text-white col-6 col-md-3">
+                            <label for="startDate">Start Date</label>
+                            <input v-model="tournamentEditable.startDate" type="date" class="rounded w-100" :min="todaysDate"
                                 id="startDate">
                         </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="endDate">End Date</label>
-                            </div>
-                            <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.endDate" type="date" class="rounded" :min="tournamentEditable.startDate"
+                        <div class="text-white col-6 col-md-3">
+                            <label for="endDate">End Date</label>
+                            <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.endDate" type="date" class="rounded w-100" :min="tournamentEditable.startDate"
                                 id="endDate">
                         </div>
-
-                        <div class="text-white p-2 col-4">
-                            <div class="mb-1">
-                                <label for="signUpDeadline">Sign Up Deadline</label>
-                            </div>
-                            <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.signUpDeadline" type="date" class="rounded" :min="todaysDate" :max="tournamentEditable.startDate"
+                        <div class="text-white col-6 col-md-3 mt-md-0 mt-2">
+                            <label for="signUpDeadline">Sign Up Deadline</label>
+                            <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.signUpDeadline" type="date" class="rounded w-100" :min="todaysDate" :max="tournamentEditable.startDate"
                                 id="signUpDeadline">
                         </div>
                     </div>
-
-                    <div class="d-flex">
-
-                        <div class="text-white p-2 col-8">
-                            <div class="mb-1">
-                                <label for="description">Description</label>
-                            </div>
-                            <textarea v-model="tournamentEditable.description" type="text" class="rounded w-100" rows="7"
-                                id="description" maxlength="1000"></textarea>
+                    <div class="row p-4 justify-content-evenly">
+                        <div class="col-12 text-center">
+                            <h5 class="text-light mt-2">Media Links:</h5>
                         </div>
-
-                        <div class="text-white p-2 col-4 form-check">
+                        <div class="text-white col-6 col-md-3">
+                                <label for="facebookUrl">Facebook Link <i class="mdi mdi-facebook"></i> </label>
+                            <input v-model="tournamentEditable.facebookUrl" type="url" class="rounded w-100" id="facebookUrl"
+                                maxlength="10000">
+                        </div>
+                        <div class="text-white col-6 col-md-3">
+                            <label for="instagramUrl">Instagram Link <i class="mdi mdi-instagram"></i> </label>
+                            <input v-model="tournamentEditable.instagramUrl" type="url" class="rounded w-100" id="instagramUrl"
+                                maxlength="10000">
+                        </div>
+                        <div class="text-white col-6 col-md-3 mt-md-0 mt-1">
                             <div class="mb-1">
-                                <label for="onlineOnly">Online Only</label>
+                                <label for="twitterUrl">Twitter Link <i class="mdi mdi-twitter"></i></label>
                             </div>
-                            <input v-model="tournamentEditable.onlineOnly" type="checkbox" class="rounded" id="onlineOnly">
-                            <div class="mb-1">
-                                <label for="isLocked">Lock Tournament</label>
-                            </div>
-                            <input v-model="tournamentEditable.isLocked" type="checkbox" class="rounded" id="isLocked">
-                            <div class="mb-1">
-                                <button @click.prevent="cancelTournament()" class="btn btn-danger"
-                                    title="cancel tournament">Cancel Tournament</button>
-                            </div>
+                            <input v-model="tournamentEditable.twitterUrl" type="url" class="rounded w-100" id="twitterUrl"
+                                maxlength="10000">
+                        </div>
+                        <div class="text-white col-6 col-md-3 mt-md-0 mt-1">
+                            <label for="youtubeUrl">YouTube Link <i class="mdi mdi-youtube"></i> </label>
+                            <input v-model="tournamentEditable.youtubeUrl" type="url" class="rounded w-100" id="youtubeUrl"
+                                maxlength="10000">
+                        </div>
+                        <div class="text-white col-6 col-md-3 mt-md-2 mt-1">
+                            <label for="liveStreamUrl">Twitch Username <i class="mdi mdi-twitch"></i> </label>
+                            <input v-model="tournamentEditable.liveStreamUrl" type="text" class="rounded w-100" id="liveStreamUrl"
+                                maxlength="10000">
                         </div>
                     </div>
-
-
-
-
-                    <!-- SECTION form button -->
-                    <div class="p-2 text-end">
-                        <button type="submit" title="submit edit" class="btn btn-success">Submit Edit</button>
+                    <div class="row p-4 justify-content-evenly">
+                        <div class="col-12 text-center mb-2">
+                            <h5 class="text-light">Description and Other Details:</h5>
+                        </div>
+                        <div class="text-white col-12 col-md-8">
+                            <label for="description">Description</label>
+                            <textarea v-model="tournamentEditable.description" type="text" class="rounded w-100" rows="6"
+                                id="description" maxlength="1000"></textarea>
+                        </div>
+                        <div class="text-white p-2 col-12 col-md-4 d-flex pe-3">
+                            <div class="row pt-md-2 mt-md-1">
+                                <div class="col-6 col-md-12 text-md-end">
+                                    <label for="onlineOnly" class="me-2">Online Only:</label>
+                                    <input v-model="tournamentEditable.onlineOnly" type="checkbox" class="rounded" id="onlineOnly">
+                                </div>
+                                <div class="col-6 col-md-12 text-md-end">
+                                    <label for="isLocked" class="me-2">Lock Tournament:</label>
+                                <input v-model="tournamentEditable.isLocked" type="checkbox" class="rounded" id="isLocked">
+                                </div>
+                                <div class="col-6 mt-md-1 mt-3 col-md-12 text-md-end">
+                                    <div>
+                                        <button @click.prevent="cancelTournament()" class="btn btn-danger"
+                                            title="cancel tournament">Cancel Tournament</button>
+                                    </div>
+                                </div>
+                                <div class="col-6 mt-md-1 mt-3 col-md-12 text-md-end">
+                                    <!-- SECTION form button -->
+                                    <div>
+                                        <button type="submit" title="submit edit" class="btn btn-success">Confirm Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -194,21 +145,21 @@
             <div class="col-12 text-center">
                 <h1 class="text-white textShadow underline">Manage Players</h1>
             </div>
-            <section class="row mt-5">
-                <div class="col-4">
-                    <h1 class="text-white textShadow editFormCard rounded">Participants: </h1>
-                    <div class="text-white mt-4 d-flex" v-for="player in players" :key="player.id">
-                        <div class="editFormCard d-flex rounded w-100">
-                            <img class="rounded-circle mx-3 mt-2 mb-2" :src="player.profile.picture" alt="">
-                            <h6 class="mx-3">{{ player.profile.name }}</h6>
-                            <p class="mx-2">Seed: {{ player.seed }}</p>
-                        </div>
-                    </div>
-                </div>
-                    <div class="col-8 text-end">
-                        <h1 class="text-white">Placeholder for bracket</h1>
-                    </div>
         </section>
+        <section class="row mt-5 justify-content-center">
+            <div class="col-10">
+                <h1 class="text-white textShadow editFormCard rounded text-center">Participants: </h1>
+            </div>
+            <div class="col-2 text-white mt-4 d-flex" v-for="player in players" :key="player.id">
+                <div class="editFormCard d-flex rounded w-100">
+                    <img class="rounded-circle mx-3 mt-2 mb-2" :src="player.profile.picture" alt="">
+                    <h6 class="mx-3">{{ player.profile.name }}</h6>
+                    <p class="mx-2">Seed: {{ player.seed }}</p>
+                </div>
+            </div>
+            <div class="col-10 text-center mt-3">
+                <h1 class="text-white">Placeholder for bracket</h1>
+            </div>
         </section>
     </div>
 </template>
@@ -330,7 +281,6 @@ img {
     text-decoration-color: #2ca58d;
     text-decoration-thickness: 1.3px;
 }
-
 
 .editFormCard {
     background-color: rgb(68, 68, 68);
