@@ -1,6 +1,6 @@
 <template>
         <div class="text-light p-2 d-flex">
-            <p class="fs-5 word-break">{{ profile.name }}'s tournaments:</p>
+            <p class="fs-5"><span class="word-break">{{ profile.name }}'s</span> tournaments:</p>
         <div class="dropdown">
             <button class="btn color-match dropdown-toggle ms-2" title="Sort" type="button" id="filterMyTournaments" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu" aria-labelledby="filterMyTournaments">

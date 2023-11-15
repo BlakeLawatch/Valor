@@ -1,7 +1,7 @@
 <template>
     <div class="row text-light p-2 w-100">
         <div class="d-flex">
-            <p class="fs-5 word-break">Tournaments that {{ profile.name }} has participated in:</p>
+            <p class="fs-5">Tournaments that <span class="word-break">{{ profile.name }}</span> has participated in:</p>
             <div class="dropdown">
                 <button class="btn color-match dropdown-toggle ms-2" title="Sort" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
                 <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
@@ -101,6 +101,9 @@ export default {
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
 height: max-content;
+}
+.word-break{
+    word-break: break-all;
 }
 .color-match{
 background-color: #2ca58d;

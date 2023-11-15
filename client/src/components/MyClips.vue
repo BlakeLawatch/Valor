@@ -1,7 +1,7 @@
 <template>
 <div class="row p-2">
     <div class="d-flex align-items-center">
-        <p class="fs-5 text-light mb-0">{{ profile.name }}'s clips:</p>
+        <p class="fs-5 text-light mb-0"><span class="word-break">{{ profile.name }}'s</span> clips:</p>
         <div class="dropdown">
                 <button class="btn color-match dropdown-toggle mx-2" type="button" title="Sort" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
                 <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
@@ -16,12 +16,11 @@
     </div>
 </div>
 
-<!-- CheerfulYawningVulturePeanutButterJellyTime -->
 <div v-if="videos != []" class="row w-100">
     <div v-for="video in videos" :key="video.id" class="col-12 col-md-9 col-lg-4 m-3 account-info-card px-0">
     <iframe :src="video.videoUrl" class="clip-embed w-100" :title="video.videoUrl" height="220rem"></iframe>
     <div class="d-flex justify-content-between">
-        <p class="fs-5 text-light ps-3">{{ video.title }}</p>
+        <p class="fs-5 text-light ps-3 word-break">{{ video.title }}</p>
         <div>
             <button v-if="account.id == profile.id" @click="destroyClip(video.id)" title="Delete Clip" class="btn btn-danger m-1"><i class="mdi mdi-delete"></i></button>
         </div>
@@ -100,6 +99,9 @@ background-color: #2ca58d;
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
 height: max-content;
+}
+.word-break{
+    word-break: break-all;
 }
 .clip-embed{
     object-fit: cover;
