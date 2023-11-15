@@ -100,7 +100,7 @@
         <input v-model="editable" type="search" class="form-control search-participants" id="searchPlayers"
           placeholder="Search Participants">
       </div>
-      <div class="d-flex">
+      <div class="d-flex overflow">
         <!-- TODO Make this look better  -->
         <!-- TODO ? put this in component maybe? maybe not-->
         <div class="d-flex text-white" v-for="player in filteredPlayers" :key="player.id">
@@ -264,6 +264,10 @@ p {
   text-shadow: 2px 2px 4px #2ca58d;
 }
 
+.overflow {
+  overflow-x: auto;
+}
+
 .formCard {
   background-color: rgb(68, 68, 68);
   box-shadow: 0px 5px 4px #2ca58d;
@@ -298,8 +302,8 @@ p {
 
 @media (max-width: 950px) {
   .twitch-video {
-    height: 162px;
-    width: 258px
+    height: 178px;
+    width: 283px
   }
 }
 </style>
