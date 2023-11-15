@@ -37,7 +37,7 @@
       <div  v-if="checkGames == 'nothing'">
         <section class="row d-flex justify-content-center">
           <div class="col-md-8 col-12 mt-4">
-            <h2 class="text-white fs-3">No Games Named {{ noName }}</h2>
+            <h2 class="text-white fs-3">No Games Named <span class="word-break">{{ noName }}</span></h2>
           </div>
         </section>
       </div>
@@ -57,7 +57,7 @@
       <div v-if="checkTournaments == 'nothing'">
         <section class="row d-flex justify-content-center">
           <div class="col-md-8 col-12 mt-4">
-            <h3 class="text-white fs-3">No Tournaments Named {{ noName }}</h3>
+            <h3 class="text-white fs-3">No Tournaments Named <span class="word-break">{{ noName }}</span></h3>
           </div>
         </section>
       </div>
@@ -69,7 +69,7 @@
               
               <div class="d-flex align-items-center box-bg p-3 rounded">
                 <img class="profile-picture rounded-circle" :src="profile.picture" alt="profile picture">
-                <p class="text-white mb-0 ms-3 ">
+                <p class="text-white mb-0 ms-3 word-break">
                   {{ profile.name }}
                 </p>
               </div>
@@ -81,7 +81,7 @@
       <div v-if="checkProfiles == 'nothing'">
         <section class="row d-flex mb-4 justify-content-center">
           <div class="col-md-8 col-12 mt-4">
-            <h4 class="text-white fs-3">No Profiles Named {{ noName }}</h4>
+            <h4 class="text-white fs-3">No Profiles Named <span class="word-break">{{ noName }}</span></h4>
             
           </div>
         </section>
@@ -201,6 +201,9 @@ export default {
 <style scoped lang="scss">
 .box-bg {
   background-color: #444444;
+}
+.word-break{
+  word-break: break-all;
 }
 
 .profile-picture {
