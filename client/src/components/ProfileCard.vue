@@ -5,8 +5,8 @@
         </div>
         <div class="row account-info-card d-flex">
             <div class=" col-10 p-4 pe-2 d-flex flex-column">
-            <h1 class=" pt-5 pt-0-md text-start">{{ profile.name }}</h1>
-            <p class="text-start">{{ profile.bio }}</p>
+            <h1 class=" pt-5 pt-0-md text-start word-break">{{ profile.name }}</h1>
+            <p class="text-start word-break">{{ profile.bio }}</p>
             </div>
             <div class="col-12 px-0 col-md-4 fs-1 text-end d-flex flex-column justify-content-between">
                 <div>
@@ -54,6 +54,9 @@ width: 11rem;
 position: relative;
 right:-1%;
 top: 45%;
+}
+.word-break{
+    word-break: break-all;
 }
 
 .account-info-card{

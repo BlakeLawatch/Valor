@@ -36,7 +36,6 @@ export default {
 }
 *{
   user-select: none;
-  word-break: break-all;
 }
 
 footer {
