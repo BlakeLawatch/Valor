@@ -6,7 +6,7 @@
           <img class="p-0 m-0" :src="tournament.gameImg" alt="">
       </div>
       <div class="col-12 col-md-6">
-          <p>{{ tournament.name }}</p>
+          <p class="tournament-name">{{ tournament.name }}</p>
           <p>{{ tournament.gameName }}</p>
           <p v-if="tournament.capacity"> Total Capacity: {{ tournament.capacity }}</p>
           <p>{{ tournament.address }}</p>
@@ -48,10 +48,12 @@ img {
 
 .coolBg {
     background-color: #444444;
-    height: 20vh;
 }
 
 p{
   margin-bottom: 0;
+}
+.tournament-name{
+  text-transform: capitalize;
 }
 </style>
