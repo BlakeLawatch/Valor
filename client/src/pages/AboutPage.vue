@@ -80,7 +80,7 @@ a {
 .cover-img {
   height: 10rem;
   object-fit: cover;
-  object-position: center;
+  background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
