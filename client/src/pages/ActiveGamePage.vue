@@ -44,9 +44,7 @@
       </div>
     </section>
 
-    <section class="row">
-      <div class="col-12">
-        <section class="row d-flex justify-content-center">
+    <section class="row d-flex justify-content-center">
           <div v-if="tournaments.length > 0" class="col-8">
             <div class="mb-3" v-for="tournament in tournaments" :key="tournament.id">
               <ActiveTournamentCard :tournament="tournament" />
@@ -60,8 +58,6 @@
               This game currently does not have any active or future tournaments.
             </h3>
           </div>
-        </section>
-      </div>
     </section>
 
   </div>

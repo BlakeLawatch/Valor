@@ -200,10 +200,8 @@
                     <div class="text-white mt-4 d-flex" v-for="player in players" :key="player.id">
                         <div class="editFormCard d-flex rounded w-100">
                             <img class="rounded-circle mx-3 mt-2 mb-2" :src="player.profile.picture" alt="">
-                            <h4 class="mx-3">{{ player.profile.name }}</h4>
+                            <h6 class="mx-3">{{ player.profile.name }}</h6>
                             <p class="mx-2">Seed: {{ player.seed }}</p>
-                            <div class="d-flex align-self-end ">
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -250,7 +248,6 @@ export default {
         })
         async function getMyTournamentById() {
             try {
-                // debugger
                 const tournamentId = route.params.tournamentId
                 await tournamentsService.getTournamentById(tournamentId)
             } catch (error) {
