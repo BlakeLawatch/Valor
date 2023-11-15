@@ -6,15 +6,15 @@
                 <h5 class="modal-title text-dark" id="accountModalLabel">Edit Account</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body text-dark">
-                <form @submit.prevent="editAccount()">
+            <div class="modal-body editForm text-light">
+                <form  @submit.prevent="editAccount()">
                     <div class="w-100 d-flex justify-content-between">
-                        <div class="condensed-milk p-2 text-start">
+                        <div class="condensed-milk  p-2 text-start">
                             <label for="name" class="form-label fs-5">Name</label>
                             <input v-model="editable.name" title="Name" type="text" maxlength="100" class="form-control" placeholder="Give yourself a new name">
                         </div>
-                        <div class="condensed-milk p-2">
-                            <label for="picture" class="form-label fs-5">Profile Picture</label>
+                        <div class="condensed-milk text-start p-2">
+                            <label for="picture" class="form-label  fs-5">Profile Picture</label>
                             <input v-model="editable.picture" title="Profile Picture" type="url" maxlength="500" class="form-control" placeholder="A new face">
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                             <label for="coverImg" class="form-label fs-5">Profile Background</label>
                             <input v-model="editable.coverImg" title="Profile Background" type="url" maxlength="500" class="form-control" placeholder="Personalize the background of your profile with an image!">
                         </div>
-                        <div class="condensed-milk p-2">
+                        <div class="condensed-milk text-start p-2">
                             <label for="twitchUrl" class="form-label fs-5">Twitch Link</label>
                             <input v-model="editable.twitchUrl" title="Twitch Account Link" type="url" maxlength="500" class="form-control" placeholder="feeling twitchy today?">
                         </div>
@@ -58,7 +58,6 @@
                     </div>
                     <div class="w-100 d-flex justify-content-end pt-3">
                         <button class="btn btn-success me-3" title="Save Changes" type="submit">Submit</button>
-                        <button type="button" class="btn btn-secondary" title="Cancel" data-bs-dismiss="modal">Close</button>
                     </div>
                     
                 </form>
@@ -100,5 +99,12 @@ export default {
 <style lang="scss" scoped>
 .condensed-milk{
     width: 48%;
+}
+
+.editForm {
+    background-color: rgb(68, 68, 68);
+    box-shadow: 0px 5px 4px #2ca58d;
+    
+    border: 1.5px solid #2ca58d;
 }
 </style>
