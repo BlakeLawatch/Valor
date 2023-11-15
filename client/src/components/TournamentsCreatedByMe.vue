@@ -16,7 +16,9 @@
                 <img v-else src="https://media.istockphoto.com/id/1227115202/photo/a-red-stamp-on-a-white-background-cancelled.webp?b=1&s=170667a&w=0&k=20&c=RPueqU4VVfs98bOCqlCPifC7EcKze6CksprK4o_K3no=" class="tournament-image w-100"/>
             </router-link>
             <div class="d-flex flex-column justify-content-between">
+                <router-link :to="{name: 'TournamentInfoPage', params: {tournamentId: tournament.id}}">
                 <p class="fs-5 ps-2 text-light text-center pt-2 word-break">{{ tournament.name }}</p>
+                </router-link>
                 <div v-if="tournament.creatorId == account.id" title="Edit Tournament" class="w-100 d-flex justify-content-end pe-2 pb-1">
                     <RouterLink :to="{name: 'ManageTournament', params: {tournamentId: tournament.id}}">
                         <button class="btn color-match text-light"> Edit</button>
