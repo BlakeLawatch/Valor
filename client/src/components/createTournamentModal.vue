@@ -46,7 +46,7 @@
 
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { gamesService } from '../services/GamesService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
@@ -62,6 +62,7 @@ export default {
       const gameEditable = ref('')
       const formEditable = ref({})
       const router = useRouter()
+     
     return { 
       router,
       formEditable,
