@@ -57,7 +57,7 @@
                         <textarea v-model="editable.bio" rows="5" title="Bio" maxlength="1000" class="form-control" placeholder="Ever wanted to write an autobiograpjy? Well now you can!"></textarea>
                     </div>
                     <div class="w-100 d-flex justify-content-end pt-3">
-                        <button class="btn btn-success me-3" title="Save Changes" type="submit">Submit</button>
+                        <button class="btn me-3" title="Save Changes" type="submit">Submit</button>
                     </div>
                     
                 </form>
@@ -101,9 +101,10 @@ export default {
     width: 48%;
 }
 
-.editAccount {
-    background-color: rgb(68, 68, 68);
+button {
+    background-color: #2ca58d;
 }
+
 .editForm {
     background-color: rgb(68, 68, 68);
     box-shadow: 0px 5px 4px #2ca58d;
