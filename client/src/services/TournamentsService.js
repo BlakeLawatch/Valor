@@ -69,6 +69,7 @@ class TournamentsService{
   async editActiveTournament(tournamentData, tournamentId){
     const res = await api.put(`api/tournaments/${tournamentId}`, tournamentData)
     AppState.activeTournament = new Tournament(res.data)
+
   }
 
   async cancelTournament(tournamentId) {
@@ -106,7 +107,7 @@ return 'something'
     if(userInput == ''){
       this.getTournamentsByGameId()
     }
-    AppState.activeTournaments = AppState.activeTournaments.filter(t => t.name.toLowerCase().includes(userInput.toLowerCase()))
+    AppState.searchedTournaments = AppState.activeTournaments.filter(t => t.name.toLowerCase().includes(userInput.toLowerCase()))
   }
 
   clearData() {

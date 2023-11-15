@@ -120,13 +120,13 @@ export default {
       filteredSortType,
       game: computed(() => AppState.activeGame),
       tournaments: computed(() => {
-        let filteredAndSortedTournaments = AppState.activeTournaments
+        let filteredAndSortedTournaments = AppState.searchedTournaments
         if (filteredTournamentType.value) {
           if (filteredTournamentType.value == 'Online only') {
-            filteredAndSortedTournaments = AppState.activeTournaments.filter(tournament => tournament.onlineOnly)
+            filteredAndSortedTournaments = AppState.searchedTournaments.filter(tournament => tournament.onlineOnly)
           }
           else {
-            filteredAndSortedTournaments = AppState.activeTournaments.filter(tournament => tournament.onlineOnly == false)
+            filteredAndSortedTournaments = AppState.searchedTournaments.filter(tournament => tournament.onlineOnly == false)
           }
         }
         if (filteredSortType.value) {
