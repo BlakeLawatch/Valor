@@ -1,7 +1,7 @@
 <template>
   <div v-if="activeTournament" class="container-fluid px-5 py-4">
     <!-- Info section -->
-    <section class="row text-light card-bg formCard rounded p-2">
+    <section class=" mx-5 row text-light card-bg formCard rounded p-2">
       <div class="col-12 py-2 banner-img d-flex align-items-center justify-content-center"
         :style="{ backgroundImage: 'url(' + activeTournament.imgUrl + ')' }">
         <p class="fs-1 timer">{{ countdown }}</p>
@@ -12,8 +12,8 @@
       <div class="col-12 d-flex justify-content-between align-items-center my-2">
         <div>
           <p class="fs-5 text-break">{{ activeTournament.address }}</p>
-          <p v-if="activeTournament.playerCount > 1">{{ players.length }} Entrants</p>
-          <p v-else>{{ players.length }} Entrant</p>
+          <p v-if="activeTournament.playerCount == 1">{{ players.length }} Entrant</p>
+          <p v-else>{{ players.length }} Entrants</p>
         </div>
         <div class="text-end">
           <h2>{{ activeTournament.gameName }}</h2>
@@ -68,7 +68,8 @@
               <button class="btn btn-valor button">Edit</button>
             </RouterLink>
             <div v-else class="text-end">
-              <button @click="registerForTournament()" v-if="players.find(p => p.accountId == account.id) == null"
+              <button @click="registerForTournament(players, account)"
+                v-if="players.find(p => p.accountId == account.id) == null"
                 :disabled="activeTournament.startDate?.toLocaleDateString() < new Date().toLocaleDateString()"
                 class="btn btn-valor button">Register</button>
               <button @click="unregisterForTournament(players.find(p => p.accountId == account.id))" v-else
@@ -207,9 +208,13 @@ export default {
       players: computed(() => AppState.playersInActiveTournament),
       filteredPlayers: computed(() => AppState.filteredPlayers),
 
-      async registerForTournament() {
+      async registerForTournament(players, account) {
         try {
           // TODO MAKE THROW ERROR IF ALREADY REGISTERED
+          if (players.find(p => p.accountId == account.id)) {
+            Pop.error('you are already registered for this event')
+            return
+          }
           const yes = await Pop.confirm('Are you sure you would like to register for this event?')
           if (!yes) {
             return

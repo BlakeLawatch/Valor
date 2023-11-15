@@ -113,6 +113,13 @@ return 'something'
   clearData() {
       AppState.activeTournament = null
   }
+
+  clearHomePageAppstate(){
+    AppState.games = []
+    AppState.searchedTournaments = []
+    AppState.profiles = []
+  }
+
 }
 
 

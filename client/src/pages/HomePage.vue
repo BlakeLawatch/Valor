@@ -148,9 +148,8 @@ export default {
         checkTournaments.value = ''
         checkProfiles.value = ''
         await tournamentsService.getActiveTournaments()
-        AppState.games = []
-        AppState.searchedTournaments = []
-        AppState.profiles = []
+        tournamentsService.clearHomePageAppstate()
+       
       } catch (error) {
         Pop.error(error)
       }
