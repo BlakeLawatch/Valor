@@ -3,17 +3,17 @@
     <section class="row coolBg p-2 rounded text-light">
       <!--  flip the isLive boolean with $gt -->
       <div class="col-12 col-md-6 p-0">
-          <img class="p-0 m-0" :src="tournament.gameImg" alt="">
+          <img class="p-0 m-0" :src="tournament.gameImg" alt="Game Image">
       </div>
       <div class="col-12 col-md-6">
-          <p class="tournament-name">{{ tournament.name }}</p>
+          <p class="tournament-name word-break">{{ tournament.name }}</p>
           <p>{{ tournament.gameName }}</p>
           <p v-if="tournament.capacity"> Total Capacity: {{ tournament.capacity }}</p>
-          <p>{{ tournament.address }}</p>
+          <p class="word-break">{{ tournament.address }}</p>
           <p v-if="tournament.endDate == null">{{ tournament.startDate.toLocaleDateString() }}</p>
           <p v-else>{{ tournament.startDate.toLocaleDateString() }} - {{ tournament.endDate.toLocaleDateString()
           }}</p>
-          <p v-if="tournament.entryPrice > 0" class="">Entry Fee: ${{ tournament.entryPrice }}</p>
+          <p v-if="tournament.entryPrice > 0" class="">Entry Fee: $<span class="word-break">{{ tournament.entryPrice }}</span></p>
           <p v-else class="">No Entry Fee</p>
       </div>
     </section>
@@ -44,6 +44,9 @@ img {
     width: 100%;
     object-fit: cover;
     object-position: center;
+}
+.word-break{
+  word-break: break-all;
 }
 
 .coolBg {
