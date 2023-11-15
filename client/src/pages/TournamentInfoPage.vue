@@ -68,7 +68,7 @@
               <button class="btn btn-valor button">Edit</button>
             </RouterLink>
             <div v-else class="text-end">
-              <button @click="registerForTournament()" v-if="players.find(p => p.accountId == account.id) == null"
+              <button @click="registerForTournament(players, account)" v-if="players.find(p => p.accountId == account.id) == null"
                 :disabled="activeTournament.startDate?.toLocaleDateString() < new Date().toLocaleDateString()"
                 class="btn btn-valor button">Register</button>
               <button @click="unregisterForTournament(players.find(p => p.accountId == account.id))" v-else
@@ -207,10 +207,8 @@ export default {
       players: computed(() => AppState.playersInActiveTournament),
       filteredPlayers: computed(() => AppState.filteredPlayers),
 
-      async registerForTournament() {
+      async registerForTournament(players, account) {
         try {
-          const players = players
-          const account = account
           // TODO MAKE THROW ERROR IF ALREADY REGISTERED
           if(players.find(p => p.accountId == account.id)){
 Pop.error('you are already registered for this event')
