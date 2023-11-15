@@ -1,9 +1,9 @@
 <template>
 <div class="modal fade modal-xl" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content editForm">
             <div class="modal-header">
-                <h5 class="modal-title text-dark" id="accountModalLabel">Edit Account</h5>
+                <h5 class="modal-title  text-light" id="accountModalLabel">Edit Account</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body editForm text-light">
@@ -101,6 +101,9 @@ export default {
     width: 48%;
 }
 
+.editAccount {
+    background-color: rgb(68, 68, 68);
+}
 .editForm {
     background-color: rgb(68, 68, 68);
     box-shadow: 0px 5px 4px #2ca58d;
