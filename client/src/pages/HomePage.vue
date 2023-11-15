@@ -207,7 +207,9 @@ export default {
   height: 4rem;
   aspect-ratio: 1/1;
 }
-
+.btn{
+  word-break: normal;
+}
 .color-match {
   background-color: #2ca58d;
 }
