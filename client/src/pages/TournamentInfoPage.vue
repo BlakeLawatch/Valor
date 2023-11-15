@@ -46,9 +46,10 @@
               <span v-if="activeTournament.entryPrice">{{ activeTournament.entryPrice }}</span>
               <span v-else>TBD</span>
             </p>
-            <p v-if="activeTournament.startDate < new Date()"> Registration is over!</p>
+            <p v-if="activeTournament.startDate < new Date()"> Registration is over</p>
             <p v-else>Registration ends:
-              <span v-if="activeTournament.signUpDeadline">{{ activeTournament.signUpDeadline?.toLocaleDateString()}}</span>
+              <span v-if="activeTournament.signUpDeadline">{{
+                activeTournament.signUpDeadline?.toLocaleDateString() }}</span>
               <span v-else>TBD</span>
             </p>
           </div>
@@ -71,10 +72,17 @@
     </section>
     <!-- live stream link -->
     <section class="row text-center">
-      <div class="col-12 text-center">
+      <div v-if="activeTournament.startDate <= new Date() && activeTournament.endDate >= new Date()"
+        class="col-12 text-center">
         <h3 class="text-center text-white fs-1 text-shadow">This tournament is live!</h3>
         <iframe :src="activeTournament.liveStreamUrl" height="540" width="860" allowfullscreen>
         </iframe>
+      </div>
+      <div v-else>
+        <h3 v-if="activeTournament.startDate > new Date()" class="text-center text-white fs-1 text-shadow">Your tournament
+          will be live soon</h3>
+        <h3 v-if="activeTournament.endDate < new Date()" class="text-center text-white fs-1 text-shadow">Your tournament
+          is over</h3>
       </div>
     </section>
     <!-- Bracket goes here -->
@@ -82,17 +90,18 @@
 
     </section>
     <!-- player search -->
-    <section v-if="players.length>0" class="row">
+    <section v-if="players.length > 0" class="row">
       <div class="col-12 text-white  text-center">
         <h4 class="fs-1 text-shadow  my-3">Participants</h4>
       </div>
       <div class="d-flex mb-3 justify-content-center">
-        <input v-model="editable" type="search" class="form-control w-25" id="searchPlayers"  placeholder="Search Participants">
+        <input v-model="editable" type="search" class="form-control w-25" id="searchPlayers"
+          placeholder="Search Participants">
       </div>
       <div class="d-flex">
         <!-- TODO Make this look better  -->
         <!-- TODO ? put this in component maybe? maybe not-->
-        <div class="d-flex text-white" v-for="player in filteredPlayers" :key="player.id"> 
+        <div class="d-flex text-white" v-for="player in filteredPlayers" :key="player.id">
           <div class="m-3 card-bg rounded p-2 d-flex">
             <div class="d-flex align-items-center pe-2">
               <img class="rounded-circle player-img " :src="player.profile.picture" alt="">
@@ -101,9 +110,9 @@
               <p class="mb-0">{{ player.profile.name }}</p>
               <p>Seed: {{ player.seed }}</p>
             </div>
+          </div>
+        </div>
       </div>
-</div>
-</div>
     </section>
   </div>
 </template>
@@ -127,7 +136,7 @@ export default {
     onMounted(() => {
       countdownInterval = setInterval(getCountdownTime, 1000)
     })
-    watchEffect(()=> {
+    watchEffect(() => {
       editable
       filterParticipants()
     })
@@ -148,13 +157,13 @@ export default {
         Pop.error(error)
       }
     }
-async function filterParticipants(){
-  try {
-    playersService.filterParticipants(editable.value)
-  } catch (error) {
-    Pop.error(error)
-  }
-}
+    async function filterParticipants() {
+      try {
+        playersService.filterParticipants(editable.value)
+      } catch (error) {
+        Pop.error(error)
+      }
+    }
 
     async function getPlayersByTournamentId() {
       try {
@@ -186,7 +195,7 @@ async function filterParticipants(){
       countdown,
       account: computed(() => AppState.account),
       players: computed(() => AppState.playersInActiveTournament),
-      filteredPlayers: computed(()=> AppState.filteredPlayers),
+      filteredPlayers: computed(() => AppState.filteredPlayers),
 
       async registerForTournament() {
         try {
@@ -225,12 +234,13 @@ p {
   margin-bottom: 0;
 }
 
-.player-img{
+.player-img {
   height: 2rem;
   aspect-ratio: 1/1;
   object-fit: cover;
   object-position: center;
 }
+
 .card-bg {
   background-color: #444444;
 }
@@ -253,10 +263,9 @@ p {
 }
 
 .formCard {
-    background-color: rgb(68, 68, 68);
-    box-shadow: 0px 5px 4px #2ca58d;
-    
-    border: 1.5px solid #2ca58d;
-}
+  background-color: rgb(68, 68, 68);
+  box-shadow: 0px 5px 4px #2ca58d;
 
+  border: 1.5px solid #2ca58d;
+}
 </style>
