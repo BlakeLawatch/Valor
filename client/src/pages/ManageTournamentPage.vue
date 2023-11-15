@@ -277,15 +277,18 @@ export default {
             async editActiveTournament() {
                 try {
                     if(tournamentEditable.value.startDate < this.todaysDate){
-                        Pop.error('test -1')
+                        Pop.error('Invalid start date')
+                        return
                     }
                     if(tournamentEditable.value.startDate > tournamentEditable.value.endDate){
-Pop.error('test')
+Pop.error('Invalid end date')
 return
                     }
-                    if(tournamentEditable.value.signUpDeadline > tournamentEditable.value.startDate || tournamentEditable.value.signUpDeadline < this.todaysDate){
-                        Pop.error('test 2')
+                    if(tournamentEditable.value.startDate){
+                        if(tournamentEditable.value.signUpDeadline > tournamentEditable.value.startDate || tournamentEditable.value.signUpDeadline < this.todaysDate){
+                        Pop.error('Invalid sign up deadline date')
                         return
+                    }
                     }
                     const tournamentId = route.params.tournamentId
                     const tournamentData = tournamentEditable.value
