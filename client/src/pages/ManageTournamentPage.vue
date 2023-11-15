@@ -26,7 +26,7 @@
             <div class="col-2 text-white mt-4 d-flex" v-for="player in players" :key="player.id">
                 <div class="editFormCard d-flex rounded w-100">
                     <img class="rounded-circle mx-3 mt-2 mb-2" :src="player.profile.picture" alt="">
-                    <h6 class="mx-3">{{ player.profile.name }}</h6>
+                    <h6 class="mx-3 text-break">{{ player.profile.name }}</h6>
                     <p class="mx-2">Seed: {{ player.seed }}</p>
                 </div>
             </div>
