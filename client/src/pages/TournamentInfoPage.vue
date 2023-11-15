@@ -55,7 +55,14 @@
               </p>
             </div>
           </div>
-          <div class="col-12 text-end my-2 text-end">
+          <div class="col-12 text-end my 2 " v-if="!account.id">
+            <!-- FIXME make look better pls -->
+              <p class="text-end"> Sign in to register!</p>
+              <button class="btn btn-valor button w-25" @click="login()" >Register</button>
+  
+          </div>
+
+          <div v-else class="col-12 my-2 text-end">
             <RouterLink v-if="activeTournament.creatorId == account.id"
               :to="{ name: 'ManageTournament', params: { tournamentId: activeTournament.id } }">
               <button class="btn btn-valor button">Edit</button>
@@ -128,6 +135,7 @@ import Pop from "../utils/Pop";
 import { tournamentsService } from "../services/TournamentsService.js"
 import { playersService } from "../services/PlayersService.js"
 import { logger } from "../utils/Logger";
+import { AuthService } from "../services/AuthService";
 
 export default {
   setup() {
@@ -224,6 +232,9 @@ export default {
         } catch (error) {
           Pop.error(error)
         }
+      },
+      async login() {
+        AuthService.loginWithPopup()
       }
     }
   }
