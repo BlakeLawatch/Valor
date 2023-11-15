@@ -287,6 +287,20 @@ p {
   overflow-x: auto;
 }
 
+::-webkit-scrollbar {
+  background-color: rgb(68, 68, 68);
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 6px #2ca58d;
+  border: 1.5px solid #2ca58d;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #2ca58d;
+  border-radius: 10px;
+  box-shadow: 0px 0px 6px #2E3233;
+}
+
+
 .formCard {
   background-color: rgb(68, 68, 68);
   box-shadow: 0px 5px 4px #2ca58d;

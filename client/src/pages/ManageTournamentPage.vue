@@ -6,7 +6,7 @@
                 <h1 class="text-white text-break textShadow underline">{{ tournament.name }}</h1>
             </div>
             <div class="col-12 col-md-10 d-flex justify-content-center mt-3 rounded">
-                <EditTournamentForm/>
+                <EditTournamentForm />
             </div>
         </section>
         <section v-else>
@@ -30,24 +30,24 @@
                                 <h6 class="mx-3 text-break">{{ player.profile.name }}</h6>
                                 <p class="mx-3">Seed: {{ player.seed }}</p>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
-            <div class="col-10 text-center mt-3">
-                <h1 class="text-white">Placeholder for bracket</h1>
-            </div>
-        
+
+        <div class="col-10 text-center mt-3">
+            <h1 class="text-white">Placeholder for bracket</h1>
+        </div>
+
     </div>
 </template>
 
 
 <script>
 import { AppState } from '../AppState';
-import { computed, ref, watchEffect} from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { tournamentsService } from '../services/TournamentsService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
@@ -64,14 +64,14 @@ export default {
         watchEffect(() => {
             route,
                 getMyTournamentById()
-                getPlayersByTournamentId()
+            getPlayersByTournamentId()
         })
         watchEffect(() => {
             if (AppState.activeTournament.id) {
                 const editingTournament = { ...AppState.activeTournament }
                 editingTournament.startDate = editingTournament.startDate.toISOString().substring(0, 10)
                 editingTournament.endDate = editingTournament.endDate.toISOString().substring(0, 10)
-                if(editingTournament.signUpDeadline) {
+                if (editingTournament.signUpDeadline) {
                     editingTournament.signUpDeadline = editingTournament.signUpDeadline.toISOString().substring(0, 10)
                 }
                 tournamentEditable.value = editingTournament
@@ -108,19 +108,19 @@ export default {
             todaysDate: new Date().toISOString().substring(0, 10),
             async editActiveTournament() {
                 try {
-                    if(tournamentEditable.value.startDate < this.todaysDate){
+                    if (tournamentEditable.value.startDate < this.todaysDate) {
                         Pop.error('Invalid start date')
                         return
                     }
-                    if(tournamentEditable.value.startDate > tournamentEditable.value.endDate){
-Pop.error('Invalid end date')
-return
-                    }
-                    if(tournamentEditable.value.startDate){
-                        if(tournamentEditable.value.signUpDeadline > tournamentEditable.value.startDate || tournamentEditable.value.signUpDeadline < this.todaysDate){
-                        Pop.error('Invalid sign up deadline date')
+                    if (tournamentEditable.value.startDate > tournamentEditable.value.endDate) {
+                        Pop.error('Invalid end date')
                         return
                     }
+                    if (tournamentEditable.value.startDate) {
+                        if (tournamentEditable.value.signUpDeadline > tournamentEditable.value.startDate || tournamentEditable.value.signUpDeadline < this.todaysDate) {
+                            Pop.error('Invalid sign up deadline date')
+                            return
+                        }
                     }
                     const tournamentId = route.params.tournamentId
                     const tournamentData = tournamentEditable.value
@@ -145,17 +145,17 @@ return
             }
         }
     },
-    components:{EditTournamentForm}
+    components: { EditTournamentForm }
 };
 </script>
 
 
 <style lang="scss" scoped>
-
 img {
     height: 8vh;
     width: 8vh;
 }
+
 .underline {
     text-decoration: underline;
     margin-top: 3px;
@@ -166,24 +166,27 @@ img {
 .editFormCard {
     background-color: rgb(68, 68, 68);
     box-shadow: 0px 5px 4px #2ca58d;
-    
+
     border: 1.5px solid #2ca58d;
 }
 
 .textShadow {
-text-shadow: 2px 2px 4px #2ca58d;
+    text-shadow: 2px 2px 4px #2ca58d;
 }
-.scroll{
+
+.scroll {
     overflow-y: scroll;
     max-height: 8rem;
 }
-::-webkit-scrollbar{
+
+::-webkit-scrollbar {
     background-color: rgb(68, 68, 68);
     border-radius: 10px;
     box-shadow: inset 0px 0px 6px #2ca58d;
     border: 1.5px solid #2ca58d;
 }
-::-webkit-scrollbar-thumb{
+
+::-webkit-scrollbar-thumb {
     background-color: #2ca58d;
     border-radius: 10px;
     box-shadow: 0px 0px 6px #2E3233;
