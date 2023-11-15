@@ -2,7 +2,7 @@
   <div v-if="activeTournament" class="container-fluid px-5 py-4">
     <!-- Info section -->
     <section class="row text-light card-bg formCard rounded p-2">
-      <div class="col-12 py-2 px-0 banner-img d-flex align-items-center justify-content-center"
+      <div class="col-12 py-2 banner-img d-flex align-items-center justify-content-center"
         :style="{ backgroundImage: 'url(' + activeTournament.imgUrl + ')' }">
         <p class="fs-1 timer">{{ countdown }}</p>
       </div>
@@ -34,44 +34,46 @@
       <div class="col-12 my-3">
         <p>{{ activeTournament.description }}</p>
       </div>
-      <div class="d-flex justify-content-between align-items-center my-2">
-        <div class="col-10">
-          <div class="">
-            <p class="fs-5">$
-              <span v-if="activeTournament.prizePool" class="fw-bold">{{ activeTournament.prizePool }} </span>
-              <span v-else class="fw-bold">TBD </span>
-              Prize Pool
-            </p>
-            <p>Entry fee: $
-              <span v-if="activeTournament.entryPrice">{{ activeTournament.entryPrice }}</span>
-              <span v-else>TBD</span>
-            </p>
-            <p v-if="activeTournament.startDate < new Date()"> Registration is over</p>
-            <p v-else>Registration ends:
-              <span v-if="activeTournament.signUpDeadline">{{
-                activeTournament.signUpDeadline?.toLocaleDateString() }}</span>
-              <span v-else>TBD</span>
-            </p>
+      <section class="row">
+        <div class="justify-content-between align-items-center my-2">
+          <div class="col-10">
+            <div class="">
+              <p class="fs-5">$
+                <span v-if="activeTournament.prizePool" class="fw-bold">{{ activeTournament.prizePool }} </span>
+                <span v-else class="fw-bold">TBD </span>
+                Prize Pool
+              </p>
+              <p>Entry fee: $
+                <span v-if="activeTournament.entryPrice">{{ activeTournament.entryPrice }}</span>
+                <span v-else>TBD</span>
+              </p>
+              <p v-if="activeTournament.startDate < new Date()"> Registration is over</p>
+              <p v-else>Registration ends:
+                <span v-if="activeTournament.signUpDeadline">{{
+                  activeTournament.signUpDeadline?.toLocaleDateString() }}</span>
+                <span v-else>TBD</span>
+              </p>
+            </div>
+          </div>
+          <div class="col-12 text-end my-2 text-end">
+            <RouterLink v-if="activeTournament.creatorId == account.id"
+              :to="{ name: 'ManageTournament', params: { tournamentId: activeTournament.id } }">
+              <button class="btn btn-valor button">Edit</button>
+            </RouterLink>
+            <div v-else class="text-end">
+              <button @click="registerForTournament()" v-if="players.find(p => p.accountId == account.id) == null"
+                :disabled="activeTournament.startDate?.toLocaleDateString() < new Date().toLocaleDateString()"
+                class="btn btn-valor button">Register</button>
+              <button @click="unregisterForTournament(players.find(p => p.accountId == account.id))" v-else
+                :disabled="activeTournament.startDate?.toLocaleDateString() < new Date().toLocaleDateString()"
+                class="btn btn-danger buton">Unregister</button>
+            </div>
           </div>
         </div>
-        <div class="col-2">
-          <RouterLink v-if="activeTournament.creatorId == account.id"
-            :to="{ name: 'ManageTournament', params: { tournamentId: activeTournament.id } }">
-            <button class="btn btn-valor w-100">Edit</button>
-          </RouterLink>
-          <div v-else>
-            <button @click="registerForTournament()" v-if="players.find(p => p.accountId == account.id) == null"
-              :disabled="activeTournament.startDate?.toLocaleDateString() < new Date().toLocaleDateString()"
-              class="btn btn-valor w-100">Register</button>
-            <button @click="unregisterForTournament(players.find(p => p.accountId == account.id))" v-else
-              :disabled="activeTournament.startDate?.toLocaleDateString() < new Date().toLocaleDateString()"
-              class="btn btn-danger w-100">Unregister</button>
-          </div>
-        </div>
-      </div>
+      </section>
     </section>
     <!-- live stream link -->
-    <section class="row text-center">
+    <section class="row text-center my-2">
       <div v-if="activeTournament.startDate <= new Date() && activeTournament.endDate >= new Date()"
         class="col-12 text-center">
         <h3 class="text-center text-white fs-1 text-shadow">This tournament is live!</h3>
@@ -95,7 +97,7 @@
         <h4 class="fs-1 text-shadow  my-3">Participants</h4>
       </div>
       <div class="d-flex mb-3 justify-content-center">
-        <input v-model="editable" type="search" class="form-control w-25" id="searchPlayers"
+        <input v-model="editable" type="search" class="form-control search-participants" id="searchPlayers"
           placeholder="Search Participants">
       </div>
       <div class="d-flex">
@@ -267,5 +269,25 @@ p {
   box-shadow: 0px 5px 4px #2ca58d;
 
   border: 1.5px solid #2ca58d;
+}
+
+.button {
+  width: 25%
+}
+
+@media(max-width: 500px) {
+  .button {
+    width: 100%;
+  }
+}
+
+.search-participants {
+  width: 25%
+}
+
+@media (max-width: 845px) {
+  .search-participants {
+    width: 60%;
+  }
 }
 </style>
