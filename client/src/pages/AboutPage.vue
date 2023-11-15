@@ -18,8 +18,8 @@
             <h2 class="text-light text-center">About Us</h2>
           </div>
           <div class="col-10 card-bg mb-3 rounded">
-            <div class="row cover-img rounded" :style="{ backgroundImage: `url(${currentDev.coverImg})` }">
-              <img class="rounded-circle dev-info-img" :src="currentDev.picture" alt="Developer Picture">
+            <div class="row cover-img  rounded" :style="{ backgroundImage: `url(${currentDev.coverImg})` }">
+              <img class="rounded-circle px-0 dev-info-img" :src="currentDev.picture" alt="Developer Picture">
             </div>
             <div class="row card-bg justify-content-end align-items-center">
               <div class="col-10 ps-4 pt-2 text-start d-flex justify-content-between">
