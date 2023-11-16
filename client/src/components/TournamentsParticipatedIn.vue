@@ -32,7 +32,7 @@
             <div class="deleted-tournament-message w-75">
                 <p class="d-flex ps-2 mb-0 text-light text-center">The creator of this tournament has removed it from our database</p>
             <div v-if="profile.id == account.id" class="m-1 d-flex justify-content-center">
-                <button @click="unregister(player.id)" class="btn btn-danger" title="Delete Ticket"><I class="mdi mdi-delete"></I></button>
+                <button @click="unregister(player.id)" class="btn btn-danger" title="Delete Ticket"><i class="mdi mdi-delete"></i></button>
             </div>
             </div>
             
