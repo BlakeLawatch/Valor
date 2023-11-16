@@ -111,14 +111,14 @@
                     </div>
                     <div class="col-6 mt-md-1 mt-3 col-md-11">
                         <div>
-                            <button @click.prevent="cancelTournament()" class="btn btn-danger"
+                            <button @click.prevent="cancelTournament()" class="btn btn-danger pulse"
                                 title="cancel tournament">Cancel Tournament</button>
                         </div>
                     </div>
                     <div class="col-6 mt-md-1 mt-3 col-md-11">
                         <!-- SECTION form button -->
                         <div>
-                            <button type="submit" title="submit edit" class="btn btn-success">Confirm Changes</button>
+                            <button type="submit" title="submit edit" class="btn btn-success offset">Confirm Changes</button>
                         </div>
                     </div>
                 </div>
@@ -257,4 +257,42 @@ text-shadow: 2px 2px 4px #2ca58d;
 textarea {
     resize: none;
 }
+
+.offset {  
+  box-shadow: 
+    0.3em 0.3em 0 0 var(--color),
+    inset 0.3em 0.3em 0 0 var(--color);
+  
+  &:hover,
+  &:focus {
+    box-shadow: 
+      0 0 0 0 var(--hover),
+      inset 6em 3.5em 0 0 var(--hover);
+  }
+}
+
+
+.pulse:hover, 
+.pulse:focus {
+  animation: pulse 1s;
+  box-shadow: 0 0 0 2em transparent;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 var(--hover); }
+}
+
+$colors: (
+    offset: #2ca58d,
+pulse: #75134c,
+);
+
+
+@each $button, $color in $colors {
+  .#{$button} {
+    --color: #{$color};
+    --hover: #{adjust-hue($color, 45deg)};
+  }
+}
+
 </style>
