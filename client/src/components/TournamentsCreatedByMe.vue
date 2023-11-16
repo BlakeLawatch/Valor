@@ -125,6 +125,7 @@ export default {
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
 height: max-content;
+border-radius: 0.2rem;
 }
 .tournament-image{
     object-fit: cover;

@@ -80,6 +80,7 @@ p{
   object-position: center;
   box-shadow: 0px 3px 7px black;
   border: 2.5px solid #2ca58d;
+  background-color: #2ca58d;
   height: 6rem;
   width: 6rem;
 }
