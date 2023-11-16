@@ -13,8 +13,8 @@
         
     </div>
     <div class="row w-100">
-        <div v-for="player in participatedIn" title="View Tournament Info" :key="player.id" class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
-        <div v-if="player.tournament">
+        <div v-for="player in participatedIn" title="View Tournament Info" :key="player.id" class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 px-0">
+        <div v-if="player.tournament" class="account-info-card">
             <router-link :to="{name: 'TournamentInfoPage', params: {tournamentId: player.tournament.id}}"> 
                 <img v-if="player.tournament.imgUrl" :src="player.tournament.imgUrl" class="w-100 tournament-image">
                 <img v-else-if="!player.tournament.imgUrl && player.tournament.gameImg" :src="player.tournament.gameImg" class="w-100 tournament-image">
@@ -27,12 +27,14 @@
                 </div>
             </router-link>
         </div>
-        <div v-else-if="!player.tournament">
-            <img src="../assets/img/valorPanda.png" class="w-100 tournament-image">
-            <p class="d-flex ps-2 mb-0 text-light">The creator of this tournament has removed it from our database</p>
-            <div v-if="profile.id == account.id" class="m-1">
+        <div v-else-if="!player.tournament" class="deleted-tournament-card d-flex align-items-center justify-content-center">
+            <div class="deleted-tournament-message w-75">
+                <p class="d-flex ps-2 mb-0 text-light text-center">The creator of this tournament has removed it from our database</p>
+            <div v-if="profile.id == account.id" class="m-1 d-flex justify-content-center">
                 <button @click="unregister(player.id)" class="btn btn-danger" title="Delete Ticket"><I class="mdi mdi-delete"></I></button>
             </div>
+            </div>
+            
         </div>
         </div>
     </div>
@@ -121,6 +123,17 @@ background-color: #2ca58d;
     object-fit: cover;
     object-position: center;
     height: 12rem;
+}
+.deleted-tournament-card{
+    background-image: url(../assets/img/valorPanda.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    height:15rem;
+}
+.deleted-tournament-message{
+    background-color: #2e3233da;
+    border: 1.5px solid #2ca58d;
+    box-shadow: 0px 5px 6px #2ca58d;
 }
 @media(max-width:1400px){
 .account-info-card{
