@@ -129,6 +129,7 @@ background-color: #2ca58d;
     background-image: url(../assets/img/valorPanda.png);
     background-position: center;
     background-repeat: no-repeat;
+    box-shadow: 0px 5px 6px black;
     height:15rem;
 }
 .deleted-tournament-message{
