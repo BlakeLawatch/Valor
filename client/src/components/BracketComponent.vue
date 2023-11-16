@@ -95,7 +95,8 @@ body {
     p {
         padding: 20px;
         margin: 0;
-        background-color: Beige;
+        background-color: #2ca58d;
+        color: white;
     }
 
     &-parent {
