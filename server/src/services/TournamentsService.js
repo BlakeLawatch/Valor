@@ -67,6 +67,16 @@ class TournamentsService {
     cancelledTournament.save()
     return cancelledTournament
   }
+  async deleteTournament(tournamentId, userId) {
+    const tournament = await this.getTournamentById(tournamentId)
+
+    if (tournament.creatorId.toString() != userId) {
+      throw new Forbidden('NOT YOUR DATA')
+    }
+
+    await tournament.delete()
+    return "TOURNAMENT DELETED"
+  }
 }
 
 export const tournamentsService = new TournamentsService()

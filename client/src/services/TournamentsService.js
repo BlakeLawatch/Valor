@@ -110,6 +110,11 @@ return 'something'
     AppState.searchedTournaments = AppState.activeTournaments.filter(t => t.name.toLowerCase().includes(userInput.toLowerCase()))
   }
 
+ async deleteMyOwnTournament(tournamentId){
+    await api.delete(`api/tournaments/${tournamentId}/delete`)
+    this.clearData()
+  }
+
   clearData() {
       AppState.activeTournament = null
   }

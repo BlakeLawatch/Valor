@@ -1,6 +1,7 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { accountService } from '../services/AccountService'
 import BaseController from '../utils/BaseController'
+import { tournamentsService } from '../services/TournamentsService.js'
 
 export class AccountController extends BaseController {
   constructor() {
@@ -11,6 +12,7 @@ export class AccountController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
       .put('', this.editAccount)
+
   }
 
   async getAccountById(req, res, next) {
@@ -50,4 +52,7 @@ export class AccountController extends BaseController {
       next(error)
     }
   }
+
+
+
 }

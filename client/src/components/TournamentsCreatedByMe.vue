@@ -19,10 +19,11 @@
                 <router-link :to="{name: 'TournamentInfoPage', params: {tournamentId: tournament.id}}">
                 <p class="fs-5 ps-2 text-light text-center pt-2 word-break">{{ tournament.name }}</p>
                 </router-link>
-                <div v-if="tournament.creatorId == account.id" title="Edit Tournament" class="w-100 d-flex justify-content-end pe-2 pb-1">
+                <div v-if="tournament.creatorId == account.id"  class="w-100 d-flex justify-content-between pe-2 pb-1">
                     <RouterLink :to="{name: 'ManageTournament', params: {tournamentId: tournament.id}}">
-                        <button class="btn color-match text-light"> Edit</button>
+                        <button class="btn color-match text-light" title="Edit Tournament"> Edit</button>
                     </RouterLink>
+                    <button @click="deleteMyOwnTournament(tournament.id)" class="btn btn-danger" title="Delete Tournament">Delete</button>
                 </div>
             </div>
         </div>
@@ -37,8 +38,10 @@ import { computed, onMounted} from 'vue';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
 import { tournamentsService } from '../services/TournamentsService.js';
+import { useRoute } from 'vue-router';
 export default {
     setup(){
+        const route = useRoute()
         onMounted(()=>{
             if(AppState.myTournaments != []){
                 getMyTournaments()
@@ -54,6 +57,7 @@ export default {
         }
     }
     return {  
+        route,
         myTournament: computed(() => AppState.activeTournament),
         myTournaments: computed(() => AppState.myTournaments),
         account: computed(()=> AppState.account),
@@ -75,6 +79,18 @@ export default {
                 logger.error(error)
             }
         },
+        async deleteMyOwnTournament(tournamentId) {
+            try {
+                const yes = await Pop.confirm('Are you sure you want to delete your tournament?')
+                if(!yes) {
+                    return
+                }
+                await tournamentsService.deleteMyOwnTournament(tournamentId)
+                 getMyTournaments()
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
     }
     }
 };
