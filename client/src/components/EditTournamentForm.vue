@@ -1,33 +1,30 @@
 <template>
-<form @submit.prevent="editActiveTournament()" class="editFormCard rounded w-100">
-    <div class="row p-md-4 pt-2 justify-content-evenly mt-1 align-items-center">
-        <div class="col-12 text-center">
-            <h5 class="text-light mt-1">Tournament Info:</h5>
-        </div>
-        <div class="text-white col-12 col-md-4 p-4 pt-2">
-            <label for="name">Name</label>
-            <input v-model="tournamentEditable.name" type="text" class="rounded w-100" id="name" maxlength="75">
-        </div>
-        <div class="text-white col-md-4 col-6 p-4 pt-2">
-            <label for="entryPrice">Entry Price</label>
-            <input v-model="tournamentEditable.entryPrice" type="number" class="rounded w-100" id="number"
-                max="10000">
-        </div>
-        <div class="text-white col-md-4 col-6 p-4 pt-2">
-            <label for="capacity">Capacity</label>
-            <input v-model="tournamentEditable.capacity" type="number" class="rounded w-100" id="number"
-                max="10000">
-        </div>
-        <div class="text-white col-6 col-md-4 mt-1 p-4 pt-2">
-            <label for="region" class="form-label mb-0">Region</label>
-            <select v-model="tournamentEditable.region" class="form-select w-100" name="" id="">
-                <option :value="region" v-for="region in region" :key="region">{{ region }}</option>
-            </select>
-        </div>
-        <div class="text-white col-6 col-md-4 p-4 pt-2">
-            <label for="address">Address</label>
-            <input v-model="tournamentEditable.address" type="text" class="rounded w-100" id="address"
-                maxlength="100">
+    <form @submit.prevent="editActiveTournament()" class="editFormCard rounded w-100">
+        <div class="row p-md-4 pt-2 justify-content-evenly mt-1 align-items-center">
+            <div class="col-12 text-center">
+                <h5 class="text-light mt-1">Tournament Info:</h5>
+            </div>
+            <div class="text-white col-12 col-md-4 p-4 pt-2">
+                <label for="name">Name</label>
+                <input v-model="tournamentEditable.name" type="text" class="rounded w-100" id="name" maxlength="75">
+            </div>
+            <div class="text-white col-md-4 col-6 p-4 pt-2">
+                <label for="entryPrice">Entry Price</label>
+                <input v-model="tournamentEditable.entryPrice" type="number" class="rounded w-100" id="number" max="10000">
+            </div>
+            <div class="text-white col-md-4 col-6 p-4 pt-2">
+                <label for="capacity">Capacity</label>
+                <input v-model="tournamentEditable.capacity" type="number" class="rounded w-100" id="number" max="10000">
+            </div>
+            <div class="text-white col-6 col-md-4 mt-1 p-4 pt-2">
+                <label for="region" class="form-label mb-0">Region</label>
+                <select v-model="tournamentEditable.region" class="form-select w-100" name="" id="">
+                    <option :value="region" v-for="region in region" :key="region">{{ region }}</option>
+                </select>
+            </div>
+            <div class="text-white col-6 col-md-4 p-4 pt-2">
+                <label for="address">Address</label>
+                <input v-model="tournamentEditable.address" type="text" class="rounded w-100" id="address" maxlength="100">
             </div>
             <div class="text-white col-6 col-md-4 mt-1 p-4 pt-2">
                 <label for="prizePool">Prizes</label>
@@ -36,8 +33,7 @@
             </div>
             <div class="text-white col-6 col-md-4 mt-1 p-4 pt-2">
                 <label for="imgUrl">Image</label>
-                <input v-model="tournamentEditable.imgUrl" type="url" class="rounded w-100" id="imgUrl"
-                    maxlength="1000">
+                <input v-model="tournamentEditable.imgUrl" type="url" class="rounded w-100" id="imgUrl" maxlength="1000">
             </div>
         </div>
         <div class="row p-md-4 pt-2 justify-content-evenly align-items-center">
@@ -48,16 +44,16 @@
                 <label for="startDate">Start Date</label>
                 <input v-model="tournamentEditable.startDate" type="date" class="rounded w-100" :min="todaysDate"
                     id="startDate">
-                </div>
+            </div>
             <div class="text-white col-6 col-md-4 p-4 pt-2">
                 <label for="endDate">End Date</label>
-                <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.endDate" type="date" class="rounded w-100" :min="tournamentEditable.startDate"
-                    id="endDate">
+                <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.endDate" type="date"
+                    class="rounded w-100" :min="tournamentEditable.startDate" id="endDate">
             </div>
             <div class="text-white col-6 col-md-4 mt-md-0 mt-2 p-4 pt-2">
                 <label for="signUpDeadline">Sign Up Deadline</label>
-                <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.signUpDeadline" type="date" class="rounded w-100" :min="todaysDate" :max="tournamentEditable.startDate"
-                    id="signUpDeadline">
+                <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.signUpDeadline" type="date"
+                    class="rounded w-100" :min="todaysDate" :max="tournamentEditable.startDate" id="signUpDeadline">
             </div>
         </div>
         <div class="row p-md-4 pt-2 justify-content-evenly align-items-center">
@@ -118,7 +114,8 @@
                     <div class="col-6 mt-md-1 mt-3 col-md-11">
                         <!-- SECTION form button -->
                         <div>
-                            <button type="submit" title="submit edit" class="btn btn-success offset">Confirm Changes</button>
+                            <button type="submit" title="submit edit" class="btn btn-success offset">Confirm
+                                Changes</button>
                         </div>
                     </div>
                 </div>
@@ -146,14 +143,14 @@ export default {
         watchEffect(() => {
             route,
                 getMyTournamentById()
-                getPlayersByTournamentId()
+            getPlayersByTournamentId()
         })
         watchEffect(() => {
             if (AppState.activeTournament.id) {
                 const editingTournament = { ...AppState.activeTournament }
                 editingTournament.startDate = editingTournament.startDate.toISOString().substring(0, 10)
                 editingTournament.endDate = editingTournament.endDate.toISOString().substring(0, 10)
-                if(editingTournament.signUpDeadline) {
+                if (editingTournament.signUpDeadline) {
                     editingTournament.signUpDeadline = editingTournament.signUpDeadline.toISOString().substring(0, 10)
                 }
                 tournamentEditable.value = editingTournament
@@ -190,22 +187,24 @@ export default {
             todaysDate: new Date().toISOString().substring(0, 10),
             async editActiveTournament() {
                 try {
-                    if(tournamentEditable.value.startDate < this.todaysDate){
+                    if (tournamentEditable.value.startDate < this.todaysDate) {
                         Pop.error('Invalid start date')
                         return
                     }
-                    if(tournamentEditable.value.startDate > tournamentEditable.value.endDate){
-Pop.error('Invalid end date')
-return
-                    }
-                    if(tournamentEditable.value.startDate){
-                        if(tournamentEditable.value.signUpDeadline > tournamentEditable.value.startDate || tournamentEditable.value.signUpDeadline < this.todaysDate){
-                        Pop.error('Invalid sign up deadline date')
+                    if (tournamentEditable.value.startDate > tournamentEditable.value.endDate) {
+                        Pop.error('Invalid end date')
                         return
                     }
+                    if (tournamentEditable.value.startDate) {
+                        if (tournamentEditable.value.signUpDeadline > tournamentEditable.value.startDate || tournamentEditable.value.signUpDeadline < this.todaysDate) {
+                            Pop.error('Invalid sign up deadline date')
+                            return
+                        }
                     }
                     const tournamentId = route.params.tournamentId
                     const tournamentData = tournamentEditable.value
+                    tournamentData.startDate = tournamentData.startDate.replaceAll('-', '/')
+                    tournamentData.endDate = tournamentData.endDate.replace(/-/g, '/')
                     await tournamentsService.editActiveTournament(tournamentData, tournamentId)
                     Pop.success('You done did edit the page')
                     router.push({ name: 'TournamentInfoPage', params: { tournamentId: this.tournament.id } })
@@ -236,6 +235,7 @@ img {
     height: 8vh;
     width: 8vh;
 }
+
 .underline {
     text-decoration: underline;
     margin-top: 3px;
@@ -246,53 +246,54 @@ img {
 .editFormCard {
     background-color: rgb(68, 68, 68);
     box-shadow: 0px 5px 4px #2ca58d;
-    
+
     border: 1.5px solid #2ca58d;
 }
 
 .textShadow {
-text-shadow: 2px 2px 4px #2ca58d;
+    text-shadow: 2px 2px 4px #2ca58d;
 }
 
 textarea {
     resize: none;
 }
 
-.offset {  
-  box-shadow: 
-    0.3em 0.3em 0 0 var(--color),
-    inset 0.3em 0.3em 0 0 var(--color);
-  
-  &:hover,
-  &:focus {
-    box-shadow: 
-      0 0 0 0 var(--hover),
-      inset 6em 3.5em 0 0 var(--hover);
-  }
+.offset {
+    box-shadow:
+        0.3em 0.3em 0 0 var(--color),
+        inset 0.3em 0.3em 0 0 var(--color);
+
+    &:hover,
+    &:focus {
+        box-shadow:
+            0 0 0 0 var(--hover),
+            inset 6em 3.5em 0 0 var(--hover);
+    }
 }
 
 
-.pulse:hover, 
+.pulse:hover,
 .pulse:focus {
-  animation: pulse 1s;
-  box-shadow: 0 0 0 2em transparent;
+    animation: pulse 1s;
+    box-shadow: 0 0 0 2em transparent;
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 var(--hover); }
+    0% {
+        box-shadow: 0 0 0 0 var(--hover);
+    }
 }
 
 $colors: (
     offset: #2ca58d,
-pulse: #75134c,
+    pulse: #75134c,
 );
 
 
 @each $button, $color in $colors {
-  .#{$button} {
-    --color: #{$color};
-    --hover: #{adjust-hue($color, 45deg)};
-  }
+    .#{$button} {
+        --color: #{$color};
+        --hover: #{adjust-hue($color, 45deg)};
+    }
 }
-
 </style>

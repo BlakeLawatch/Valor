@@ -85,7 +85,8 @@
       <div v-if="activeTournament.startDate <= new Date() && activeTournament.endDate >= new Date()"
         class="col-12 text-center">
         <h3 class="text-center text-white fs-1 text-shadow">This tournament is live!</h3>
-        <iframe class="twitch-video" :src="activeTournament.liveStreamUrl" allowfullscreen>
+        <iframe v-if="activeTournament.liveStreamUrl" class="twitch-video" :src="activeTournament.liveStreamUrl"
+          allowfullscreen>
         </iframe>
       </div>
       <div v-else>
