@@ -4,8 +4,8 @@
             <p class="fs-5">Tournaments that <span class="word-break">{{ profile.name }}</span> has participated in:</p>
             <div class="dropdown">
                 <button class="btn color-match dropdown-toggle ms-2" title="Sort" type="button" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                <ul class="dropdown-menu dropdown-color text-center" aria-labelledby="filterMyTickets">
-                    <p class="dropdown-text fw-bold">Sort By Start Date:</p>
+                <ul class="dropdown-menu dropdown-color" aria-labelledby="filterMyTickets">
+                    <p class="dropdown-text fw-bold text-center">Sort By Start Date:</p>
                     <li @click="sortByNew()" title="Sort New" type="button"><a class="dropdown-item color-match text-light">Future</a></li>
                     <li @click="sortByOld()" title="Sort Old" type="button"><a class="dropdown-item text-light dropdown-color">Past</a></li>
                 </ul>
