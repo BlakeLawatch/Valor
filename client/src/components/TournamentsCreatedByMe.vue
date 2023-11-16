@@ -10,20 +10,24 @@
         </div>
     </div>
     <div v-if="profile.id" class="row w-100">
-        <div v-for="tournament in myTournaments" title="View Tournament's Page" :key="tournament.id" class="col-12 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0">
+        <div v-for="tournament in myTournaments" title="View Tournament's Page" :key="tournament.id" class="col-12 col-sm-5 col-md-4 col-lg-3 m-3 account-info-card px-0 rounded">
             <router-link :to="{name: 'TournamentInfoPage', params: {tournamentId: tournament.id}}"> 
-                <img v-if="!tournament.isCancelled" :src="tournament.imgUrl || tournament.gameImg" class="tournament-image w-100"/>
+                <img v-if="!tournament.isCancelled" :src="tournament.imgUrl || tournament.gameImg" class="tournament-image w-100 rounded-top"/>
                 <img v-else src="https://media.istockphoto.com/id/1227115202/photo/a-red-stamp-on-a-white-background-cancelled.webp?b=1&s=170667a&w=0&k=20&c=RPueqU4VVfs98bOCqlCPifC7EcKze6CksprK4o_K3no=" class="tournament-image w-100"/>
             </router-link>
             <div class="d-flex flex-column justify-content-between">
                 <router-link :to="{name: 'TournamentInfoPage', params: {tournamentId: tournament.id}}">
-                <p class="fs-5 ps-2 text-light text-center pt-2 word-break">{{ tournament.name }}</p>
+                <p class="fs-5 text-light text-center pt-3 word-break">{{ tournament.name }}</p>
                 </router-link>
-                <div v-if="tournament.creatorId == account.id"  class="w-100 d-flex justify-content-between pe-2 pb-1">
+                <div v-if="tournament.creatorId == account.id"  class="w-100 d-flex justify-content-between px-3 pb-3">
+                  <div>
                     <RouterLink :to="{name: 'ManageTournament', params: {tournamentId: tournament.id}}">
-                        <button class="btn color-match text-light" title="Edit Tournament"> Edit</button>
+                    <button class="btn color-match text-light" title="Edit Tournament"><i class="mdi mdi-pencil"></i></button>
                     </RouterLink>
+                  </div>
+                  <div>
                     <button @click="deleteMyOwnTournament(tournament.id)" class="btn btn-danger" title="Delete Tournament"><i class="mdi mdi-delete"></i></button>
+                  </div>
                 </div>
             </div>
         </div>
@@ -86,7 +90,7 @@ export default {
                     return
                 }
                 await tournamentsService.deleteMyOwnTournament(tournamentId)
-                 getMyTournaments()
+                getMyTournaments()
             } catch (error) {
                 Pop.error(error)
             }
