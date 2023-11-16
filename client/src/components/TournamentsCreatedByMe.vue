@@ -17,7 +17,7 @@
             </router-link>
             <div class="d-flex flex-column justify-content-between">
                 <router-link :to="{name: 'TournamentInfoPage', params: {tournamentId: tournament.id}}">
-                <p class="fs-5 text-light text-center pt-3 word-break">{{ tournament.name }}</p>
+                <p class="fs-5 text-light text-center pt-3 word-break px-2">{{ tournament.name }}</p>
                 </router-link>
                 <div v-if="tournament.creatorId == account.id"  class="w-100 d-flex justify-content-between px-3 pb-3">
                   <div>
