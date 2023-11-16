@@ -4,6 +4,30 @@ import { playersService } from "./PlayersService.js"
 import { tournamentsService } from "./TournamentsService.js"
 
 class MatchesService {
+  async createBracketForTournament(tournamentId) {
+    const players = await playersService.getPlayersByTournamentId(tournamentId)
+    const numOfPlayers = players.length
+    const totalRounds = await this.calculateRounds(numOfPlayers)
+    const roundOnes = await this.calculateRoundOnes(numOfPlayers)
+    const roundTwos = await this.calculateRoundTwos(numOfPlayers)
+    return roundTwos.toLocaleString()
+  }
+
+  calculateRoundTwos(participants) {
+    const originalNum = Math.trunc(Math.log2(participants))
+    const num = (2 ** originalNum) * 2
+    const roundTwos = num - participants
+    return roundTwos
+  }
+
+  calculateRoundOnes(participants) {
+    const originalNum = Math.trunc(Math.log2(participants))
+    const roundOnes = participants - (2 ** originalNum)
+    return roundOnes
+  }
+  calculateRounds(participants) {
+    return Math.ceil(Math.log2(participants));
+  }
   async getMatches() {
     const matches = await dbContext.Matches.find()
     return matches
