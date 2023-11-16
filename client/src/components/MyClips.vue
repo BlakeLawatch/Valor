@@ -4,9 +4,10 @@
         <p class="fs-5 text-light mb-0"><span class="word-break">{{ profile.name }}'s</span> clips:</p>
         <div class="dropdown">
                 <button class="btn color-match dropdown-toggle mx-2" type="button" title="Sort" id="filterMyTickets" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                <ul class="dropdown-menu" aria-labelledby="filterMyTickets">
+                <ul class="dropdown-menu dropdown-color" aria-labelledby="filterMyTickets">
+                    <p class="dropdown-text fw-bold text-center">Sort By:</p>
                     <li @click="sortNew()" title="Sort New" type="button"><a class="dropdown-item color-match text-light">Sort by Newest</a></li>
-                    <li @click="sortOld()" title="Sort Old" type="button"><a class="dropdown-item">Sort By Oldest</a></li>
+                    <li @click="sortOld()" title="Sort Old" type="button"><a class="dropdown-item text-light dropdown-color">Sort By Oldest</a></li>
                 </ul>
             </div>
             <button v-if="account.id == profile.id" type="button" title="Add Clip" class="btn color-match text-light" data-bs-toggle="modal" data-bs-target="#addClipModal">
@@ -106,5 +107,12 @@ height: max-content;
 .clip-embed{
     object-fit: cover;
     object-position: center;
+}
+.dropdown-color{
+    background-color: rgb(68, 68, 68);
+}
+.dropdown-text{
+    color:#2ca58d;
+    border-bottom: 1.5px solid #2ca58d;
 }
 </style>
