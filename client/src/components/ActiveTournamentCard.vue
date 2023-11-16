@@ -8,16 +8,18 @@
       <div v-else-if="!tournament.imgUrl" class="col-12 col-md-6 p-0 tournament-bad-image d-flex justify-content-end align-items-end">
           <img class="p-0 m-0 game-image rounded-circle" :src="tournament.gameImg" alt="Game Image">
       </div>
-      <div class="col-12 col-md-6">
-          <p class="tournament-name word-break">{{ tournament.name }}</p>
-          <p>{{ tournament.gameName }}</p>
-          <p v-if="tournament.capacity"> Total Capacity: {{ tournament.capacity }}</p>
+      <div class="col-12 col-md-6 ps-md-3">
+          <p class="tournament-name word-break fs-4 mb-2">{{ tournament.name }}</p>
+          <p class="fs-5 mb-1">{{ tournament.gameName }}</p>
           <p class="word-break">{{ tournament.address }}</p>
           <p v-if="tournament.endDate == null">{{ tournament.startDate.toLocaleDateString() }}</p>
           <p v-else>{{ tournament.startDate.toLocaleDateString() }} - {{ tournament.endDate.toLocaleDateString()
-          }}</p>
-          <p v-if="tournament.entryPrice > 0" class="">Entry Fee: $<span class="word-break">{{ tournament.entryPrice }}</span></p>
-          <p v-else class="">No Entry Fee</p>
+            }}</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <small v-if="tournament.entryPrice > 0" class="">Entry Fee: $<span class="word-break">{{ tournament.entryPrice }}</span></small>
+              <small v-else class="">No Entry Fee</small>
+              <small v-if="tournament.capacity"> Total Capacity: {{ tournament.capacity }}</small>
+            </div>
       </div>
     </section>
   </RouterLink>
