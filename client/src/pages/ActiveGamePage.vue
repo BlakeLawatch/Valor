@@ -1,18 +1,23 @@
 <template>
   <!-- TODO MAKE THIS PAGE LOOK GOOD -->
   <div class="container-fluid">
-    <section class="row p-3">
-      <div class="col-12">
+    <section class="row p-3 justify-content-center">
+      <div class="col-10">
         <div class="dark-bg rounded p-3">
           <div class="text-center rounded card-bg p-2">
-            <h1 class="card-text">{{ game.name }}</h1>
-            <img class="img-fluid w-100" :src="game.cover?.url" alt="">
-            <section class="row justify-content-center align-items-center">
-              <div class="col-12">
-                <h3 class="card-text text-center my-2">Search Tournament</h3>
+            <div v-if="game.id" class="row justify-content-center">
+              <div v-if="game.cover" class="col-10 col-md-7 cover-img d-flex justify-content-center align-items-start" :style="{ backgroundImage: `url(${game.cover.url})` }">
+                <p class="game-name rounded-pill fs-5 p-md-3 p-1 mb-0 mt-md-3 m-1">{{ game.name }}</p>
               </div>
-
-              <div class="text-start p-3 col-7">
+              <div v-else-if="!game.cover" class="col-10 col-md-7 d-flex justify-content-center align-items-end broken-background">
+                <p class="game-name fs-md-1 fs-5 py-md-2 p-1 mt-md-3 m-md-4 m-3 px-md-4 rounded">{{ game.name }}</p>
+              </div>
+            </div> 
+            <section class="row justify-content-center align-items-center">
+              <div class="col-10">
+                <p class="card-text text-center my-2 fs-4 mb-0 mt-3">Search Tournament</p>
+              </div>
+              <div class="text-start p-3 col-md-7 col-12">
                 <label class="text-white" for="searchForm">Search</label>
                 <form @submit.prevent="filterTournaments()" class="" name="searchForm">
                   <div class="input-group">
@@ -22,7 +27,7 @@
                   </div>
                 </form>
               </div>
-              <div class="col-2 text-start">
+              <div class="col-6 col-md-2 text-start">
                 <label for="filterBy" class="text-white">Filter By</label>
                 <select v-model="filteredTournamentType" class="form-select border-0" name="filterBy" title="filter bar">
                   <option v-for="tournamentType in tournamentTypes" :key="tournamentType">
@@ -30,7 +35,7 @@
                   </option>
                 </select>
               </div>
-              <div class="col-2 text-start">
+              <div class="col-6 col-md-2 text-start">
                 <label for="sortBy" class="text-white">Sort By</label>
                 <select v-model="filteredSortType" class="form-select border-0" name="sortBy" title="sorting bar">
                   <option v-for="sortType in sortTypes" :key="sortType">
@@ -51,10 +56,10 @@
             </div>
           </div>
           <div v-else class="col-8">
-            <h3 v-if="filteredTournamentType" class="card-text my-3">
+            <h3 v-if="filteredTournamentType" class="card-text my-3 text-center">
               No tournaments exist with the given criteria
             </h3>
-            <h3 v-else class="card-text my-3">
+            <h3 v-else class="card-text my-3 text-center">
               This game currently does not have any active or future tournaments.
             </h3>
           </div>
@@ -160,11 +165,29 @@ export default {
   background-color: #444444;
 }
 
-img {
-  object-fit: cover;
-  object-position: center;
-  width: 15%;
-  height: 15rem;
+.cover-img {
+  background-size:cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 15rem;
+  border: 2px solid #2ca58d;
+  box-shadow: 0px 5px 6px #2ca58d;
+}
+.broken-background {
+  background-image: url(/src/assets/img/valorPanda.png);
+  background-size:cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 15rem;
+  border: 2px solid #2ca58d;
+  box-shadow: 0px 5px 6px #2ca58d;
+}
+.game-name{
+  background-color: #242726d6;
+  border: 2px solid #2ca58d;
+  box-shadow: 0px 5px 6px #2ca58d;
+  text-shadow: 0px 5px 6px #2ca58d;
+  color:white;
 }
 
 .btn-valor {
