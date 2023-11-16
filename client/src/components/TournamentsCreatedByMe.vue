@@ -23,7 +23,7 @@
                     <RouterLink :to="{name: 'ManageTournament', params: {tournamentId: tournament.id}}">
                         <button class="btn color-match text-light" title="Edit Tournament"> Edit</button>
                     </RouterLink>
-                    <button @click="deleteMyOwnTournament(tournament.id)" class="btn btn-danger" title="Delete Tournament">Delete</button>
+                    <button @click="deleteMyOwnTournament(tournament.id)" class="btn btn-danger" title="Delete Tournament"><i class="mdi mdi-delete"></i></button>
                 </div>
             </div>
         </div>
