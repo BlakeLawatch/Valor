@@ -15,7 +15,7 @@
     </div>
     <div class="row w-100">
       <div v-for="player in participatedIn" :key="player.id" class="col-12 col-sm-5 col-md-4 col-lg-3 m-3 px-0">
-        <div v-if="player.tournament" title="View Tournament Info" class="account-info-card rounded">
+        <div v-if="player.tournament" title="View Tournament Info" class="account-info-card">
           <router-link :to="{name: 'TournamentInfoPage', params: {tournamentId: player.tournament.id}}"> 
               <img v-if="player.tournament.imgUrl" :src="player.tournament.imgUrl" class="w-100 tournament-image">
               <img v-else-if="!player.tournament.imgUrl && player.tournament.gameImg" :src="player.tournament.gameImg" class="w-100 tournament-image">
@@ -116,6 +116,7 @@ p{
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
 height: max-content;
+border-radius: 0.2rem;
 }
 .word-break{
     word-break: break-all;
@@ -127,8 +128,8 @@ background-color: #2ca58d;
     object-fit: cover;
     object-position: center;
     height: 12rem;
-    border-top-left-radius: 0.375rem;
-    border-top-right-radius: 0.375rem;
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
 }
 .deleted-tournament-card{
     background-image: url(../assets/img/valorPanda.png);
