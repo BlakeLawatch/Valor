@@ -3,9 +3,10 @@
             <p class="fs-5"><span class="word-break">{{ profile.name }}'s</span> tournaments:</p>
         <div class="dropdown">
             <button class="btn color-match dropdown-toggle ms-2" title="Sort" type="button" id="filterMyTournaments" data-bs-toggle="dropdown" aria-expanded="false"></button>
-            <ul class="dropdown-menu" aria-labelledby="filterMyTournaments">
-                <li @click="sortByNew()" title="Sort New" type="button"><a class="dropdown-item color-match text-light">Sort by Future</a></li>
-                <li @click="sortByOld()" title="Sort Old" type="button"><a class="dropdown-item">Sort By Past</a></li>
+            <ul class="dropdown-menu dropdown-color" aria-labelledby="filterMyTournaments">
+                <p class="dropdown-text fw-bold text-center">Sort By Start Date:</p>
+                <li @click="sortByNew()" title="Sort New" type="button"><a class="dropdown-item color-match text-light">Future</a></li>
+                <li @click="sortByOld()" title="Sort Old" type="button"><a class="dropdown-item dropdown-color text-light">Past</a></li>
             </ul>
         </div>
     </div>
@@ -117,6 +118,13 @@ height: max-content;
 }
 .color-match{
 background-color: #2ca58d;
+}
+.dropdown-color{
+    background-color: rgb(68, 68, 68);
+}
+.dropdown-text{
+    color:#2ca58d;
+    border-bottom: 1.5px solid #2ca58d;
 }
 @media(max-width:1400px){
 .account-info-card{
