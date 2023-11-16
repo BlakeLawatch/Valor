@@ -95,33 +95,35 @@
           is over</h3>
       </div>
     </section>
-    <!-- Bracket goes here -->
-    <section>
 
-    </section>
     <!-- player search -->
     <section v-if="players.length > 0" class="row">
-      <div class="col-12 text-white  text-center">
-        <h4 class="fs-1 text-shadow  my-3">Participants</h4>
-      </div>
-      <div class="d-flex mb-3 justify-content-center">
-        <input v-model="editable" type="search" class="form-control search-participants" id="searchPlayers"
-          placeholder="Search Participants">
-      </div>
-      <div class="d-flex overflow">
-        <!-- TODO Make this look better  -->
-        <!-- TODO ? put this in component maybe? maybe not-->
-        <div class="d-flex text-white" v-for="player in filteredPlayers" :key="player.id">
-          <div class="m-3 card-bg rounded p-2 d-flex">
-            <div class="d-flex align-items-center pe-2">
-              <img class="rounded-circle player-img " :src="player.profile.picture" alt="">
-            </div>
-            <div>
-              <p class="mb-0">{{ player.profile.name }}</p>
-              <p>Seed: {{ player.seed }}</p>
+      <div class="col-12 col-md-3">
+        <div class="col-12 text-white text-center">
+          <h4 class="fs-1 text-shadow my-3">Participants</h4>
+        </div>
+        <div class="d-flex mb-3 justify-content-center">
+          <input v-model="editable" type="search" class="form-control search-participants text-center" id="searchPlayers"
+            placeholder="Search Participants">
+        </div>
+        <div class="overflow">
+          <!-- TODO Make this look better  -->
+          <!-- TODO ? put this in component maybe? maybe not-->
+          <div class="d-flex text-white" v-for="player in filteredPlayers" :key="player.id">
+            <div class="m-3 card-bg rounded p-2 d-flex">
+              <div class="d-flex align-items-center pe-2">
+                <img class="rounded-circle player-img " :src="player.profile.picture" alt="">
+              </div>
+              <div>
+                <p class="text-break mb-0">{{ player.profile.name }}</p>
+                <p>Seed: {{ player.seed }}</p>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div class="col-12 col-md-9 text-center bracket">
+        <BracketComponent />
       </div>
     </section>
   </div>
@@ -137,67 +139,67 @@ import { tournamentsService } from "../services/TournamentsService.js"
 import { playersService } from "../services/PlayersService.js"
 import { logger } from "../utils/Logger";
 import { AuthService } from "../services/AuthService";
+import BracketComponent from "../components/BracketComponent.vue";
 
 export default {
   setup() {
-    const route = useRoute()
-    let countdown = ref('')
-    let editable = ref('')
-    let countdownInterval = null
+    const route = useRoute();
+    let countdown = ref('');
+    let editable = ref('');
+    let countdownInterval = null;
     onMounted(() => {
-      countdownInterval = setInterval(getCountdownTime, 1000)
-    })
+      countdownInterval = setInterval(getCountdownTime, 1000);
+    });
     watchEffect(() => {
-      editable
-      filterParticipants()
-    })
+      editable;
+      filterParticipants();
+    });
     watchEffect(() => {
-      route
-      getTournamentById()
-      getPlayersByTournamentId()
-    })
+      route;
+      getTournamentById();
+      getPlayersByTournamentId();
+    });
     onUnmounted(() => {
-      clearInterval(countdownInterval)
-    })
+      clearInterval(countdownInterval);
+    });
     async function getTournamentById() {
       try {
-        const tournamentId = route.params.tournamentId
-        await tournamentsService.getTournamentById(tournamentId)
+        const tournamentId = route.params.tournamentId;
+        await tournamentsService.getTournamentById(tournamentId);
       }
       catch (error) {
-        Pop.error(error)
+        Pop.error(error);
       }
     }
     async function filterParticipants() {
       try {
-        playersService.filterParticipants(editable.value)
-      } catch (error) {
-        Pop.error(error)
-      }
-    }
-
-    async function getPlayersByTournamentId() {
-      try {
-        const tournamentId = route.params.tournamentId
-        await playersService.getPlayersByTournamentId(tournamentId)
+        playersService.filterParticipants(editable.value);
       }
       catch (error) {
-        Pop.error(error)
+        Pop.error(error);
+      }
+    }
+    async function getPlayersByTournamentId() {
+      try {
+        const tournamentId = route.params.tournamentId;
+        await playersService.getPlayersByTournamentId(tournamentId);
+      }
+      catch (error) {
+        Pop.error(error);
       }
     }
     function getCountdownTime() {
-      const countdownDifference = AppState.activeTournament.startDate.getTime() - new Date().getTime()
+      const countdownDifference = AppState.activeTournament.startDate.getTime() - new Date().getTime();
       let days = Math.floor(countdownDifference / (1000 * 60 * 60 * 24));
       let hours = Math.floor((countdownDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       let minutes = Math.floor((countdownDifference % (1000 * 60 * 60)) / (1000 * 60));
       let seconds = Math.floor((countdownDifference % (1000 * 60)) / 1000);
       if (countdownDifference < 0) {
-        countdown.value = ''
+        countdown.value = '';
       }
       else {
-        countdown.value = `${days}d ${hours}h ${minutes}m ${seconds}s`
+        countdown.value = `${days}d ${hours}h ${minutes}m ${seconds}s`;
       }
-
     }
     return {
       editable,
@@ -207,42 +209,44 @@ export default {
       account: computed(() => AppState.account),
       players: computed(() => AppState.playersInActiveTournament),
       filteredPlayers: computed(() => AppState.filteredPlayers),
-
       async registerForTournament(players, account) {
         try {
           // TODO MAKE THROW ERROR IF ALREADY REGISTERED
           if (players.find(p => p.accountId == account.id)) {
-            Pop.error('you are already registered for this event')
-            return
+            Pop.error('you are already registered for this event');
+            return;
           }
-          const yes = await Pop.confirm('Are you sure you would like to register for this event?')
+          const yes = await Pop.confirm('Are you sure you would like to register for this event?');
           if (!yes) {
-            return
+            return;
           }
-          await tournamentsService.registerForTournament(route.params.tournamentId)
-          Pop.success('You have successfully registered for this event!')
-        } catch (error) {
-          Pop.error(error)
+          await tournamentsService.registerForTournament(route.params.tournamentId);
+          Pop.success('You have successfully registered for this event!');
+        }
+        catch (error) {
+          Pop.error(error);
         }
       },
       async unregisterForTournament(account) {
         try {
-          const yes = await Pop.confirm('Are you sure you would like to cancel your registration for this event?')
+          const yes = await Pop.confirm('Are you sure you would like to cancel your registration for this event?');
           if (!yes) {
-            return
+            return;
           }
-          logger.log('account', account)
-          await tournamentsService.unregisterForTournament(account.id)
-          Pop.success('Successfully unregistered for this event')
-        } catch (error) {
-          Pop.error(error)
+          logger.log('account', account);
+          await tournamentsService.unregisterForTournament(account.id);
+          Pop.success('Successfully unregistered for this event');
+        }
+        catch (error) {
+          Pop.error(error);
         }
       },
       async login() {
-        AuthService.loginWithPopup()
+        AuthService.loginWithPopup();
       }
-    }
-  }
+    };
+  },
+  components: { BracketComponent }
 };
 </script>
 
@@ -284,7 +288,8 @@ p {
 }
 
 .overflow {
-  overflow-x: auto;
+  overflow-y: scroll;
+  height: 30rem;
 }
 
 ::-webkit-scrollbar {
@@ -319,12 +324,12 @@ p {
 }
 
 .search-participants {
-  width: 25%
+  width: 70%
 }
 
 @media (max-width: 845px) {
   .search-participants {
-    width: 60%;
+    width: 65%;
   }
 }
 
@@ -337,6 +342,12 @@ p {
   .twitch-video {
     height: 178px;
     width: 283px
+  }
+}
+
+@media (max-width: 845px) {
+  .bracket {
+    display: none;
   }
 }
 </style>
