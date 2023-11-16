@@ -1,5 +1,5 @@
 <template>
-    <!-- TODO might want to be able to register in our own tournament -->
+    TODO might want to be able to register in our own tournament
     <div class="container-fluid p-4">
         <section v-if="!tournamentEditable.isCancelled" class="row justify-content-center">
             <div class="col-12 text-center">
@@ -19,28 +19,38 @@
                 <h1 class="text-white textShadow underline">Manage Players</h1>
             </div>
         </section>
-        <section class="row mt-5 justify-content-center">
-            <div class="col-10">
-                <h1 class="text-white textShadow editFormCard rounded text-center">Participants: </h1>
-                <div v-if="players != []" class="row scroll me-1">
-                    <div class="col-12 col-md-3 text-white mt-4 d-flex" v-for="player in players" :key="player.id">
-                        <div class="editFormCard d-flex rounded w-100">
-                            <img class="rounded-circle mx-3 mt-2 mb-2" :src="player.profile.picture" alt="">
-                            <div class="d-flex flex-column justify-content-between">
-                                <h6 class="mx-3 text-break">{{ player.profile.name }}</h6>
-                                <p class="mx-3">Seed: {{ player.seed }}</p>
-                            </div>
 
+        <!-- TODO We are still getting silent errors in the about editable not being rendered -->
+
+        <section v-if="players.length > 0" class="row">
+            <div class="col-12 col-md-3">
+                <div class="col-12 text-white text-center">
+                    <h4 class="fs-1 text-shadow my-3">Participants</h4>
+                </div>
+                <div class="d-flex mb-3 justify-content-center">
+                    <input v-model="editable" type="search" class="form-control search-participants text-center"
+                        id="searchPlayers" placeholder="Search Participants">
+                </div>
+                <div class="overflow">
+                    <!-- TODO Make this look better  -->
+                    <!-- TODO ? put this in component maybe? maybe not-->
+                    <div class="d-flex text-white" v-for="player in players" :key="player.id">
+                        <div class="m-3 card-bg rounded p-2 d-flex">
+                            <div class="d-flex align-items-center pe-2">
+                                <img class="rounded-circle player-img " :src="player.profile.picture" alt="">
+                            </div>
+                            <div>
+                                <p class="text-break mb-0">{{ player.profile.name }}</p>
+                                <p>Seed: {{ player.seed }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-12 col-md-9 text-center bracket">
+                <BracketComponent />
+            </div>
         </section>
-
-        <div class="col-10 text-center mt-3">
-            <h1 class="text-white">Placeholder for bracket</h1>
-        </div>
-
     </div>
 </template>
 
@@ -55,6 +65,7 @@ import { useRoute, useRouter } from 'vue-router';
 // import { router } from '../router';
 import { playersService } from '../services/PlayersService';
 import EditTournamentForm from '../components/EditTournamentForm.vue'
+import BracketComponent from '../components/BracketComponent.vue';
 export default {
     setup() {
         const tournamentEditable = ref({})
@@ -145,7 +156,7 @@ export default {
             }
         }
     },
-    components: { EditTournamentForm }
+    components: { EditTournamentForm, BracketComponent }
 };
 </script>
 
@@ -190,5 +201,16 @@ img {
     background-color: #2ca58d;
     border-radius: 10px;
     box-shadow: 0px 0px 6px #2E3233;
+}
+
+.overflow {
+    overflow-y: scroll;
+    height: 30rem;
+}
+
+@media (max-width: 845px) {
+    .bracket {
+        display: none;
+    }
 }
 </style>
