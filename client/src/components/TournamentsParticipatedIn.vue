@@ -14,30 +14,30 @@
         
     </div>
     <div class="row w-100">
-        <div v-for="player in participatedIn" :key="player.id" class="col-10 col-sm-5 col-md-4 col-lg-3 m-3 px-0">
-        <div v-if="player.tournament" title="View Tournament Info" class="account-info-card">
-            <router-link :to="{name: 'TournamentInfoPage', params: {tournamentId: player.tournament.id}}"> 
-                <img v-if="player.tournament.imgUrl" :src="player.tournament.imgUrl" class="w-100 tournament-image">
-                <img v-else-if="!player.tournament.imgUrl && player.tournament.gameImg" :src="player.tournament.gameImg" class="w-100 tournament-image">
-                <img v-else src="../assets/img/valorPanda.png" class="w-100 tournament-image">
-                <div class="d-flex justify-content-between align-items-center">
-                    <p class="fs-5 ps-2 mb-0 text-light word-break">{{ player.tournament.name }}</p>
-                    <div v-if="profile.id == account.id" class="m-1 d-flex">
-                        <button @click.prevent="unregister(player.id)" class="btn btn-danger" title="Stop Attending"><i class="mdi mdi-delete"></i></button>
-                    </div>
-                </div>
-            </router-link>
+      <div v-for="player in participatedIn" :key="player.id" class="col-12 col-sm-5 col-md-4 col-lg-3 m-3 px-0">
+        <div v-if="player.tournament" title="View Tournament Info" class="account-info-card rounded">
+          <router-link :to="{name: 'TournamentInfoPage', params: {tournamentId: player.tournament.id}}"> 
+              <img v-if="player.tournament.imgUrl" :src="player.tournament.imgUrl" class="w-100 tournament-image">
+              <img v-else-if="!player.tournament.imgUrl && player.tournament.gameImg" :src="player.tournament.gameImg" class="w-100 tournament-image">
+              <img v-else src="../assets/img/valorPanda.png" class="w-100 tournament-image">
+              <div class="d-flex justify-content-between align-items-center p-3">
+                  <p class="fs-5 text-light word-break cap-text">{{ player.tournament.name }}</p>
+                  <div v-if="profile.id == account.id" class="m-1 d-flex">
+                      <button @click.prevent="unregister(player.id)" class="btn btn-danger" title="Stop Attending"><i class="mdi mdi-delete"></i></button>
+                  </div>
+              </div>
+          </router-link>
         </div>
         <div v-else-if="!player.tournament" title="Tournament Has Been Deleted" class="deleted-tournament-card d-flex align-items-center justify-content-center">
-            <div class="deleted-tournament-message w-75">
-                <p class="d-flex ps-2 mb-0 text-light text-center">The creator of this tournament has removed it from our database</p>
+          <div class="deleted-tournament-message w-75">
+            <p class="d-flex ps-2  text-light text-center">The creator of this tournament has removed it from our database</p>
             <div v-if="profile.id == account.id" class="m-1 d-flex justify-content-center">
-                <button @click="unregister(player.id)" class="btn btn-danger" title="Delete Ticket"><i class="mdi mdi-delete"></i></button>
+              <button @click="unregister(player.id)" class="btn btn-danger" title="Delete Ticket"><i class="mdi mdi-delete"></i></button>
             </div>
-            </div>
+          </div>
             
         </div>
-        </div>
+      </div>
     </div>
 </template>
 
@@ -109,6 +109,9 @@ export default {
 
 
 <style lang="scss" scoped>
+p{
+  margin-bottom: 0;
+}
 .account-info-card{
 background-color: rgb(68, 68, 68);
 box-shadow: 0px 5px 6px black;
@@ -124,6 +127,8 @@ background-color: #2ca58d;
     object-fit: cover;
     object-position: center;
     height: 12rem;
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
 }
 .deleted-tournament-card{
     background-image: url(../assets/img/valorPanda.png);
@@ -144,6 +149,11 @@ background-color: #2ca58d;
     color:#2ca58d;
     border-bottom: 1.5px solid #2ca58d;
 }
+
+.cap-text{
+  text-transform: capitalize;
+}
+
 @media(max-width:1400px){
 .account-info-card{
     height:max-content;
