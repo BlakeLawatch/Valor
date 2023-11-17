@@ -1,4 +1,25 @@
 <template>
+    <div class="component">
+
+
+    </div>
+</template>
+
+
+<script>
+import { AppState } from '../AppState';
+import { computed, reactive, onMounted } from 'vue';
+export default {
+    setup() {
+        return {}
+    }
+};
+</script>
+
+
+<style lang="scss" scoped></style>
+
+<!-- <template>
     <form @submit.prevent="editActiveTournament()" class="editFormCard rounded w-100">
         <div class="row p-md-4 pt-2 justify-content-evenly mt-1 align-items-center">
             <div class="col-12 text-center">
@@ -112,8 +133,8 @@
                         </div>
                     </div>
                     <div class="col-6 mt-md-1 mt-3 col-md-11">
-                        <!-- SECTION form button -->
-                        <div>
+                      
+<div>
                             <button type="submit" title="submit edit" class="btn btn-success offset">Confirm
                                 Changes</button>
                         </div>
@@ -296,4 +317,4 @@ $colors: (
         --hover: #{adjust-hue($color, 45deg)};
     }
 }
-</style>
+</style> -->
