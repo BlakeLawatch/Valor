@@ -1,8 +1,8 @@
 <template>
-<div class="row text-light rounded p-2 justify-content-center w-100">
+<div class="row text-light rounded p-2 justify-content-center">
         <div class="col-10 py-2 d-flex flex-column align-items-center card-bg formCard">
-            <div class="row w-75 banner-img justify-content-center" :style="{ backgroundImage: 'url(' + activeTournament.imgUrl + ')' }">
-                <div class="col-10 d-flex align-items-center justify-content-center">
+            <div class="row w-md-75 w-100 banner-img justify-content-center" :style="{ backgroundImage: 'url(' + activeTournament.imgUrl + ')' }">
+                <div class="col-12 d-flex align-items-center justify-content-center">
                     <p v-if="activeTournament.startDate >= new Date()" class="fs-3 timer py-1 px-2">{{ countdown }}</p>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                         <div class="col-12 mt-3 order-4">
                             <p class="text-break w-100 text-md-start text-center">{{ activeTournament.description }}</p>
                         </div>
-                        <div class="col-12 d-flex justify-content-end align-items-center order-5">
+                        <div class="col-12 d-flex justify-content-md-end justify-content-center align-items-center order-5">
                             <div class="text-end my-2 " v-if="!account.id">
                                 <!-- FIXME make look better pls -->
                                 <p class="text-end"> Sign in to register!</p>
