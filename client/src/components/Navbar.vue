@@ -20,7 +20,7 @@
       <ul class="navbar-nav me-auto">
         <li>
           <router-link :to="{ name: 'About' }" class="btn color-match lighten-30 selectable text-uppercase">
-            About
+            About Us
           </router-link>
         </li>
       </ul>
@@ -83,7 +83,13 @@ text-shadow: 0px 4px 4px #FC65C2;
 }
 
 .color-match{
-  color: #2ca58d;
+  background-color: #2ca58d;
+  color: white;
+}
+
+.color-match:hover{
+  background-color: #24806e;
+  color: #f0f0f0;
 }
 
 @media screen and (min-width: 768px) {
