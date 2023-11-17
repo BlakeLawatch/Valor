@@ -35,7 +35,8 @@
                                 <span v-else class="fw-bold">TBD </span>
                                 Prize Pool
                             </p>
-                            <p class="m-md-0 m-2">Entry fee: $
+                            <div class="text-center text-md-end">
+                                <p class="m-md-0 m-2">Entry fee: $
                                 <span v-if="activeTournament.entryPrice">{{ activeTournament.entryPrice }}</span>
                                 <span v-else>TBD</span>
                             </p>
@@ -45,6 +46,7 @@
                                     activeTournament.signUpDeadline?.toLocaleDateString() }}</span>
                                 <span v-else>TBD</span>
                             </p>
+                            </div>
                         </div>
                         <div class="col-12 mt-3 order-4">
                             <p class="text-break w-100 text-md-start text-center">{{ activeTournament.description }}</p>
