@@ -14,7 +14,8 @@ export class Tournament {
         this.capacity = data.capacity
         this.onlineOnly = data.onlineOnly
         this.imgUrl = data.imgUrl
-        this.liveStreamUrl = `https://player.twitch.tv/?channel=${data.liveStreamUrl}&parent=localhost&autoplay=true` 
+        this.twitchUsername = data.twitchUsername
+        this.liveStreamUrl = this.computeLiveStreamUrl 
         this.winnerId = data.winnerId
         this.isLocked = data.isLocked
         this.isCancelled = data.isCancelled
@@ -29,6 +30,10 @@ export class Tournament {
         this.creator = data.creator
         this.game = data.game
         this.playerCount = data.playerCount
+    }
+
+    get computeLiveStreamUrl(){
+      return `https://player.twitch.tv/?channel=${this.twitchUsername}&parent=localhost&autoplay=true`
     }
 }
 
