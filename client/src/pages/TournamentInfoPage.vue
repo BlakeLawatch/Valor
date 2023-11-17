@@ -2,7 +2,7 @@
   <div v-if="activeTournament" class="container-fluid py-4">
     <TournamentInfoActiveTournament/>
     <!--SECTION live stream link -->
-    <section class="row text-center my-2">
+    <section v-if="activeTournament.twitchUsername" class="row text-center my-2">
       <div v-if="activeTournament.startDate <= new Date() && activeTournament.endDate >= new Date()"
         class="col-12 text-center">
         <h3 class="text-center text-white fs-1 text-shadow">This tournament is live!</h3>
@@ -17,6 +17,11 @@
           is over</h3>
       </div>
     </section>
+    <div v-else class="row my-2">
+      <div class="col-12 text-center">
+        <h3 class="text-light fs-1 text-shadow">This Tournament Does Not Have A Livestream</h3>
+      </div>
+    </div>
 
     <!-- player search -->
     <section v-if="players.length > 0" class="row">
