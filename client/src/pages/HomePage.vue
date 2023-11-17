@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid">
-    <section class="row d-flex justify-content-center">
+    <section class="row d-flex justify-content-center px-3">
       <div class="col-12 text-center text-white">
         <h1 class="valor my-5">Valor</h1>
       </div>
-      <div class="col-md-8 col-12 box-bg p-5 rounded">
+      <div class="col-md-8 col-12 box-bg p-4 p-md-5 rounded">
         <!-- <p class="fs-5 text-white">
   Search
 </p> -->
@@ -19,14 +19,14 @@
     </section>
     <div v-if="checkGames == 'nothing' && checkTournaments == 'nothing' && checkProfiles == 'nothing'">
       <section class="row d-flex justify-content-center">
-        <div class="col-md-8 col-12 mt-4 text-white fs-3">
+        <div class="col-md-8 col-12 mt-4 text-white text-center fs-3">
           <h2>Nothing Found Named {{ noName }}</h2>
         </div>
       </section>
     </div>
     <div v-else>
 
-      <section class="row d-flex justify-content-center">
+      <section class="row d-flex justify-content-center px-3">
         <div v-if="games.length > 0" class="col-md-8 col-12">
           <h1 class="text-white fs-3 mt-5 ">Games
         </h1>
@@ -39,7 +39,7 @@
       <div  v-if="checkGames == 'nothing'">
         <section class="row d-flex justify-content-center">
           <div class="col-md-8 col-12 mt-4">
-            <h2 class="text-white fs-3">No Games Named <span class="word-break">{{ noName }}</span></h2>
+            <h2 class="text-white fs-3 text-center">No Games Named <span class="word-break">{{ noName }}</span></h2>
           </div>
         </section>
       </div>
@@ -66,12 +66,12 @@
       <div v-if="profiles.length > 0" class="col-md-8 col-12">
         <h4 class="text-white mt-5 fs-3">Profiles</h4>
         <section class="row mb-5">
-          <div class="col-md-4 col-6 mt-4" v-for="profile in profiles" :key="profile.id">
+          <div class="col-6 col-md-4 mt-4" v-for="profile in profiles" :key="profile.id">
             <RouterLink :to="{name: 'Account', params: {accountId: profile.id}}">
               
-              <div class="d-flex align-items-center box-bg p-3 rounded">
+              <div class="d-flex flex-column justify-content-center align-items-center box-bg p-3 rounded">
                 <img class="profile-picture rounded-circle" :src="profile.picture" alt="profile picture">
-                <p class="text-white mb-0 ms-3 word-break">
+                <p class="text-white mb-0 mt-1 word-break">
                   {{ profile.name }}
                 </p>
               </div>
@@ -208,6 +208,7 @@ export default {
 
 .profile-picture {
   height: 4rem;
+  width: 4rem;
   aspect-ratio: 1/1;
 }
 .btn{
