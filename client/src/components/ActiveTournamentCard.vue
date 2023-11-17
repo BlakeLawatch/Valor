@@ -1,6 +1,6 @@
 <template>
   <RouterLink :to="{ name: 'TournamentInfoPage', params: { tournamentId: tournament.id } }">
-    <section class="row coolBg p-2 rounded text-light">
+    <section class="row coolBg p-2 rounded text-light card-shadow">
       <!--  flip the isLive boolean with $gt -->
       <div v-if="tournament.imgUrl" class="col-12 col-md-6 p-0 tournament-image d-flex justify-content-end align-items-end" :style="{backgroundImage: `url(${tournament.imgUrl})`}">
           <img class="p-0 m-0 game-image rounded-circle" :src="tournament.gameImg" alt="Game Image">
@@ -56,6 +56,9 @@ img {
 
 .coolBg {
     background-color: #444444;
+}
+.card-shadow{
+  box-shadow: 1px 1px 8px black;
 }
 
 p{
