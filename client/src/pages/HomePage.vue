@@ -4,7 +4,7 @@
       <div class="col-12 text-center text-white">
         <h1 class="valor my-5">Valor</h1>
       </div>
-      <div class="col-md-8 col-12 box-bg p-4 p-md-5 rounded">
+      <div class="col-md-8 col-12 box-bg p-4 p-md-5 rounded card-shadow">
         <!-- <p class="fs-5 text-white">
   Search
 </p> -->
@@ -69,7 +69,7 @@
           <div class="col-6 col-md-4 mt-4" v-for="profile in profiles" :key="profile.id">
             <RouterLink :to="{name: 'Account', params: {accountId: profile.id}}">
               
-              <div class="d-flex flex-column justify-content-center align-items-center box-bg p-3 rounded">
+              <div class="d-flex flex-column justify-content-center align-items-center box-bg p-3 rounded card-shadow">
                 <img class="profile-picture rounded-circle" :src="profile.picture" alt="profile picture">
                 <p class="text-white mb-0 mt-1 word-break">
                   {{ profile.name }}
@@ -150,8 +150,8 @@ export default {
         checkProfiles.value = ''
         await tournamentsService.getActiveTournaments()
         tournamentsService.clearHomePageAppstate()
-       
-      } catch (error) {
+      } 
+      catch (error) {
         Pop.error(error)
       }
     }
@@ -204,6 +204,10 @@ export default {
 }
 .word-break{
   word-break: break-all;
+}
+
+.card-shadow{
+  box-shadow: 1px 1px 8px black;
 }
 
 .profile-picture {
