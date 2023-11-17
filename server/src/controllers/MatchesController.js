@@ -10,6 +10,7 @@ export class MatchesController extends BaseController {
       .get('/:matchId', this.getMatchById)
       // NOTE Not sure this winner id method is needed. Might be handled by front end.
       .get('/:winnerId', this.getMatchesByWinnerId)
+      .post('/:tournamentId', this.createBracketForTournament)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createMatch)
       .put('/:matchId', this.updateMatch)
@@ -42,6 +43,16 @@ export class MatchesController extends BaseController {
       const winnerId = req.params.winnerId
       const matches = await matchesService.getMatchesByWinnerId(winnerId)
       return res.send(matches)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async createBracketForTournament(req, res, next) {
+    try {
+      const tournamentId = req.params.tournamentId
+      const bracket = await matchesService.createBracketForTournament(tournamentId)
+      return res.send(bracket)
     } catch (error) {
       next(error)
     }

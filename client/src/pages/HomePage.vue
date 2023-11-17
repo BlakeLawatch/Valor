@@ -9,9 +9,11 @@
   Search
 </p> -->
         <form @submit.prevent="homeSearch()" class="form-inline d-flex">
-          <input v-model="editable" maxlength="50" class="form-control mr-sm-2" type="search" placeholder="Search"
-            aria-label="Search">
-          <button class="btn my-2 my-sm-0 ms-3 color-match text-light" type="submit">Search</button>
+          <div class="input-group">
+            <input v-model="editable" maxlength="50" class="form-control mr-sm-2" type="search" placeholder="Search"
+              aria-label="Search">
+            <button class="btn btn-valor mdi mdi-magnify" type="submit" title="search"></button>
+          </div>
         </form>
       </div>
     </section>
@@ -86,7 +88,6 @@
           </div>
         </section>
       </div>
-      <!-- FIXME IF NO GAMES SHOW UP IN THE SEARCH THESE STILL SHOW FIX PLS -->
       <div v-if="checkGames == ''" class="col-md-8">
         <h1 class="text-white mt-5">Active Tournaments</h1>
         <section class="row mb-4">
@@ -230,5 +231,10 @@ export default {
 
   text-shadow: 0px 4px 4px #FC65C2;
 
+}
+.btn-valor {
+  background-color: #2ca58d;
+  color: white;
+  font-weight: bold;
 }
 </style>
