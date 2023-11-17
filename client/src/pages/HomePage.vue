@@ -69,7 +69,7 @@
           <div class="col-6 col-md-4 mt-4" v-for="profile in profiles" :key="profile.id">
             <RouterLink :to="{name: 'Account', params: {accountId: profile.id}}">
               
-              <div class="d-flex flex-column justify-content-center align-items-center box-bg p-3 rounded card-shadow">
+              <div class="d-flex flex-column justify-content-center align-items-center box-bg p-3 rounded card-shadow h-100">
                 <img class="profile-picture rounded-circle" :src="profile.picture" alt="profile picture">
                 <p class="text-white mb-0 mt-1 word-break">
                   {{ profile.name }}
