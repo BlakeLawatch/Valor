@@ -14,7 +14,7 @@ export class Tournament {
         this.capacity = data.capacity
         this.onlineOnly = data.onlineOnly
         this.imgUrl = data.imgUrl
-        this.twitchUsername = data.twitchUsername
+        this.twitchUsername = data.twitchUsername || data.liveStreamUrl
         this.liveStreamUrl = this.computeLiveStreamUrl 
         this.winnerId = data.winnerId
         this.isLocked = data.isLocked
