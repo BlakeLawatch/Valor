@@ -48,12 +48,13 @@ main{
   background-color: #2E3233;
 }
 ::-webkit-scrollbar{
-    background-color: #2E3233;
+    background-color: #242726;
 }
 ::-webkit-scrollbar-thumb{
     background-color: #2ca58d;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px #2ca58d;
+    box-shadow: inset 0px 0px 5px #444444;
+  border: 1.5px solid #444444;
 }
 
 </style>

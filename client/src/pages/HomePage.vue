@@ -49,8 +49,8 @@
           Tournaments
         </h3>
         <section class="row">
-          <div class="col-12 mt-4">
-            <div class="mt-4" v-for="tournament in searchedTournaments" :key="tournament.id">
+          <div class="col-12 mt-4 max-height-and-scroll">
+            <div class="mb-4 me-1" v-for="tournament in searchedTournaments" :key="tournament.id">
               <ActiveTournamentCard :tournament="tournament" />
             </div>
           </div>
@@ -241,5 +241,16 @@ export default {
   background-color: #2ca58d;
   color: white;
   font-weight: bold;
+}
+.max-height-and-scroll{
+  max-height: 60rem;
+  overflow-y: scroll;
+}
+::-webkit-scrollbar-track{
+  background-color: #2E3233;
+}
+::-webkit-scrollbar-thumb{
+  box-shadow: inset 0px 0px 5px #444444;
+  border: 1.5px solid #444444;
 }
 </style>
