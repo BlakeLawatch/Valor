@@ -9,9 +9,11 @@
   Search
 </p> -->
         <form @submit.prevent="homeSearch()" class="form-inline d-flex">
-          <input v-model="editable" maxlength="50" class="form-control mr-sm-2" type="search" placeholder="Search"
-            aria-label="Search">
-          <button class="btn my-2 my-sm-0 ms-3 color-match text-light" type="submit">Search</button>
+          <div class="input-group">
+            <input v-model="editable" maxlength="50" class="form-control mr-sm-2" type="search" placeholder="Search"
+              aria-label="Search">
+            <button class="btn btn-valor mdi mdi-magnify" type="submit" title="search"></button>
+          </div>
         </form>
       </div>
     </section>
@@ -229,5 +231,10 @@ export default {
 
   text-shadow: 0px 4px 4px #FC65C2;
 
+}
+.btn-valor {
+  background-color: #2ca58d;
+  color: white;
+  font-weight: bold;
 }
 </style>
