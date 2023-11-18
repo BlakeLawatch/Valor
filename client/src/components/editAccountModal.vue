@@ -3,11 +3,11 @@
     <div class="modal-dialog">
         <div class="modal-content editForm">
             <div v-if="account.coverImg" class="edit-account-header mb-1 d-flex justify-content-between" :style="{backgroundImage: `url(${account.coverImg})`}">
-                <div class="row w-75 align-items-end">
-                    <div class="col-3">
+                <div class="row w-75 d-flex justify-content-md-start justify-content-between">
+                    <div class="col-3 d-flex align-items-md-start">
                         <img :src="account.picture" class="rounded-circle edit-account-picture">
                     </div>
-                    <div class="col-6 ps-4">
+                    <div class="col-md-6 col-7 ps-md-0 ps-5 ms-md-0 ms-4 d-flex align-items-end">
                         <h4 class="modal-title pb-3 text-light edit-account-title text-start" id="accountModalLabel">Edit {{account.name}}</h4>
                     </div>
                 </div>
