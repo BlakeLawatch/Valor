@@ -4,7 +4,7 @@
         <img class="rounded-circle account-picture" :src="profile.picture" alt="" />
     </div>
     <div class="row account-info-card d-flex rounded-bottom">
-      <div class=".col-12 text-md-end text-center fs-2 order-md-1 order-3 p-md-2 mt-4 mt-md-0">
+      <div v-if="profile.hasSocials" class=".col-12 text-md-end text-center fs-2 order-md-1 order-3 p-md-2 mt-4 mt-md-0">
         <a :href="profile.facebookUrl"><i v-if="profile.facebookUrl" title="Facebook" class="mdi mdi-facebook px-1 text-valor"></i></a>
         <a :href="profile.twitchUrl"><i v-if="profile.twitchUrl" title="Twitch" class="mdi mdi-twitch px-1 text-valor"></i></a>
         <a :href="profile.instagramUrl"><i v-if="profile.instagramUrl" title="Instagram" class="mdi mdi-instagram px-1 text-valor"></i></a>
@@ -12,8 +12,9 @@
         <a :href="profile.youtubeUrl"><i v-if="profile.youtubeUrl" title="Youtube" class="mdi mdi-youtube px-1 text-valor"></i></a>
         <a :href="profile.twitterUrl"><i v-if="profile.twitterUrl" title="Twitter" class="mdi mdi-twitter px-1 text-valor"></i></a>
       </div>
+      <div v-else class="col-12 mt-md-5"></div>
         <div class=" col-12 pt-4 pt-md-2 px-3 px-md-4 d-flex flex-column order-md-2 order-2">
-        <h1 class="pt-5 pt-md-3 my-2 text-start word-break">{{ profile.name }}</h1>
+        <h1 class="pt-5 pt-md-3 my-2 text-center text-md-start word-break">{{ profile.name }}</h1>
         <p class="text-start word-break my-1">{{ profile.bio }}</p>
         </div>
         <div class="col-12 px-0 col-md-4 fs-1 text-end d-flex flex-column justify-content-between order-md-3 order-3">
