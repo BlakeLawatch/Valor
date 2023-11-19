@@ -10,6 +10,7 @@ export const matchSchema = new Schema(
     tournamentId: { type: Schema.Types.ObjectId, required: true },
     winnerId: { type: Schema.Types.ObjectId },
     // NOTE this would be assigned in the manage tournament function by the winner of the tournament
+    nextId: { type: Schema.Types.ObjectId }
   },
   {
     timestamps: true, toJSON: { virtuals: true }
