@@ -9,11 +9,23 @@ class MatchesService {
     const players = await playersService.getPlayersByTournamentId(tournamentId)
     const numOfPlayers = players.length
     const totalRounds = await this.calculateRounds(numOfPlayers)
-    // const roundOnes = await this.calculateRoundOnes(numOfPlayers)
-    // const roundTwos = await this.calculateRoundTwos(numOfPlayers)
-    const matches = await this.createMatches(totalRounds, numOfPlayers)
+    const matches = await this.createMatches(totalRounds)
     const populatedTournament = await this.populateMatches(matches, players)
-    return populatedTournament
+    const byeCheckedTournament = await this.reportByeMatches(populatedTournament, totalRounds)
+    return byeCheckedTournament
+  }
+
+
+  async reportByeMatches(matches, rounds) {
+    const matchesWithByes = matches.filter(m => m.bye2 == true)
+    const nextRoundMatches = matches.filter(m => m.roundNumber == rounds - 1)
+    for (let i = 0; i < matchesWithByes.length; i++) {
+      const nextMatch = nextRoundMatches.filter(m => m.id == matchesWithByes[i].nextId)
+      matchesWithByes[i].winnerId = matchesWithByes[i].player1Id
+      nextMatch[0].player1Id = matchesWithByes[i].winnerId
+
+    }
+    return matches
   }
 
   async populateMatches(matches, participants) {
@@ -28,11 +40,11 @@ class MatchesService {
       }
       if (m.bye1 == false) {
 
-        m.player1 = participants[m.seedPosition1 - 1].accountId
+        m.player1Id = participants[m.seedPosition1 - 1].accountId
       }
       if (m.bye2 == false) {
 
-        m.player2 = participants[m.seedPosition2 - 1].accountId
+        m.player2Id = participants[m.seedPosition2 - 1].accountId
       }
 
 
@@ -44,7 +56,7 @@ class MatchesService {
 
 
 
-  createMatches(totalRounds, participants) {
+  createMatches(totalRounds) {
 
     function Match(round, nextId, boutNum) {
       this.id = new mongoose.Types.ObjectId() || ''
@@ -66,12 +78,8 @@ class MatchesService {
     let matches = []
     let matchIds = []
 
-
     for (let i = 0; i < totalRounds; i++) {
-      // create matches here\
-
-      // check how many matches are in a round
-      let boutNum = (2 ** totalRounds + 1) - 1
+      let boutNum = (2 ** totalRounds) - 1
       let loopNum = i
       if (loopNum == 1) {
         loopNum = 2
@@ -118,7 +126,7 @@ class MatchesService {
     const seedString = seedArray.toString()
     const newSeedArray = seedString.split(' ')
 
-    const myMatches = matches.filter(m => m.roundNum == totalRounds)
+    const myMatches = matches.filter(m => m.roundNumber == totalRounds)
 
     for (let i = 0; i < myMatches.length; i++) {
       myMatches[i].seedPosition1 = newSeedArray[0]
@@ -145,13 +153,6 @@ class MatchesService {
     return roundOnes
   }
 
-  // gets the closest rounded up number of 2 exponentially 
-  // ex: providing 10 returns 16
-  // ex: providing 7 returns 8
-  // calculateRounds(participants) {
-  //   const bracketSize = Math.ceil(Math.log2(participants));
-  //   return 2 ** bracketSize
-  // }
   calculateRounds(participants) {
 
     return Math.ceil(Math.log2(participants));
