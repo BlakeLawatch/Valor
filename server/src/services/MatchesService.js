@@ -19,12 +19,15 @@ class MatchesService {
 
   createMatches(totalRounds, participants) {
 
-    function Match(round, nextId) {
+    function Match(round, nextId, boutNum) {
       this.id = new mongoose.Types.ObjectId() || ''
       this.roundNum = round
+      this.boutNum = boutNum
       this.player1 = ''
       this.player2 = ''
       this.nextId = nextId
+      this.seedPosition1 = ''
+      this.seedPosition2 = ''
     }
 
 
@@ -32,10 +35,12 @@ class MatchesService {
     let matches = []
     let matchIds = []
 
+
     for (let i = 0; i < totalRounds; i++) {
       // create matches here\
 
       // check how many matches are in a round
+      let boutNum = (2 ** totalRounds + 1) - 1
       let loopNum = i
       if (loopNum == 1) {
         loopNum = 2
@@ -48,16 +53,47 @@ class MatchesService {
       }
 
       for (let b = 0; b < loopNum; b++) {
+        let newBoutNum = boutNum - matches.length
         const matchId = matchIds[0]
-        const match = new Match(i + 1, matchId)
+        const match = new Match(i + 1, matchId, newBoutNum)
         if (matchIds.length > 0) {
           matchIds.shift()
         }
         matchIds.push(match.id)
         matchIds.push(match.id)
         matches.push(match)
-
       }
+    }
+    let num = 0
+    let seedArray = []
+    let newArray = []
+
+    for (let i = 0; i < (2 ** totalRounds); i++) {
+      const newNum = num + (i + 1)
+      seedArray.push(newNum.toString())
+    }
+
+    for (let i = 0; i <= (totalRounds - 1); i++) {
+      newArray = []
+      const timesThrough = seedArray.length / 2
+      for (let b = 0; b < (timesThrough); b++) {
+        const newValue = seedArray[0] + ' ' + seedArray[seedArray.length - 1]
+        newArray.push(newValue)
+        seedArray.shift()
+        seedArray.pop()
+      }
+      seedArray = newArray
+    }
+    const seedString = seedArray.toString()
+    const newSeedArray = seedString.split(' ')
+
+    const myMatches = matches.filter(m => m.roundNum == totalRounds)
+
+    for (let i = 0; i < myMatches.length; i++) {
+      myMatches[i].seedPosition1 = newSeedArray[0]
+      myMatches[i].seedPosition2 = newSeedArray[1]
+      newSeedArray.shift()
+      newSeedArray.shift()
 
     }
     return matches
