@@ -12,8 +12,36 @@ class MatchesService {
     // const roundOnes = await this.calculateRoundOnes(numOfPlayers)
     // const roundTwos = await this.calculateRoundTwos(numOfPlayers)
     const matches = await this.createMatches(totalRounds, numOfPlayers)
-    return matches
+    const populatedTournament = await this.populateMatches(matches, players)
+    return populatedTournament
   }
+
+  async populateMatches(matches, participants) {
+    let seedTotal = 0
+    participants.forEach(p => seedTotal += p.seed)
+    const liveMatches = matches.filter(m => m.seedPosition1 != '' && m.seedPosition2 != '')
+    liveMatches.forEach(m => {
+      if (m.seedPosition1 > participants.length) {
+        m.bye1 = true
+      }
+      if (m.seedPosition2 > participants.length) {
+        m.bye2 = true
+      }
+      if (m.bye1 == false) {
+
+        m.player1 = participants[m.seedPosition1 - 1].accountId
+      }
+      if (m.bye2 == false) {
+
+        m.player2 = participants[m.seedPosition2 - 1].accountId
+      }
+
+
+    });
+    return matches
+
+  }
+
 
 
 
@@ -23,6 +51,8 @@ class MatchesService {
       this.id = new mongoose.Types.ObjectId() || ''
       this.roundNum = round
       this.boutNum = boutNum
+      this.bye1 = false
+      this.bye2 = false
       this.player1 = ''
       this.player2 = ''
       this.nextId = nextId
