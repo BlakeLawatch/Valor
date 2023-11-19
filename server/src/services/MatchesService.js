@@ -49,12 +49,14 @@ class MatchesService {
 
     function Match(round, nextId, boutNum) {
       this.id = new mongoose.Types.ObjectId() || ''
-      this.roundNum = round
+      this.player1Id = ''
+      this.player2Id = ''
+      this.roundNumber = round
       this.boutNum = boutNum
       this.bye1 = false
       this.bye2 = false
-      this.player1 = ''
-      this.player2 = ''
+      this.winnerId = ''
+      this.tournamentId = ''
       this.nextId = nextId
       this.seedPosition1 = ''
       this.seedPosition2 = ''
