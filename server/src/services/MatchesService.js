@@ -17,8 +17,7 @@ class MatchesService {
   }
 
   async populateMatches(matches, participants) {
-    let seedTotal = 0
-    participants.forEach(p => seedTotal += p.seed)
+
     const liveMatches = matches.filter(m => m.seedPosition1 != '' && m.seedPosition2 != '')
     liveMatches.forEach(m => {
       if (m.seedPosition1 > participants.length) {
