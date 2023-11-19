@@ -1,4 +1,25 @@
 <template>
+    <div class="component">
+
+
+    </div>
+</template>
+
+
+<script>
+import { AppState } from '../AppState';
+import { computed, reactive, onMounted } from 'vue';
+export default {
+    setup() {
+        return {}
+    }
+};
+</script>
+
+
+<style lang="scss" scoped></style>
+
+<!-- <template>
     <form @submit.prevent="editActiveTournament()" class="editFormCard rounded w-100">
         <div class="row p-md-4 pt-2 justify-content-evenly mt-1 align-items-center">
             <div class="col-12 text-center">
@@ -82,7 +103,7 @@
             </div>
             <div class="text-white col-6 col-md-3 mt-md-2 mt-1 p-4 pt-2">
                 <label for="liveStreamUrl">Livestream Link <i class="mdi mdi-twitch"></i> </label>
-                <input v-model="tournamentEditable.liveStreamUrl" type="text" class="rounded w-100" id="liveStreamUrl"
+                <input v-model="tournamentEditable.twitchUsername" type="text" class="rounded w-100" id="liveStreamUrl"
                     maxlength="10000">
             </div>
         </div>
@@ -112,8 +133,8 @@
                         </div>
                     </div>
                     <div class="col-6 mt-md-1 mt-3 col-md-11">
-                        <!-- SECTION form button -->
-                        <div>
+                      
+<div>
                             <button type="submit" title="submit edit" class="btn btn-success offset">Confirm
                                 Changes</button>
                         </div>
@@ -296,4 +317,4 @@ $colors: (
         --hover: #{adjust-hue($color, 45deg)};
     }
 }
-</style>
+</style> -->

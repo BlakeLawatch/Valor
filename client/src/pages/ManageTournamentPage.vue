@@ -1,12 +1,144 @@
 <template>
-    TODO might want to be able to register in our own tournament
+    <!-- TODO might want to be able to register in our own tournament -->
     <div class="container-fluid p-4">
         <section v-if="!tournamentEditable.isCancelled" class="row justify-content-center">
-            <div class="col-12 text-center">
-                <h1 class="text-white text-break textShadow underline">{{ tournament.name }}</h1>
-            </div>
+            <router-link :to="{ name: 'TournamentInfoPage', params: { tournamentId: tournament.id } }">
+                <div class="col-12 text-center">
+                    <h1 class="text-white text-break textShadow underline">{{ tournament.name }}</h1>
+                </div>
+            </router-link>
             <div class="col-12 col-md-10 d-flex justify-content-center mt-3 rounded">
-                <EditTournamentForm />
+                <form @submit.prevent="editActiveTournament()" class="editFormCard rounded w-100">
+                    <div class="row p-md-4 pt-2 justify-content-evenly mt-1 align-items-center">
+                        <div class="col-12 text-center">
+                            <h5 class="text-light mt-1">Tournament Info:</h5>
+                        </div>
+                        <div class="text-white col-12 col-md-4 p-4 pt-2">
+                            <label for="name">Name</label>
+                            <input v-model="tournamentEditable.name" type="text" class="rounded w-100" id="name"
+                                maxlength="75">
+                        </div>
+                        <div class="text-white col-md-4 col-6 p-4 pt-2">
+                            <label for="entryPrice">Entry Price</label>
+                            <input v-model="tournamentEditable.entryPrice" type="number" class="rounded w-100" id="number"
+                                max="10000">
+                        </div>
+                        <div class="text-white col-md-4 col-6 p-4 pt-2">
+                            <label for="capacity">Capacity</label>
+                            <input v-model="tournamentEditable.capacity" type="number" class="rounded w-100" id="number"
+                                max="10000">
+                        </div>
+                        <div class="text-white col-6 col-md-4 mt-1 p-4 pt-2">
+                            <label for="region" class="form-label mb-0">Region</label>
+                            <select v-model="tournamentEditable.region" class="form-select w-100" name="" id="">
+                                <option :value="region" v-for="region in region" :key="region">{{ region }}</option>
+                            </select>
+                        </div>
+                        <div class="text-white col-6 col-md-4 p-4 pt-2">
+                            <label for="address">Address</label>
+                            <input v-model="tournamentEditable.address" type="text" class="rounded w-100" id="address"
+                                maxlength="100">
+                        </div>
+                        <div class="text-white col-6 col-md-4 mt-1 p-4 pt-2">
+                            <label for="prizePool">Prizes</label>
+                            <input v-model="tournamentEditable.prizePool" type="number" class="rounded w-100" id="prizePool"
+                                max="1000000001">
+                        </div>
+                        <div class="text-white col-6 col-md-4 mt-1 p-4 pt-2">
+                            <label for="imgUrl">Image</label>
+                            <input v-model="tournamentEditable.imgUrl" type="url" class="rounded w-100" id="imgUrl"
+                                maxlength="1000">
+                        </div>
+                    </div>
+                    <div class="row p-md-4 pt-2 justify-content-evenly align-items-center">
+                        <div class="col-12 text-center">
+                            <h5 class="text-light">Dates and Deadlines:</h5>
+                        </div>
+                        <div class="text-white col-6 col-md-4 p-4 pt-2">
+                            <label for="startDate">Start Date</label>
+                            <input v-model="tournamentEditable.startDate" type="date" class="rounded w-100"
+                                :min="todaysDate" id="startDate">
+                        </div>
+                        <div class="text-white col-6 col-md-4 p-4 pt-2">
+                            <label for="endDate">End Date</label>
+                            <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.endDate"
+                                type="date" class="rounded w-100" :min="tournamentEditable.startDate" id="endDate">
+                        </div>
+                        <div class="text-white col-6 col-md-4 mt-md-0 mt-2 p-4 pt-2">
+                            <label for="signUpDeadline">Sign Up Deadline</label>
+                            <input :disabled="!tournamentEditable.startDate" v-model="tournamentEditable.signUpDeadline"
+                                type="date" class="rounded w-100" :min="todaysDate" :max="tournamentEditable.startDate"
+                                id="signUpDeadline">
+                        </div>
+                    </div>
+                    <div class="row p-md-4 pt-2 justify-content-evenly align-items-center">
+                        <div class="col-12 text-center">
+                            <h5 class="text-light mt-2 p-4 pt-2">Media Links:</h5>
+                        </div>
+                        <div class="text-white col-6 col-md-3 p-4 pt-2">
+                            <label for="facebookUrl">Facebook Link <i class="mdi mdi-facebook"></i> </label>
+                            <input v-model="tournamentEditable.facebookUrl" type="url" class="rounded w-100"
+                                id="facebookUrl" maxlength="10000">
+                        </div>
+                        <div class="text-white col-6 col-md-3 p-4 pt-2">
+                            <label for="instagramUrl">Instagram Link <i class="mdi mdi-instagram"></i> </label>
+                            <input v-model="tournamentEditable.instagramUrl" type="url" class="rounded w-100"
+                                id="instagramUrl" maxlength="10000">
+                        </div>
+                        <div class="text-white col-6 col-md-3 mt-md-0 mt-1 p-4 pt-2">
+                            <label for="twitterUrl">Twitter Link <i class="mdi mdi-twitter"></i></label>
+                            <input v-model="tournamentEditable.twitterUrl" type="url" class="rounded w-100" id="twitterUrl"
+                                maxlength="10000">
+                        </div>
+                        <div class="text-white col-6 col-md-3 mt-md-0 mt-1 p-4 pt-2">
+                            <label for="youtubeUrl">YouTube Link <i class="mdi mdi-youtube"></i> </label>
+                            <input v-model="tournamentEditable.youtubeUrl" type="url" class="rounded w-100" id="youtubeUrl"
+                                maxlength="10000">
+                        </div>
+                        <div class="text-white col-6 col-md-3 mt-md-2 mt-1 p-4 pt-2">
+                            <label for="liveStreamUrl">Livestream Link <i class="mdi mdi-twitch"></i> </label>
+                            <input v-model="tournamentEditable.twitchUsername" type="text" class="rounded w-100"
+                                id="liveStreamUrl" maxlength="10000">
+                        </div>
+                    </div>
+                    <div class="row p-4 pt-2 justify-content-evenly">
+                        <div class="col-12 text-center mb-2 p-4 pt-2">
+                            <h5 class="text-light">Description and Other Details:</h5>
+                        </div>
+                        <div class="text-white col-12 col-md-8 p-4 pt-2">
+                            <label for="description">Description</label>
+                            <textarea v-model="tournamentEditable.description" type="text" class="rounded w-100" rows="6"
+                                id="description" maxlength="1000"></textarea>
+                        </div>
+                        <div class="text-white p-2 col-12 col-md-2 d-flex pe-3">
+                            <div class="row pt-md-2 mt-md-1">
+                                <div class="col-6 col-md-9">
+                                    <label for="onlineOnly" class="me-2">Online Only:</label>
+                                    <input v-model="tournamentEditable.onlineOnly" type="checkbox" class="rounded"
+                                        id="onlineOnly">
+                                </div>
+                                <div class="col-6 col-md-9">
+                                    <label for="isLocked" class="me-2">Lock or Unlock:</label>
+                                    <input v-model="tournamentEditable.isLocked" type="checkbox" class="rounded"
+                                        id="isLocked">
+                                </div>
+                                <div class="col-6 mt-md-1 mt-3 col-md-11">
+                                    <div>
+                                        <button @click.prevent="cancelTournament()" class="btn btn-danger pulse"
+                                            title="cancel tournament">Cancel Tournament</button>
+                                    </div>
+                                </div>
+                                <div class="col-6 mt-md-1 mt-3 col-md-11">
+                                    <!-- SECTION form button -->
+                                    <div>
+                                        <button type="submit" title="submit edit" class="btn btn-success offset">Confirm
+                                            Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </section>
         <section v-else>
@@ -119,20 +251,21 @@ export default {
             todaysDate: new Date().toISOString().substring(0, 10),
             async editActiveTournament() {
                 try {
-                    if (tournamentEditable.value.startDate < this.todaysDate) {
-                        Pop.error('Invalid start date')
-                        return
-                    }
-                    if (tournamentEditable.value.startDate > tournamentEditable.value.endDate) {
-                        Pop.error('Invalid end date')
-                        return
-                    }
-                    if (tournamentEditable.value.startDate) {
-                        if (tournamentEditable.value.signUpDeadline > tournamentEditable.value.startDate || tournamentEditable.value.signUpDeadline < this.todaysDate) {
-                            Pop.error('Invalid sign up deadline date')
-                            return
-                        }
-                    }
+
+                    // if (tournamentEditable.value.startDate < AppState.activeTournament.createdAt) {
+                    //     Pop.error('Invalid start date')
+                    //     return
+                    // }
+                    // if (tournamentEditable.value.startDate > tournamentEditable.value.endDate) {
+                    //     Pop.error('Invalid end date')
+                    //     return
+                    // }
+                    // if (tournamentEditable.value.startDate) {
+                    //     if (tournamentEditable.value.signUpDeadline > tournamentEditable.value.startDate || tournamentEditable.value.signUpDeadline < this.todaysDate) {
+                    //         Pop.error('Invalid sign up deadline date')
+                    //         return
+                    //     }
+                    // }
                     const tournamentId = route.params.tournamentId
                     const tournamentData = tournamentEditable.value
                     await tournamentsService.editActiveTournament(tournamentData, tournamentId)
@@ -156,7 +289,7 @@ export default {
             }
         }
     },
-    components: { EditTournamentForm, BracketComponent }
+    components: { BracketComponent }
 };
 </script>
 

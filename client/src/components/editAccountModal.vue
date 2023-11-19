@@ -2,11 +2,18 @@
 <div class="modal fade modal-xl" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content editForm">
-            <div class="modal-header">
-                <h5 class="modal-title  text-light" id="accountModalLabel">Edit Account</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div v-if="account.coverImg" class="edit-account-header mb-1 d-flex justify-content-between" :style="{backgroundImage: `url(${account.coverImg})`}">
+                <div class="row w-75 d-flex justify-content-md-start justify-content-between">
+                    <div class="col-3 d-flex align-items-md-start">
+                        <img :src="account.picture" class="rounded-circle edit-account-picture">
+                    </div>
+                    <div class="col-md-6 col-7 ps-md-0 ps-5 ms-md-0 ms-4 d-flex align-items-end">
+                        <h4 class="modal-title pb-3 text-light edit-account-title text-start" id="accountModalLabel">Edit {{account.name}}</h4>
+                    </div>
+                </div>
+                <button type="button" class="btn-close me-1 mt-1" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body editForm text-light">
+            <div class="modal-body text-light">
                 <form  @submit.prevent="editAccount()">
                     <div class="w-100 d-flex justify-content-between">
                         <div class="condensed-milk  p-2 text-start">
@@ -57,7 +64,7 @@
                         <textarea v-model="editable.bio" rows="5" title="Bio" maxlength="1000" class="form-control" placeholder="Ever wanted to write an autobiograpjy? Well now you can!"></textarea>
                     </div>
                     <div class="w-100 d-flex justify-content-end pt-3">
-                        <button class="btn me-3" title="Save Changes" type="submit">Submit</button>
+                        <button class="btn me-3 text-light" title="Save Changes" type="submit"><i class="mdi mdi-check"></i></button>
                     </div>
                     
                 </form>
@@ -70,15 +77,17 @@
 
 <script>
 // import { AppState } from '../AppState';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
 import { Modal } from 'bootstrap';
 import { accountService } from '../services/AccountService';
+import { AppState } from '../AppState';
 export default {
     setup(){
         const editable = ref({})
     return { 
+        account: computed(()=>AppState.account),
         editable,
         async editAccount(){
             try {
@@ -106,9 +115,26 @@ button {
 }
 
 .editForm {
-    background-color: rgb(68, 68, 68);
+    background-color: #242726;
     box-shadow: 0px 5px 4px #2ca58d;
-    
     border: 1.5px solid #2ca58d;
+}
+.edit-account-header{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: 0px 5px 4px black;
+    border-bottom: 1.5px solid #2ca58d;
+}
+.edit-account-picture{
+    height: 8rem;
+    aspect-ratio: 1/1;
+    position: relative;
+    left: 5%;
+    top:2rem;
+    box-shadow: 0px 5px 4px black;
+}
+.edit-account-title{
+    text-shadow: 0px 5px 4px black;
 }
 </style>

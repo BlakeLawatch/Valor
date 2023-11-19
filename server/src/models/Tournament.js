@@ -15,7 +15,7 @@ export const TournamentSchema = new Schema(
     capacity: { type: Number, maxLength: 100000 },
     onlineOnly: { type: Boolean, default: false },
     imgUrl: { type: String, maxLength: 20000 },
-    liveStreamUrl: { type: String, maxLength: 500 },
+    twitchUsername: { type: String, maxLength: 500 },
     winnerId: { type: Schema.Types.ObjectId, ref: 'Account' },
     isLocked: { type: Boolean, default: false },
     isLive: { type: Boolean, default: false },

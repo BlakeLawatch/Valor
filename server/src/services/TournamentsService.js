@@ -2,6 +2,8 @@ import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class TournamentsService {
+
+
   async getTournamentsByQuery(query) {
     const tournaments = await dbContext.Tournaments.find({ name: { $regex: `${query.name}`, $options: 'i' } },)
     return tournaments
@@ -46,6 +48,14 @@ class TournamentsService {
     if (editedTournament.creatorId != userId) {
       throw new Forbidden('Not yours to edit')
     }
+
+    if (tournamentInfo.startDate > new Date().toISOString().substring(0, 10)) {
+      delete tournamentInfo.startDate
+    }
+    if (tournamentInfo.endDate > new Date().toISOString().substring(0, 10)) {
+      delete tournamentInfo.endDate
+    }
+
     const keys = Object.keys(tournamentInfo)
     keys.forEach(key => {
       if (key == 'isCancelled') {

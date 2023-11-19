@@ -1,30 +1,32 @@
 <template>
   <div class="container-fluid">
-    <section class="row d-flex justify-content-center">
+    <section class="row d-flex justify-content-center px-3">
       <div class="col-12 text-center text-white">
         <h1 class="valor my-5">Valor</h1>
       </div>
-      <div class="col-md-8 col-12 box-bg p-5 rounded">
+      <div class="col-md-8 col-12 box-bg p-4 p-md-5 rounded card-shadow">
         <!-- <p class="fs-5 text-white">
   Search
 </p> -->
         <form @submit.prevent="homeSearch()" class="form-inline d-flex">
-          <input v-model="editable" maxlength="50" class="form-control mr-sm-2" type="search" placeholder="Search"
-            aria-label="Search">
-          <button class="btn my-2 my-sm-0 ms-3 color-match text-light" type="submit">Search</button>
+          <div class="input-group">
+            <input v-model="editable" maxlength="50" class="form-control mr-sm-2" type="search" placeholder="Search"
+              aria-label="Search">
+            <button class="btn btn-valor mdi mdi-magnify" type="submit" title="search"></button>
+          </div>
         </form>
       </div>
     </section>
     <div v-if="checkGames == 'nothing' && checkTournaments == 'nothing' && checkProfiles == 'nothing'">
       <section class="row d-flex justify-content-center">
-        <div class="col-md-8 col-12 mt-4 text-white fs-3">
+        <div class="col-md-8 col-12 mt-4 text-white text-center fs-3">
           <h2>Nothing Found Named {{ noName }}</h2>
         </div>
       </section>
     </div>
     <div v-else>
 
-      <section class="row d-flex justify-content-center">
+      <section class="row d-flex justify-content-center px-3">
         <div v-if="games.length > 0" class="col-md-8 col-12">
           <h1 class="text-white fs-3 mt-5 ">Games
         </h1>
@@ -37,7 +39,7 @@
       <div  v-if="checkGames == 'nothing'">
         <section class="row d-flex justify-content-center">
           <div class="col-md-8 col-12 mt-4">
-            <h2 class="text-white fs-3">No Games Named <span class="word-break">{{ noName }}</span></h2>
+            <h2 class="text-white fs-3 text-center">No Games Named <span class="word-break">{{ noName }}</span></h2>
           </div>
         </section>
       </div>
@@ -47,8 +49,8 @@
           Tournaments
         </h3>
         <section class="row">
-          <div class="col-12 mt-4">
-            <div class="mt-4" v-for="tournament in searchedTournaments" :key="tournament.id">
+          <div class="col-12 mt-4 max-height-and-scroll">
+            <div class="mb-4 me-1" v-for="tournament in searchedTournaments" :key="tournament.id">
               <ActiveTournamentCard :tournament="tournament" />
             </div>
           </div>
@@ -64,12 +66,12 @@
       <div v-if="profiles.length > 0" class="col-md-8 col-12">
         <h4 class="text-white mt-5 fs-3">Profiles</h4>
         <section class="row mb-5">
-          <div class="col-md-4 col-6 mt-4" v-for="profile in profiles" :key="profile.id">
+          <div class="col-6 col-md-4 mt-4" v-for="profile in profiles" :key="profile.id">
             <RouterLink :to="{name: 'Account', params: {accountId: profile.id}}">
               
-              <div class="d-flex align-items-center box-bg p-3 rounded">
+              <div class="d-flex flex-column justify-content-center align-items-center box-bg p-3 rounded card-shadow h-100">
                 <img class="profile-picture rounded-circle" :src="profile.picture" alt="profile picture">
-                <p class="text-white mb-0 ms-3 word-break">
+                <p class="text-white mb-0 mt-1 word-break">
                   {{ profile.name }}
                 </p>
               </div>
@@ -148,8 +150,8 @@ export default {
         checkProfiles.value = ''
         await tournamentsService.getActiveTournaments()
         tournamentsService.clearHomePageAppstate()
-       
-      } catch (error) {
+      } 
+      catch (error) {
         Pop.error(error)
       }
     }
@@ -204,8 +206,13 @@ export default {
   word-break: break-all;
 }
 
+.card-shadow{
+  box-shadow: 1px 1px 8px black;
+}
+
 .profile-picture {
   height: 4rem;
+  width: 4rem;
   aspect-ratio: 1/1;
 }
 .btn{
@@ -229,5 +236,21 @@ export default {
 
   text-shadow: 0px 4px 4px #FC65C2;
 
+}
+.btn-valor {
+  background-color: #2ca58d;
+  color: white;
+  font-weight: bold;
+}
+.max-height-and-scroll{
+  max-height: 60rem;
+  overflow-y: scroll;
+}
+::-webkit-scrollbar-track{
+  background-color: #2E3233;
+}
+::-webkit-scrollbar-thumb{
+  box-shadow: inset 0px 0px 5px #444444;
+  border: 1.5px solid #444444;
 }
 </style>
