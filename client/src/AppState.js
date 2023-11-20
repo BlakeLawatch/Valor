@@ -35,6 +35,7 @@ export const AppState = reactive({
   tournamentsParticipatedIn: [],
   playersInActiveTournament: [],
   filteredPlayers: [],
-  activeDev: {}
+  activeDev: {},
+  matches: []
   
 })

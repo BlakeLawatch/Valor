@@ -2,6 +2,7 @@ import { Schema } from "mongoose";
 
 export const matchSchema = new Schema(
   {
+    matchId: { type: Schema.Types.ObjectId },
     player1Id: { type: Schema.Types.ObjectId },
     // NOTE player 1 and 2 are set by put requests from the front end when people register for the tournament
     player2Id: { type: Schema.Types.ObjectId },
@@ -24,17 +25,17 @@ export const matchSchema = new Schema(
     timestamps: true, toJSON: { virtuals: true }
   }
 )
-matchSchema.virtual('player 1', {
+matchSchema.virtual('player1', {
   localField: "player1Id",
   foreignField: "_id",
-  ref: "Player",
-  justOne: true
+  ref: "Account",
+  justOne: true,
 })
-matchSchema.virtual("player 2", {
+matchSchema.virtual("player2", {
   localField: "player2Id",
   foreignField: "_id",
-  ref: "Player",
-  justOne: true
+  ref: "Account",
+  justOne: true,
 })
 matchSchema.virtual("tournament", {
   localField: "tournamentId",

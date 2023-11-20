@@ -124,6 +124,12 @@ return 'something'
     AppState.searchedTournaments = []
     AppState.profiles = []
   }
+  
+  async getBracketByTournamentId(tournamentId){
+    
+    const res = await api.get(`api/tournaments/${tournamentId}/matches`)
+    AppState.matches = (res.data)
+  }
 
 }
 

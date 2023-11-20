@@ -5,14 +5,29 @@ import { playersService } from "./PlayersService.js"
 import { tournamentsService } from "./TournamentsService.js"
 
 class MatchesService {
-  async createBracketForTournament(tournamentId) {
+  async createBracketForTournament(tournamentId, userId) {
+    const tournament = await tournamentsService.getTournamentById(tournamentId)
+    if (tournament.creatorId != userId) {
+      throw new Forbidden('this is not your tournament')
+    }
+    const matchesCheck = await dbContext.Matches.find({ tournamentId })
+    if (matchesCheck.length > 0) {
+      await this.deleteCurrentBracket(tournamentId)
+    }
     const players = await playersService.getPlayersByTournamentId(tournamentId)
-    const numOfPlayers = players.length
-    const totalRounds = await this.calculateRounds(numOfPlayers)
-    const matches = await this.createMatches(totalRounds)
+    const totalRounds = await this.calculateRounds(players.length)
+    const matches = await this.createMatches(totalRounds, tournamentId)
     const populatedTournament = await this.populateMatches(matches, players)
     const byeCheckedTournament = await this.reportByeMatches(populatedTournament, totalRounds)
-    return byeCheckedTournament
+    const newTournament = await dbContext.Matches.insertMany(byeCheckedTournament)
+    return newTournament
+  }
+
+  async deleteCurrentBracket(tournamentId) {
+    const matches = await dbContext.Matches.deleteMany({ tournamentId })
+
+    return 'bracket deleted'
+
   }
 
 
@@ -20,9 +35,14 @@ class MatchesService {
     const matchesWithByes = matches.filter(m => m.bye2 == true)
     const nextRoundMatches = matches.filter(m => m.roundNumber == rounds - 1)
     for (let i = 0; i < matchesWithByes.length; i++) {
-      const nextMatch = nextRoundMatches.filter(m => m.id == matchesWithByes[i].nextId)
+      const nextMatch = nextRoundMatches.filter(m => m.matchId == matchesWithByes[i].nextId)
       matchesWithByes[i].winnerId = matchesWithByes[i].player1Id
-      nextMatch[0].player1Id = matchesWithByes[i].winnerId
+      if (!nextMatch[0].player1Id) {
+        nextMatch[0].player1Id = matchesWithByes[i].winnerId
+      }
+      else {
+        nextMatch[0].player2Id = matchesWithByes[i].winnerId
+      }
 
     }
     return matches
@@ -39,7 +59,6 @@ class MatchesService {
         m.bye2 = true
       }
       if (m.bye1 == false) {
-
         m.player1Id = participants[m.seedPosition1 - 1].accountId
       }
       if (m.bye2 == false) {
@@ -56,18 +75,18 @@ class MatchesService {
 
 
 
-  createMatches(totalRounds) {
+  createMatches(totalRounds, tournamentId) {
 
-    function Match(round, nextId, boutNum) {
-      this.id = new mongoose.Types.ObjectId() || ''
-      this.player1Id = ''
-      this.player2Id = ''
+    function Match(round, nextId, boutNum, tournamentId) {
+      this.matchId = new mongoose.Types.ObjectId() || ''
+      this.player1Id = null
+      this.player2Id = null
       this.roundNumber = round
-      this.boutNum = boutNum
+      this.boutNumber = boutNum
       this.bye1 = false
       this.bye2 = false
-      this.winnerId = ''
-      this.tournamentId = ''
+      this.winnerId = null
+      this.tournamentId = tournamentId
       this.nextId = nextId
       this.seedPosition1 = ''
       this.seedPosition2 = ''
@@ -94,12 +113,12 @@ class MatchesService {
       for (let b = 0; b < loopNum; b++) {
         let newBoutNum = boutNum - matches.length
         const matchId = matchIds[0]
-        const match = new Match(i + 1, matchId, newBoutNum)
+        const match = new Match(i + 1, matchId, newBoutNum, tournamentId)
         if (matchIds.length > 0) {
           matchIds.shift()
         }
-        matchIds.push(match.id)
-        matchIds.push(match.id)
+        matchIds.push(match.matchId)
+        matchIds.push(match.matchId)
         matches.push(match)
       }
     }
@@ -163,7 +182,7 @@ class MatchesService {
   }
   async getMatchesByTournament(tournamentId) {
     const tournament = await tournamentsService.getTournamentById(tournamentId)
-    const matches = await dbContext.Matches.find({ tournamentId: tournament.id })
+    const matches = await dbContext.Matches.find({ tournamentId: tournament.id }).populate('player1', 'name picture').populate('player2', 'name picture')
     return matches
   }
   async getMatchById(matchId) {
@@ -200,19 +219,52 @@ class MatchesService {
     return newMatch
   }
 
-  async updateMatch(match, userId) {
-    const foundMatch = await this.getMatchById(match.id)
-    const tournament = await tournamentsService.getTournamentById(foundMatch.tournamentId)
+  async updateMatch(matchId, userId, winnerId) {
+    const match = await dbContext.Matches.findById(matchId)
+
+    const tournament = await tournamentsService.getTournamentById(match.tournamentId)
+    const nextMatch = await dbContext.Matches.find({ matchId: match.nextId })
+    const player1Id = await match.player1Id
+    const player2Id = await match.player2Id
     if (tournament.creatorId != userId) {
-      throw new Forbidden(`You cannot edit a match for a tournament you do not own`)
+      throw new Forbidden('you cannot edit this match')
     }
-    foundMatch.player1Id = match.player1Id
-    foundMatch.player2Id = match.player2Id
-    foundMatch.roundNumber = match.roundNumber
-    foundMatch.winnerId = match.winnerId
-    await foundMatch.save()
-    return foundMatch
+    if (nextMatch[0]) {
+      if (nextMatch[0].player1Id == winnerId || nextMatch[0].player2Id == winnerId) {
+        throw new BadRequest('this match has already been reported')
+      }
+    }
+    if (!match) {
+      throw new BadRequest(`invalid id ${matchId}`)
+    }
+    if (winnerId != player1Id && winnerId != player2Id) {
+      throw new BadRequest(`the player with the id ${winnerId} does not exist on the provided match`)
+    }
+    if (!nextMatch[0]) {
+      if (match.winnerId == null) {
+        match.winnerId = winnerId
+        await match.save()
+        return match
+      }
+      else {
+        throw new BadRequest('this match has already been reported')
+      }
+    }
+    if (nextMatch[0].player1Id == null) {
+      nextMatch[0].player1Id = winnerId
+      nextMatch[0].save()
+      await match.save()
+      return [match, nextMatch[0]]
+    }
+    if (nextMatch[0].player2Id == null) {
+      nextMatch[0].player2Id = winnerId
+      await nextMatch[0].save()
+      await match.save()
+      return [match, nextMatch[0]]
+    }
+
   }
+
 
   async destroyMatch(matchId, userId) {
     const match = await this.getMatchById(matchId)

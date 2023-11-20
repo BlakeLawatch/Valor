@@ -52,6 +52,18 @@
       <div class="col-12 col-md-9 text-center bracket">
         <BracketComponent />
       </div>
+      <div  v-if="matches[0]" >
+        
+        <div class="text-white" v-for="match in matches" :key="match.id">
+          {{ match.boutNumber }}
+          <div v-if="match.player1">
+            {{ match.player1.name }}
+          </div>
+          <div v-if="match.player2">
+            {{ match.player2.name }}
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -79,6 +91,7 @@ export default {
       route;
       getTournamentById();
       getPlayersByTournamentId();
+      getBracketByTournamentId()
     });
     async function getTournamentById() {
       try {
@@ -88,6 +101,9 @@ export default {
       catch (error) {
         Pop.error(error);
       }
+    }
+    async function getBracketByTournamentId(){
+      await tournamentsService.getBracketByTournamentId(route.params.tournamentId)
     }
     async function filterParticipants() {
       try {
@@ -110,6 +126,7 @@ export default {
       editable,
       route,
       activeTournament: computed(() => AppState.activeTournament),
+      matches: computed(()=> AppState.matches),
       account: computed(() => AppState.account),
       players: computed(() => AppState.playersInActiveTournament),
       filteredPlayers: computed(() => AppState.filteredPlayers),
