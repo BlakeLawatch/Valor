@@ -6,13 +6,15 @@
         <div class="dark-bg rounded p-3">
           <div class="text-center rounded card-bg p-2">
             <div v-if="game.id" class="row justify-content-center">
-              <div v-if="game.cover" class="col-10 col-md-7 cover-img d-flex justify-content-center align-items-start" :style="{ backgroundImage: `url(${game.cover.url})` }">
+              <div v-if="game.cover" class="col-10 col-md-7 cover-img d-flex justify-content-center align-items-start"
+                :style="{ backgroundImage: `url(${game.cover.url})` }">
                 <p class="game-name rounded-pill fs-5 p-md-3 p-1 mb-0 mt-md-3 m-1">{{ game.name }}</p>
               </div>
-              <div v-else-if="!game.cover" class="col-10 col-md-7 d-flex justify-content-center align-items-end broken-background">
+              <div v-else-if="!game.cover"
+                class="col-10 col-md-7 d-flex justify-content-center align-items-end broken-background">
                 <p class="game-name fs-md-1 fs-5 py-md-2 p-1 mt-md-3 m-md-4 m-3 px-md-4 rounded">{{ game.name }}</p>
               </div>
-            </div> 
+            </div>
             <section class="row justify-content-center align-items-center">
               <div class="col-10">
                 <p class="card-text text-center my-2 fs-4 mb-0 mt-3">Search Tournament</p>
@@ -50,19 +52,19 @@
     </section>
 
     <section class="row d-flex justify-content-center">
-          <div v-if="tournaments.length > 0" class="col-8">
-            <div class="mb-3" v-for="tournament in tournaments" :key="tournament.id">
-              <ActiveTournamentCard :tournament="tournament" />
-            </div>
-          </div>
-          <div v-else class="col-8">
-            <h3 v-if="filteredTournamentType" class="card-text my-3 text-center">
-              No tournaments exist with the given criteria
-            </h3>
-            <h3 v-else class="card-text my-3 text-center">
-              This game currently does not have any active or future tournaments.
-            </h3>
-          </div>
+      <div v-if="tournaments.length > 0" class="col-8">
+        <div class="mb-3" v-for="tournament in tournaments" :key="tournament.id">
+          <ActiveTournamentCard :tournament="tournament" />
+        </div>
+      </div>
+      <div v-else class="col-8">
+        <h3 v-if="filteredTournamentType" class="card-text my-3 text-center">
+          No tournaments exist with the given criteria
+        </h3>
+        <h3 v-else class="card-text my-3 text-center">
+          This game currently does not have any active or future tournaments.
+        </h3>
+      </div>
     </section>
 
   </div>
@@ -166,28 +168,30 @@ export default {
 }
 
 .cover-img {
-  background-size:cover;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   min-height: 15rem;
   border: 2px solid #2ca58d;
   box-shadow: 0px 5px 6px #2ca58d;
 }
+
 .broken-background {
-  background-image: url(/src/assets/img/valorPanda.png);
-  background-size:cover;
+  background-image: url(/src/assets/img/panda.png);
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   min-height: 15rem;
   border: 2px solid #2ca58d;
   box-shadow: 0px 5px 6px #2ca58d;
 }
-.game-name{
+
+.game-name {
   background-color: #242726d6;
   border: 2px solid #2ca58d;
   box-shadow: 0px 5px 6px #2ca58d;
   text-shadow: 0px 5px 6px #2ca58d;
-  color:white;
+  color: white;
 }
 
 .btn-valor {
@@ -203,5 +207,4 @@ p {
 .card-text {
   color: white;
   text-shadow: 1px 0px 5px black;
-}
-</style>
+}</style>

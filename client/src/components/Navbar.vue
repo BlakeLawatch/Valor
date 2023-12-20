@@ -2,15 +2,15 @@
   <nav class="navbar p-3 navbar-expand-lg navbar-dark navbar-bg px-3">
     <router-link v-if="route.name != 'Home'" class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex align-items-center">
-        <img alt="logo" src="../assets/img/valorPanda.png" height="70" />
+        <img alt="logo" src="../assets/img/panda.png" height="70" />
         <p class="valor mb-0 px-2"> Valor</p>
       </div>
     </router-link>
     <div v-else role="button" class="navbar-brand d-flex">
-      <div  @click="reload()" class="d-flex align-items-center">
-        <img alt="logo" src="../assets/img/valorPanda.png" height="70" />
+      <div @click="reload()" class="d-flex align-items-center">
+        <img alt="logo" src="../assets/img/panda.png" height="70" />
         <p class="valor mb-0 px-2"> Valor</p>
-    </div>
+      </div>
     </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,28 +60,28 @@ a:hover {
   background-color: #242726;
 }
 
-.valor{
+.valor {
 
-height: 61px;
+  height: 61px;
 
-font-family: 'Press Start 2P';
-font-style: normal;
-font-weight: 400;
-/* font-size: 64px; */
-line-height: 64px;
+  font-family: 'Press Start 2P';
+  font-style: normal;
+  font-weight: 400;
+  /* font-size: 64px; */
+  line-height: 64px;
 
-color: #FFFFFF;
+  color: #FFFFFF;
 
-text-shadow: 0px 4px 4px #FC65C2;
+  text-shadow: 0px 4px 4px #FC65C2;
 
 }
 
-.color-match{
+.color-match {
   background-color: #2ca58d;
   color: white;
 }
 
-.color-match:hover{
+.color-match:hover {
   background-color: #24806e;
   color: #f0f0f0;
 }
