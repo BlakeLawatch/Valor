@@ -4,7 +4,7 @@ export class Profile{
         this.name = data.name
         this.picture = data.picture
         this.bio = data.bio
-        this.coverImg = data.coverImg || '/src/assets/img/valorPanda.png'
+        this.coverImg = data.coverImg || '/src/assets/img/panda.png'
         this.twitchUrl = data.twitchUrl
         this.youtubeUrl = data.youtubeUrl
         this.twitterUrl = data.twitterUrl
