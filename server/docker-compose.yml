@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: your-dockerhub-username/Valor:latest
+    image: blakelawatch/Valor:latest
     env_file:
       - Valor-env
     ports:
