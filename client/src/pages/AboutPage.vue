@@ -16,7 +16,7 @@
       <div class="col-md-9 col-12 order-1 order-md-2">
         <section class="row justify-content-center">
           <div class="col-12 d-flex justify-content-center align-items-center">
-            <img class="panda-logo" src="../assets/img/panda.png" alt="Valor Logo">
+            <img class="panda-logo" :src="logo_img" alt="Valor Logo">
             <h2 class="text-light text-center">About Us</h2>
           </div>
           <div class="col-10 card-bg mb-3 rounded">
@@ -46,6 +46,7 @@ import { computed, onMounted } from 'vue'
 // import { logger } from '../utils/Logger'
 import { AppState } from '../AppState'
 import { playersService } from '../services/PlayersService'
+import logo_img from '../assets/img/panda.png'
 
 export default {
   setup() {
@@ -64,6 +65,7 @@ export default {
     return {
       currentDev: computed(() => AppState.activeDev),
       devs,
+      logo_img,
       changeActiveDev(dev) {
         playersService.changeActiveDev(dev)
       }

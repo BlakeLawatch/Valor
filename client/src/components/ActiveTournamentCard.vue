@@ -4,7 +4,7 @@
       <!--  flip the isLive boolean with $gt -->
       <div v-if="tournament.imgUrl"
         class="col-12 col-md-6 p-0 tournament-image d-flex justify-content-end align-items-end"
-        :style="{backgroundImage: `url(${tournament.imgUrl})`}">
+        :style="{ backgroundImage: `url(${tournament.imgUrl})` }">
         <img class="p-0 m-0 game-image rounded-circle" :src="tournament.gameImg" alt="Game Image">
       </div>
       <div v-else-if="!tournament.imgUrl"
@@ -17,10 +17,10 @@
         <p class="word-break">{{ tournament.address }}</p>
         <p v-if="tournament.endDate == null">{{ tournament.startDate.toLocaleDateString() }}</p>
         <p v-else>{{ tournament.startDate.toLocaleDateString() }} - {{ tournament.endDate.toLocaleDateString()
-                  }}</p>
+        }}</p>
         <div class="d-flex justify-content-between align-items-center mt-3">
           <small v-if="tournament.entryPrice > 0" class="">Entry Fee: $<span class="word-break">{{ tournament.entryPrice
-                        }}</span></small>
+          }}</span></small>
           <small v-else class="">No Entry Fee</small>
           <small v-if="tournament.capacity"> Total Capacity: {{ tournament.capacity }}</small>
         </div>
@@ -35,14 +35,18 @@
 
 import { RouterLink } from 'vue-router';
 import { Tournament } from '../models/Tournament';
+import logo_img from '../assets/img/panda.png'
+import { computed } from 'vue';
 
 
 export default {
-    props: { tournament: { type: Tournament, required: true } },
-    setup() {
-        return {};
-    },
-    components: { RouterLink }
+  props: { tournament: { type: Tournament, required: true } },
+  setup() {
+    return {
+      logo: computed(() => `url(${logo_img})`),
+    };
+  },
+  components: { RouterLink }
 };
 </script>
 
@@ -83,7 +87,7 @@ p {
 }
 
 .tournament-bad-image {
-  background-image: url(../assets/img/panda.png);
+  background-image: v-bind(logo);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -98,4 +102,5 @@ p {
   background-color: #2ca58d;
   height: 6rem;
   width: 6rem;
-}</style>
+}
+</style>

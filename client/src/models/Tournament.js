@@ -1,3 +1,6 @@
+import logo_img from '../assets/img/panda.png'
+
+
 export class Tournament {
     constructor(data) {
         this.id = data.id || data._id
@@ -21,7 +24,7 @@ export class Tournament {
         this.isCancelled = data.isCancelled
         this.isPublished = data.isPublished
         this.gameName = data.gameName
-        this.gameImg = data.gameImg || "src/assets/img/panda.png" 
+        this.gameImg = data.gameImg || logo_img
         this.instagramUrl = data.instagramUrl
         this.facebookUrl = data.facebookUrl
         this.twitterUrl = data.twitterUrl
