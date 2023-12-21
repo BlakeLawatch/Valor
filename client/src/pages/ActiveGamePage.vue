@@ -79,6 +79,7 @@ import { gamesService } from '../services/GamesService';
 import Pop from '../utils/Pop';
 import { tournamentsService } from '../services/TournamentsService';
 import ActiveTournamentCard from '../components/ActiveTournamentCard.vue';
+import logo_img from '../assets/img/panda.png'
 
 export default {
   setup() {
@@ -125,6 +126,7 @@ export default {
       tournamentTypes,
       sortTypes,
       filteredSortType,
+      logo: computed(() => `url(${logo_img})`),
       game: computed(() => AppState.activeGame),
       tournaments: computed(() => {
         let filteredAndSortedTournaments = AppState.searchedTournaments
@@ -177,7 +179,7 @@ export default {
 }
 
 .broken-background {
-  background-image: url(/src/assets/img/panda.png);
+  background-image: v-bind(logo);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -207,4 +209,5 @@ p {
 .card-text {
   color: white;
   text-shadow: 1px 0px 5px black;
-}</style>
+}
+</style>

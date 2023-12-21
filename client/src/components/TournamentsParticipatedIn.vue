@@ -19,11 +19,11 @@
     <div class="row w-100">
         <div v-for="player in participatedIn" :key="player.id" class="col-12 col-sm-5 col-md-4 col-lg-3 m-3 px-0">
             <div v-if="player.tournament" title="View Tournament Info" class="account-info-card">
-                <router-link :to="{name: 'TournamentInfoPage', params: {tournamentId: player.tournament.id}}">
+                <router-link :to="{ name: 'TournamentInfoPage', params: { tournamentId: player.tournament.id } }">
                     <img v-if="player.tournament.imgUrl" :src="player.tournament.imgUrl" class="w-100 tournament-image">
                     <img v-else-if="!player.tournament.imgUrl && player.tournament.gameImg" :src="player.tournament.gameImg"
                         class="w-100 tournament-image">
-                    <img v-else src="../assets/img/panda.png" class="w-100 tournament-image">
+                    <img v-else :src="logo" class="w-100 tournament-image">
                     <div class="d-flex justify-content-between align-items-center p-3">
                         <p class="fs-5 text-light word-break cap-text">{{ player.tournament.name }}</p>
                         <div v-if="profile.id == account.id" class="m-1 d-flex">
@@ -57,6 +57,7 @@ import { playersService } from '../services/PlayersService';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
 import { tournamentsService } from '../services/TournamentsService';
+import logo_img from '../assets/img/panda.png'
 export default {
     setup() {
         onMounted(() => {
@@ -76,6 +77,7 @@ export default {
             account: computed(() => AppState.account),
             participatedIn: computed(() => AppState.tournamentsParticipatedIn),
             profile: computed(() => AppState.profile),
+            logo: computed(() => `url(${logo_img})`),
             async sortByNew() {
                 try {
                     await tournamentsService.sortByNew()
@@ -145,7 +147,7 @@ p {
 }
 
 .deleted-tournament-card {
-    background-image: url(../assets/img/panda.png);
+    background-image: v-bind(logo);
     background-position: center;
     background-repeat: no-repeat;
     box-shadow: 0px 5px 6px black;
@@ -182,4 +184,5 @@ p {
     .account-info-card {
         height: max-content;
     }
-}</style>
+}
+</style>

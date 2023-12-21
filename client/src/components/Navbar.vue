@@ -2,13 +2,13 @@
   <nav class="navbar p-3 navbar-expand-lg navbar-dark navbar-bg px-3">
     <router-link v-if="route.name != 'Home'" class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex align-items-center">
-        <img alt="logo" src="../assets/img/panda.png" height="70" />
+        <img alt="logo" :src="logo_img" height="70" />
         <p class="valor mb-0 px-2"> Valor</p>
       </div>
     </router-link>
     <div v-else role="button" class="navbar-brand d-flex">
       <div @click="reload()" class="d-flex align-items-center">
-        <img alt="logo" src="../assets/img/panda.png" height="70" />
+        <img alt="logo" :src="logo_img" height="70" />
         <p class="valor mb-0 px-2"> Valor</p>
       </div>
     </div>
@@ -33,12 +33,15 @@
 <script>
 import { useRoute } from 'vue-router';
 import Login from './Login.vue';
+import logo_img from '../assets/img/panda.png'
+
 export default {
   setup() {
     const route = useRoute()
     return {
       route,
-      reload(){
+      logo_img,
+      reload() {
         window.location.reload()
       }
     }

@@ -1,12 +1,12 @@
 <template>
     <!-- TODO make imgs have better quality. Read up on api cover section -->
-    <RouterLink :to="{name: 'ActiveGame', params: {gameId: game.id}}" :title="game.name">
+    <RouterLink :to="{ name: 'ActiveGame', params: { gameId: game.id } }" :title="game.name">
         <div class="row coolBg rounded mx-1">
             <div class="col-12 my-2">
                 <p class="text-white text-center">{{ game.name }}</p>
             </div>
             <img class="rounded-bottom" v-if="game.cover?.url" :src="game.cover?.url" alt="">
-            <img v-else src="src/assets/img/panda.png">
+            <img v-else :src="logo_img">
         </div>
     </RouterLink>
 </template>
@@ -15,6 +15,7 @@
 <script>
 import { Game } from '../models/Game';
 import { RouterLink, useRouter } from 'vue-router';
+import logo_img from '../assets/img/panda.png'
 export default {
     props: {
         game: { type: Game, required: true }
@@ -22,7 +23,8 @@ export default {
     setup() {
         const router = useRouter();
         return {
-            router
+            router,
+            logo_img,
         };
     },
     components: { RouterLink }
